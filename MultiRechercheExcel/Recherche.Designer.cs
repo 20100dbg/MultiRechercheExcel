@@ -1,0 +1,160 @@
+﻿namespace MultiRechercheExcel
+{
+    partial class Recherche
+    {
+        /// <summary>
+        /// Variable nécessaire au concepteur.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Nettoyage des ressources utilisées.
+        /// </summary>
+        /// <param name="disposing">true si les ressources managées doivent être supprimées ; sinon, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Code généré par le Concepteur Windows Form
+
+        /// <summary>
+        /// Méthode requise pour la prise en charge du concepteur - ne modifiez pas
+        /// le contenu de cette méthode avec l'éditeur de code.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.tb_valeursRecherche = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.b_ajouterFichierValeurs = new System.Windows.Forms.Button();
+            this.lv_recherche = new System.Windows.Forms.ListView();
+            this.b_gestionProfil = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lv_base = new System.Windows.Forms.ListView();
+            this.b_ajouterFichierBase = new System.Windows.Forms.Button();
+            this.tb_valeursBase = new System.Windows.Forms.TextBox();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // tb_valeursRecherche
+            // 
+            this.tb_valeursRecherche.Location = new System.Drawing.Point(6, 33);
+            this.tb_valeursRecherche.Multiline = true;
+            this.tb_valeursRecherche.Name = "tb_valeursRecherche";
+            this.tb_valeursRecherche.Size = new System.Drawing.Size(294, 53);
+            this.tb_valeursRecherche.TabIndex = 1;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.lv_recherche);
+            this.groupBox1.Controls.Add(this.b_ajouterFichierValeurs);
+            this.groupBox1.Controls.Add(this.tb_valeursRecherche);
+            this.groupBox1.Location = new System.Drawing.Point(12, 50);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(306, 248);
+            this.groupBox1.TabIndex = 2;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Recherche";
+            // 
+            // b_ajouterFichierValeurs
+            // 
+            this.b_ajouterFichierValeurs.Location = new System.Drawing.Point(196, 102);
+            this.b_ajouterFichierValeurs.Name = "b_ajouterFichierValeurs";
+            this.b_ajouterFichierValeurs.Size = new System.Drawing.Size(104, 23);
+            this.b_ajouterFichierValeurs.TabIndex = 2;
+            this.b_ajouterFichierValeurs.Text = "Ajouter fichier";
+            this.b_ajouterFichierValeurs.UseVisualStyleBackColor = true;
+            // 
+            // lv_recherche
+            // 
+            this.lv_recherche.HideSelection = false;
+            this.lv_recherche.Location = new System.Drawing.Point(6, 136);
+            this.lv_recherche.Name = "lv_recherche";
+            this.lv_recherche.Size = new System.Drawing.Size(294, 97);
+            this.lv_recherche.TabIndex = 3;
+            this.lv_recherche.UseCompatibleStateImageBehavior = false;
+            // 
+            // b_gestionProfil
+            // 
+            this.b_gestionProfil.Location = new System.Drawing.Point(108, 12);
+            this.b_gestionProfil.Name = "b_gestionProfil";
+            this.b_gestionProfil.Size = new System.Drawing.Size(104, 23);
+            this.b_gestionProfil.TabIndex = 4;
+            this.b_gestionProfil.Text = "Gestion profil";
+            this.b_gestionProfil.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.lv_base);
+            this.groupBox2.Controls.Add(this.b_ajouterFichierBase);
+            this.groupBox2.Controls.Add(this.tb_valeursBase);
+            this.groupBox2.Location = new System.Drawing.Point(397, 50);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(306, 248);
+            this.groupBox2.TabIndex = 4;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Bases";
+            // 
+            // lv_base
+            // 
+            this.lv_base.HideSelection = false;
+            this.lv_base.Location = new System.Drawing.Point(6, 136);
+            this.lv_base.Name = "lv_base";
+            this.lv_base.Size = new System.Drawing.Size(294, 97);
+            this.lv_base.TabIndex = 3;
+            this.lv_base.UseCompatibleStateImageBehavior = false;
+            // 
+            // b_ajouterFichierBase
+            // 
+            this.b_ajouterFichierBase.Location = new System.Drawing.Point(196, 102);
+            this.b_ajouterFichierBase.Name = "b_ajouterFichierBase";
+            this.b_ajouterFichierBase.Size = new System.Drawing.Size(104, 23);
+            this.b_ajouterFichierBase.TabIndex = 2;
+            this.b_ajouterFichierBase.Text = "Ajouter fichier";
+            this.b_ajouterFichierBase.UseVisualStyleBackColor = true;
+            // 
+            // tb_valeursBase
+            // 
+            this.tb_valeursBase.Location = new System.Drawing.Point(6, 33);
+            this.tb_valeursBase.Multiline = true;
+            this.tb_valeursBase.Name = "tb_valeursBase";
+            this.tb_valeursBase.Size = new System.Drawing.Size(294, 53);
+            this.tb_valeursBase.TabIndex = 1;
+            // 
+            // Recherche
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(725, 366);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.b_gestionProfil);
+            this.Controls.Add(this.groupBox1);
+            this.Name = "Recherche";
+            this.Text = "Form1";
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.TextBox tb_valeursRecherche;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.ListView lv_recherche;
+        private System.Windows.Forms.Button b_ajouterFichierValeurs;
+        private System.Windows.Forms.Button b_gestionProfil;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.ListView lv_base;
+        private System.Windows.Forms.Button b_ajouterFichierBase;
+        private System.Windows.Forms.TextBox tb_valeursBase;
+    }
+}
+

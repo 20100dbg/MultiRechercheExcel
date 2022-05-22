@@ -1,0 +1,13 @@
+D:\source\repos\MultiRechercheExcel\MultiRechercheExcel\bin\Debug\MultiRechercheExcel.exe.config
+D:\source\repos\MultiRechercheExcel\MultiRechercheExcel\bin\Debug\MultiRechercheExcel.exe
+D:\source\repos\MultiRechercheExcel\MultiRechercheExcel\bin\Debug\MultiRechercheExcel.pdb
+D:\source\repos\MultiRechercheExcel\MultiRechercheExcel\obj\Debug\MultiRechercheExcel.csproj.AssemblyReference.cache
+D:\source\repos\MultiRechercheExcel\MultiRechercheExcel\obj\Debug\MultiRechercheExcel.csproj.SuggestedBindingRedirects.cache
+D:\source\repos\MultiRechercheExcel\MultiRechercheExcel\obj\Debug\MultiRechercheExcel.GestionProfil.resources
+D:\source\repos\MultiRechercheExcel\MultiRechercheExcel\obj\Debug\MultiRechercheExcel.Properties.Resources.resources
+D:\source\repos\MultiRechercheExcel\MultiRechercheExcel\obj\Debug\MultiRechercheExcel.Recherche.resources
+D:\source\repos\MultiRechercheExcel\MultiRechercheExcel\obj\Debug\MultiRechercheExcel.SelectionFichier.resources
+D:\source\repos\MultiRechercheExcel\MultiRechercheExcel\obj\Debug\MultiRechercheExcel.csproj.GenerateResource.cache
+D:\source\repos\MultiRechercheExcel\MultiRechercheExcel\obj\Debug\MultiRechercheExcel.csproj.CoreCompileInputs.cache
+D:\source\repos\MultiRechercheExcel\MultiRechercheExcel\obj\Debug\MultiRechercheExcel.exe
+D:\source\repos\MultiRechercheExcel\MultiRechercheExcel\obj\Debug\MultiRechercheExcel.pdb
