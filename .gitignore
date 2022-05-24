@@ -16,3 +16,5 @@ bld/
 
 #vs control version
 .vs/
+
+packages/
