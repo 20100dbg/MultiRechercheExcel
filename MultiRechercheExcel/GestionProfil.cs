@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MultiRechercheExcel
@@ -15,6 +8,20 @@ namespace MultiRechercheExcel
         public GestionProfil()
         {
             InitializeComponent();
+            
+            ChargerProfils();
+            cb_separateur.Items.Add(";");
+            cb_separateur.Items.Add(",");
+            cb_separateur.Items.Add("Espace");
+            cb_separateur.Items.Add("Tabulation");
+        }
+
+        private void ChargerProfils()
+        {
+            for (int i = 0; i < DB.profils.Count; i++)
+            {
+                cb_profil.Items.Add(DB.profils[i].nom);
+            }
         }
 
         private void cb_profil_SelectedIndexChanged(object sender, EventArgs e)
@@ -82,24 +89,20 @@ namespace MultiRechercheExcel
                 DB.profils[idxProfil].colsCustom = Profil.getIntArray(tb_colCustom.Text.ToUpper());
                 DB.profils[idxProfil].separateur = cb_separateur.SelectedIndex;
 
-                String colEtecs = Profil.getStringFromIntArray(DB.profils[idxProfil].colsEltecs);
-                String colCustom = Profil.getStringFromIntArray(DB.profils[idxProfil].colsCustom);
+                //String colEtecs = Profil.getStringFromIntArray(DB.profils[idxProfil].colsEltecs);
+                //String colCustom = Profil.getStringFromIntArray(DB.profils[idxProfil].colsCustom);
 
                 cb_profil.Items[idxProfil] = DB.profils[idxProfil].nom;
+                Settings.WriteConfigFile();
+
                 MessageBox.Show("Profil enregistré");
             }
         }
 
 
-        private void RefreshProfils()
-        {
-            cb_profil.Items.AddRange(DB.profils.ToArray());
-            if (cb_profil.Items.Count > 0) cb_profil.SelectedIndex = 0;
-        }
-
         private void b_fermer_Click(object sender, EventArgs e)
         {
-
+            Close();
         }
     }
 }

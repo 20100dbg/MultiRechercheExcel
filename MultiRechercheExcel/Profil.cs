@@ -9,31 +9,21 @@ namespace MultiRechercheExcel
         public String nom;
         public int nbEntetes;
         public int[] colsEltecs;
-        public int separateur;
         public int[] colsCustom;
-
+        public int separateur;
 
         public static int[] getIntArray(String str)
         {
             String[] tab = str.Split(new String[] { ",", ";", " " }, StringSplitOptions.RemoveEmptyEntries);
-            int x, y;
+            
             List<int> tabInt = new List<int>();
 
             for (int i = 0; i < tab.Length; i++)
             {
-
+                int x;
                 if (int.TryParse(tab[i], out x))
                 {
                     if (!tabInt.Contains(x)) tabInt.Add(x);
-                }
-                else
-                {
-                    y = 0;
-
-                    int tmp = (int)tab[i][0] - 64;
-                    if (tmp > 0 && tmp < 27) y = tmp;
-
-                    if (!tabInt.Contains(y) && y > 0) tabInt.Add(y);
                 }
             }
 

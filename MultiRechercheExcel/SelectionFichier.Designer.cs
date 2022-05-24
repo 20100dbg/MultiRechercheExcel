@@ -61,9 +61,8 @@
             this.l_nomFichier.AutoSize = true;
             this.l_nomFichier.Location = new System.Drawing.Point(101, 56);
             this.l_nomFichier.Name = "l_nomFichier";
-            this.l_nomFichier.Size = new System.Drawing.Size(35, 13);
+            this.l_nomFichier.Size = new System.Drawing.Size(0, 13);
             this.l_nomFichier.TabIndex = 15;
-            this.l_nomFichier.Text = "label1";
             // 
             // b_annulerAjout
             // 
@@ -100,6 +99,7 @@
             this.Controls.Add(this.b_choisirFichier);
             this.Name = "SelectionFichier";
             this.Text = "SelectionFichier";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SelectionFichier_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
