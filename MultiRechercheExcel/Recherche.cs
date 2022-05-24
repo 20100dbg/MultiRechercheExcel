@@ -73,8 +73,10 @@ namespace MultiRechercheExcel
         }
 
 
-        private void LireValeursXLSX(string filepath, int idxProfil)
+        private IEnumerable<Valeur> LireValeursXLSX(string filepath, int idxProfil)
         {
+            string filename = Path.GetFileName(filepath);
+
             using (ExcelPackage xlPackage = new ExcelPackage(new FileInfo(filepath)))
             {
                 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
@@ -83,6 +85,7 @@ namespace MultiRechercheExcel
                 var totalCols = myWorksheet.Dimension.End.Column;
 
                 Profil p = DB.profils[idxProfil];
+                bool colDone = false;
 
                 for (int row = 1; row <= totalRows; row++)
                 {
@@ -92,35 +95,54 @@ namespace MultiRechercheExcel
                     //et les assigner à chaque objet valeur créé pour chaque cols Eltec
 
                     string[] tabCustom = new string[p.colsCustom.Length];
+                    List<Colonne> cols = new List<Colonne>();
 
                     for (int j = 0; j < p.colsCustom.Length; j++)
                     {
                         int col = p.colsCustom[j];
                         tabCustom[j] = myWorksheet.Cells[row, col].Value.ToString();
+
+                        cols.Add(new Colonne
+                        {
+                            Nom = filename + "-" + j,
+                            Valeur = myWorksheet.Cells[row, col].Value.ToString()
+                        });
                     }
+
+                    if (!colDone)
+                    {
+                        for (int i = 0; i < cols.Count; i++) DB.entetesColonnes.Add(cols[i].Nom);
+                        colDone = true;
+                    }
+
 
                     for (int j = 0; j < p.colsEltecs.Length; j++)
                     {
-                        DB.valeurs.Add(new Valeur
+                        int col = p.colsEltecs[j];
+
+                        yield return new Valeur
                         {
-                            ColonnesBase = new List<string>(),
+                            Colonnes = new List<Colonne>(cols),
                             ColonnesValeur = new List<string>(tabCustom),
+                            ColonnesBase = new List<string>(),
+                            FichierValeur = filename,
                             FichierBase = "",
-                            FichierValeur = Path.GetFileName(filepath),
-                            ValeurOrigine = myWorksheet.Cells[row, j].Value.ToString(),
+                            ValeurOrigine = myWorksheet.Cells[row, col].Value.ToString(),
                             Trouve = false
-                        });
+                        };
                     }
                 }
             }
         }
 
-        private void LireValeursCSV(string filepath, int idxProfil)
+        private IEnumerable<Valeur> LireValeursCSV(string filepath, int idxProfil)
         {
             Profil p = DB.profils[idxProfil];
+            string filename = Path.GetFileName(filepath);
 
             StreamReader sr = new StreamReader(filepath);
             int x = 0;
+            bool colDone = false;
 
             while (x++ < p.nbEntetes && !sr.EndOfStream)
                 sr.ReadLine();
@@ -133,23 +155,37 @@ namespace MultiRechercheExcel
                 String[] tabLigne = str.Split(new String[] { Profil.GetSeparateurFromIndex(p.separateur) }, StringSplitOptions.None);
 
                 string[] tabCustom = new string[p.colsCustom.Length];
+                List<Colonne> cols = new List<Colonne>();
 
                 for (int i = 0; i < p.colsCustom.Length; i++)
                 {
                     tabCustom[i] = tabLigne[p.colsCustom[i] - 1];
+
+                    cols.Add(new Colonne
+                    {
+                        Nom = filename + "-" + i,
+                        Valeur = tabLigne[p.colsCustom[i] - 1]
+                    });
                 }
+
+                if (!colDone)
+                {
+                    for (int i = 0; i < cols.Count; i++) DB.entetesColonnes.Add(cols[i].Nom);
+                    colDone = true;
+                }
+
 
                 for (int j = 0; j < p.colsEltecs.Length; j++)
                 {
-                    DB.valeurs.Add(new Valeur
+                    yield return new Valeur
                     {
-                        ColonnesBase = new List<string>(),
                         ColonnesValeur = new List<string>(tabCustom),
-                        FichierBase = "",
+                        ColonnesBase = new List<string>(),
                         FichierValeur = Path.GetFileName(filepath),
+                        FichierBase = "",
                         ValeurOrigine = tabLigne[p.colsEltecs[j] - 1],
                         Trouve = false
-                    });
+                    };
                 }
             }
         }
@@ -173,6 +209,7 @@ namespace MultiRechercheExcel
             {
                 DB.valeurs.Add(new Valeur
                 {
+                    Colonnes = new List<Colonne>(),
                     ColonnesBase = new List<string>(),
                     ColonnesValeur = new List<string>(),
                     FichierBase = "",
@@ -185,88 +222,62 @@ namespace MultiRechercheExcel
             for (int i = 0; i < DB.fichiersValeurs.Count; i++)
             {
                 if (DB.fichiersValeurs[i].Nom.EndsWith(".xlsx"))
-                    LireValeursXLSX(DB.fichiersValeurs[i].Nom, DB.fichiersValeurs[i].IdxProfil);
+                {
+                    foreach (Valeur v in LireValeursXLSX(DB.fichiersValeurs[i].Nom, DB.fichiersValeurs[i].IdxProfil))
+                    {
+
+                        DB.valeurs.Add(v);
+                    }
+                }
                 else
-                    LireValeursCSV(DB.fichiersValeurs[i].Nom, DB.fichiersValeurs[i].IdxProfil);
+                {
+                    foreach (Valeur v in LireValeursCSV(DB.fichiersValeurs[i].Nom, DB.fichiersValeurs[i].IdxProfil))
+                    {
+                        DB.valeurs.Add(v);
+                    }
+                }
             }
         }
 
         private void ParcourirFichiers()
         {
+            string[] tabTB = tb_valeursBase.Text.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+            for (int i = 0; i < tabTB.Length; i++)
+            {
+                int idx = DB.valeurs.FindIndex((x) => { return x.ValeurOrigine == tabTB[i]; });
+                if (idx > -1)
+                {
+                    DB.valeurs[idx].FichierBase = "entrée manuelle";
+                    DB.valeurs[idx].Trouve = true;
+                }
+            }
+
             for (int i = 0; i < DB.fichiersBases.Count; i++)
             {
-                Profil p = DB.profils[DB.fichiersBases[i].IdxProfil];
-
-                //XLSX
                 if (DB.fichiersBases[i].Nom.EndsWith(".xlsx"))
                 {
-
-                    using (ExcelPackage xlPackage = new ExcelPackage(new FileInfo(DB.fichiersBases[i].Nom)))
+                    foreach (Valeur v in LireValeursXLSX(DB.fichiersBases[i].Nom, DB.fichiersBases[i].IdxProfil))
                     {
-                        ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-                        var myWorksheet = xlPackage.Workbook.Worksheets[0];
-                        var totalRows = myWorksheet.Dimension.End.Row;
-
-                        for (int row = 1; row <= totalRows; row++)
+                        int idx = DB.valeurs.FindIndex((x) => { return x.ValeurOrigine == v.ValeurOrigine; });
+                        if (idx > -1)
                         {
-                            if (row <= p.nbEntetes) continue;
-
-                            string[] tabCustom = new string[p.colsCustom.Length];
-
-                            for (int j = 0; j < p.colsCustom.Length; j++)
-                            {
-                                int col = p.colsCustom[j];
-                                tabCustom[j] = myWorksheet.Cells[row, col].Value.ToString();
-                            }
-
-                            for (int j = 0; j < p.colsEltecs.Length; j++)
-                            {
-                                int col = p.colsEltecs[j];
-                                string val = myWorksheet.Cells[row, col].Value.ToString();
-
-                                int idx = DB.valeurs.FindIndex((x) => { return x.ValeurOrigine == val; });
-                                if (idx > -1)
-                                {
-                                    DB.valeurs[idx].ColonnesBase.AddRange(tabCustom);
-                                    DB.valeurs[idx].FichierBase = Path.GetFileName(DB.fichiersBases[i].Nom);
-                                    DB.valeurs[idx].Trouve = true;
-                                }
-                            }
+                            DB.valeurs[idx].ColonnesBase.AddRange(v.ColonnesValeur);
+                            DB.valeurs[idx].FichierBase = Path.GetFileName(DB.fichiersBases[i].Nom);
+                            DB.valeurs[idx].Trouve = true;
                         }
                     }
                 }
                 else if (DB.fichiersBases[i].Nom.EndsWith(".csv"))
                 {
-                    StreamReader sr = new StreamReader(DB.fichiersBases[i].Nom);
-                    int x = 0;
-
-                    while (x++ < p.nbEntetes && !sr.EndOfStream)
-                        sr.ReadLine();
-
-                    while (!sr.EndOfStream)
+                    foreach (Valeur v in LireValeursCSV(DB.fichiersBases[i].Nom, DB.fichiersBases[i].IdxProfil))
                     {
-                        String str = sr.ReadLine();
-                        if (String.IsNullOrWhiteSpace(str)) continue;
-
-                        String[] tabLigne = str.Split(new String[] { Profil.GetSeparateurFromIndex(p.separateur) }, StringSplitOptions.None);
-
-                        string[] tabCustom = new string[p.colsCustom.Length];
-
-                        for (int j = 0; j < p.colsCustom.Length; j++)
+                        int idx = DB.valeurs.FindIndex((x) => { return x.ValeurOrigine == v.ValeurOrigine; });
+                        if (idx > -1)
                         {
-                            tabCustom[j] = tabLigne[p.colsCustom[j]];
-                        }
-
-                        for (int j = 0; j < p.colsEltecs.Length; j++)
-                        {
-                            string val = tabLigne[p.colsEltecs[j]];
-                            int idx = DB.valeurs.FindIndex((y) => { return y.ValeurOrigine == val; });
-                            if (idx > -1)
-                            {
-                                DB.valeurs[idx].ColonnesBase.AddRange(tabCustom);
-                                DB.valeurs[idx].FichierBase = Path.GetFileName(DB.fichiersBases[i].Nom);
-                                DB.valeurs[idx].Trouve = true;
-                            }
+                            DB.valeurs[idx].ColonnesBase.AddRange(v.ColonnesValeur);
+                            DB.valeurs[idx].FichierBase = Path.GetFileName(DB.fichiersBases[i].Nom);
+                            DB.valeurs[idx].Trouve = true;
                         }
                     }
                 }
@@ -280,7 +291,13 @@ namespace MultiRechercheExcel
         {
             using (StreamWriter sw = new StreamWriter("result.csv", false, System.Text.Encoding.GetEncoding(1252)))
             {
-                sw.WriteLine("FichierValeur;FichierBase;ValeurOrigine;ColonnesValeur;ColonnesBase");
+                sw.Write("FichierValeur;FichierBase;ValeurOrigine");
+
+                for (int i = 0; i < DB.entetesColonnes.Count; i++)
+                {
+                    sw.Write(";" + DB.entetesColonnes[i]);
+                }
+                sw.Write("\n");
 
                 for (int i = 0; i < DB.valeurs.Count; i++)
                 {
@@ -288,13 +305,22 @@ namespace MultiRechercheExcel
                     {
                         sw.Write(DB.valeurs[i].FichierValeur + ";");
                         sw.Write(DB.valeurs[i].FichierBase + ";");
-                        sw.Write(DB.valeurs[i].ValeurOrigine + ";");
+                        sw.Write(DB.valeurs[i].ValeurOrigine);
 
+                        /*
                         string colValeurs = String.Join(";", DB.valeurs[i].ColonnesValeur.ToArray());
                         string colBase = String.Join(";", DB.valeurs[i].ColonnesBase.ToArray());
 
                         sw.Write(colValeurs + ";");
                         sw.Write(colBase);
+                        */
+
+                        for (int j = 0; j < DB.entetesColonnes.Count; j++)
+                        {
+                            sw.Write(";");
+                            if (DB.entetesColonnes[j] == DB.valeurs[i].Colonnes[j].Nom)
+                                sw.Write(DB.valeurs[i].Colonnes[j].Valeur);
+                        }
 
                         sw.WriteLine();
                     }

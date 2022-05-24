@@ -11,6 +11,19 @@ namespace MultiRechercheExcel
         public static List<Fichier> fichiersBases = new List<Fichier>();
 
         public static List<Valeur> valeurs = new List<Valeur>();
+        //public static List<string> entetes = new List<string>();
+
+        //nom auto colonne, valeur
+        //public static Dictionary<string, string> dicCol = new Dictionary<string, string>();
+
+        //public static List<Colonne> colonnes = new List<Colonne>();
+        public static List<string> entetesColonnes = new List<string>();
+    }
+
+    public class Colonne
+    {
+        public string Nom { get; set; }
+        public string Valeur { get; set; }
     }
 
     public class Valeur
@@ -20,6 +33,7 @@ namespace MultiRechercheExcel
         public string FichierBase { get; set; }
         public List<string> ColonnesValeur { get; set; }
         public List<string> ColonnesBase { get; set; }
+        public List<Colonne> Colonnes { get; set; }
         public bool Trouve { get; set; }
 
         public override bool Equals(object obj)
