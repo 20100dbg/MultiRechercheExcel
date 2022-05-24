@@ -179,6 +179,7 @@ namespace MultiRechercheExcel
                 {
                     yield return new Valeur
                     {
+                        Colonnes = new List<Colonne>(cols),
                         ColonnesValeur = new List<string>(tabCustom),
                         ColonnesBase = new List<string>(),
                         FichierValeur = Path.GetFileName(filepath),
@@ -225,7 +226,6 @@ namespace MultiRechercheExcel
                 {
                     foreach (Valeur v in LireValeursXLSX(DB.fichiersValeurs[i].Nom, DB.fichiersValeurs[i].IdxProfil))
                     {
-
                         DB.valeurs.Add(v);
                     }
                 }
@@ -262,6 +262,7 @@ namespace MultiRechercheExcel
                         int idx = DB.valeurs.FindIndex((x) => { return x.ValeurOrigine == v.ValeurOrigine; });
                         if (idx > -1)
                         {
+                            DB.valeurs[idx].Colonnes.AddRange(v.Colonnes);
                             DB.valeurs[idx].ColonnesBase.AddRange(v.ColonnesValeur);
                             DB.valeurs[idx].FichierBase = Path.GetFileName(DB.fichiersBases[i].Nom);
                             DB.valeurs[idx].Trouve = true;
@@ -275,6 +276,7 @@ namespace MultiRechercheExcel
                         int idx = DB.valeurs.FindIndex((x) => { return x.ValeurOrigine == v.ValeurOrigine; });
                         if (idx > -1)
                         {
+                            DB.valeurs[idx].Colonnes.AddRange(v.Colonnes);
                             DB.valeurs[idx].ColonnesBase.AddRange(v.ColonnesValeur);
                             DB.valeurs[idx].FichierBase = Path.GetFileName(DB.fichiersBases[i].Nom);
                             DB.valeurs[idx].Trouve = true;
@@ -318,8 +320,12 @@ namespace MultiRechercheExcel
                         for (int j = 0; j < DB.entetesColonnes.Count; j++)
                         {
                             sw.Write(";");
-                            if (DB.entetesColonnes[j] == DB.valeurs[i].Colonnes[j].Nom)
-                                sw.Write(DB.valeurs[i].Colonnes[j].Valeur);
+
+                            for (int k = 0; k < DB.valeurs[i].Colonnes.Count; k++)
+                            {
+                                if (DB.entetesColonnes[j] == DB.valeurs[i].Colonnes[k].Nom)
+                                    sw.Write(DB.valeurs[i].Colonnes[k].Valeur);
+                            }
                         }
 
                         sw.WriteLine();

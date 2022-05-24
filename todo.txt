@@ -1,4 +1,1 @@
 test étendus sur les dépassement de colonnes
-problème : les colonnes customs de deux fichiers ne sont pas les mêmes, comment gérer ?
-- plusieurs fichiers de sortie
-- mettre TOUTES les colonnes en entetes
