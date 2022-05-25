@@ -69,6 +69,12 @@
     <Compile Include="GestionProfil.Designer.cs">
       <DependentUpon>GestionProfil.cs</DependentUpon>
     </Compile>
+    <Compile Include="ParametresRecherche.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ParametresRecherche.Designer.cs">
+      <DependentUpon>ParametresRecherche.cs</DependentUpon>
+    </Compile>
     <Compile Include="Profil.cs" />
     <Compile Include="Recherche.cs">
       <SubType>Form</SubType>

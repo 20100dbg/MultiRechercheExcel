@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace MultiRechercheExcel
 {
+    public enum ModeRecherche { Exact, Contains, StartsWith, EndsWith };
+    public enum ModeCasse { Normal, Upper, Lower };
+
     public static class DB
     {
         public static List<Profil> profils = new List<Profil>();
@@ -11,13 +14,10 @@ namespace MultiRechercheExcel
         public static List<Fichier> fichiersBases = new List<Fichier>();
 
         public static List<Valeur> valeurs = new List<Valeur>();
-        //public static List<string> entetes = new List<string>();
-
-        //nom auto colonne, valeur
-        //public static Dictionary<string, string> dicCol = new Dictionary<string, string>();
-
-        //public static List<Colonne> colonnes = new List<Colonne>();
         public static List<string> entetesColonnes = new List<string>();
+
+        public static ParamRecherche prValeur { get; set; }
+        public static ParamRecherche prBase { get; set; }
     }
 
     public class Colonne
@@ -29,10 +29,9 @@ namespace MultiRechercheExcel
     public class Valeur
     {
         public string ValeurOrigine { get; set; }
+        public string ValeurTransforme { get; set; }
         public string FichierValeur { get; set; }
         public string FichierBase { get; set; }
-        public List<string> ColonnesValeur { get; set; }
-        public List<string> ColonnesBase { get; set; }
         public List<Colonne> Colonnes { get; set; }
         public bool Trouve { get; set; }
 
@@ -51,5 +50,14 @@ namespace MultiRechercheExcel
     {
         public string Nom { get; set; }
         public int IdxProfil { get; set; }
+    }
+
+    public class ParamRecherche
+    {
+        public ModeRecherche Mode_Recherche = ModeRecherche.Exact;
+        public ModeCasse Mode_Casse = ModeCasse.Normal;
+        public int debutChaine = 0;
+        public int longueurChaine = 0;
+        public int finChaine = 0;
     }
 }

@@ -4,11 +4,16 @@ using System.Text;
 
 namespace MultiRechercheExcel
 {
-    internal class Settings
+    public static class Settings
     {
+
+
         private static string fichierConfig = "MultiRechercheExcel.config.txt";
         public static string dateVersion = "24/05/2022";
         public static string version = "0.0.1";
+
+
+
 
         public static bool ReadConfigFile()
         {
@@ -67,6 +72,7 @@ namespace MultiRechercheExcel
             DB.profils.Add(new Profil { nom = "SPAER", colsEltecs = new int[] { 14, 15, 16, 20, 21 }, colsCustom = new int[] { 2 }, nbEntetes = 2, separateur = 1 });
             DB.profils.Add(new Profil { nom = "NETHAWK", colsEltecs = new int[] { 5, 7, 17 }, colsCustom = new int[] { 3, 4, 18 }, nbEntetes = 2, separateur = 1 });
             DB.profils.Add(new Profil { nom = "DEMETER", colsEltecs = new int[] { 8, 9, 11, 13, 14 }, colsCustom = new int[] { 1, 42, 43 }, nbEntetes = 2, separateur = 1 });
+
         }
 
     }
