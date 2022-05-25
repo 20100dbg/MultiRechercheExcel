@@ -70,12 +70,12 @@ namespace MultiRechercheExcel
                     DB.profils[i].separateur);
             }
 
-            sb.AppendLine("paramBase=" + DB.prBase.ModeCasse + ";" +
+            sb.AppendLine("paramBase=" + (int)DB.prBase.ModeCasse + ";" +
                                         DB.prBase.debutChaine + ";" +
                                         DB.prBase.longueurChaine + ";" +
                                         DB.prBase.finChaine);
 
-            sb.AppendLine("paramValeur=" + DB.prValeur.ModeCasse + ";" +
+            sb.AppendLine("paramValeur=" + (int)DB.prValeur.ModeCasse + ";" +
                                         DB.prValeur.debutChaine + ";" +
                                         DB.prValeur.longueurChaine + ";" +
                                         DB.prValeur.finChaine);

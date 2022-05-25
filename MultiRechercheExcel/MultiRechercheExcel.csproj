@@ -94,6 +94,9 @@
     <EmbeddedResource Include="GestionProfil.resx">
       <DependentUpon>GestionProfil.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ParametresRecherche.resx">
+      <DependentUpon>ParametresRecherche.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

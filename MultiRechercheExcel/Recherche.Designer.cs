@@ -213,7 +213,7 @@
             this.Controls.Add(this.b_gestionProfil);
             this.Controls.Add(this.groupBox1);
             this.Name = "Recherche";
-            this.Text = "Form1";
+            this.Text = "MultiRechercheExcel";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

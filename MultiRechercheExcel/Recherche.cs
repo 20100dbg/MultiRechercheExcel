@@ -358,6 +358,7 @@ namespace MultiRechercheExcel
                 if (longueur == 0)
                 {
                     if (fin > 0) fin -= 1;
+                    else fin = v.Length - 1;
                     longueur = fin - debut;
                 }
 
