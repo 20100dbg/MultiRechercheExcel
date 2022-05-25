@@ -3,7 +3,9 @@ using System.Collections.Generic;
 
 namespace MultiRechercheExcel
 {
-    public enum ModeRecherche { Exact, Contains, StartsWith, EndsWith };
+    public enum ModeRecherche { Exact, BaseContientValeur, ValeurContientBase, 
+        BaseCommenceParValeur, ValeurCommenceParBase,
+        BaseFinitParValeur, ValeurFinitParBase };
     public enum ModeCasse { Normal, Upper, Lower };
 
     public static class DB

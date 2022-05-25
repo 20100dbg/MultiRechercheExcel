@@ -23,16 +23,6 @@ namespace MultiRechercheExcel
 
         }
 
-        private void b_gestionProfil_Click(object sender, EventArgs e)
-        {
-            if (fGestionProfil == null || !fGestionProfil.CanFocus)
-            {
-                fGestionProfil = new GestionProfil();
-                fGestionProfil.Show();
-            }
-            else if (fGestionProfil.CanFocus) fGestionProfil.Focus();
-        }
-
         private void b_ajouterFichierValeurs_Click(object sender, EventArgs e)
         {
             fSelectionFichier = new SelectionFichier();
@@ -48,7 +38,7 @@ namespace MultiRechercheExcel
 
                 DB.fichiersValeurs.Add(f);
 
-                lv_recherche.Items.Add(new ListViewItem(new String[] {
+                lv_valeurs.Items.Add(new ListViewItem(new String[] {
                     Path.GetFileName(f.Nom),
                     DB.profils[f.IdxProfil].nom
                 }));
@@ -70,7 +60,7 @@ namespace MultiRechercheExcel
 
                 DB.fichiersBases.Add(f);
 
-                lv_base.Items.Add(new ListViewItem(new String[] {
+                lv_bases.Items.Add(new ListViewItem(new String[] {
                     Path.GetFileName(f.Nom),
                     DB.profils[f.IdxProfil].nom
                 }));
@@ -361,8 +351,8 @@ namespace MultiRechercheExcel
                     else fin = v.Length - 1;
                     longueur = fin - debut;
                 }
-
-                v = v.Substring(debut, longueur);
+                if (v.Length > debut + longueur)
+                    v = v.Substring(debut, longueur);
             }
 
 
@@ -378,21 +368,32 @@ namespace MultiRechercheExcel
 
             v2 = TransformerValeur(v2, pr);
 
-
             if (ParamRecherche.ModeRecherche == ModeRecherche.Exact)
                 return v1 == v2;
-            else if (ParamRecherche.ModeRecherche == ModeRecherche.Contains)
+            else if (ParamRecherche.ModeRecherche == ModeRecherche.BaseContientValeur)
                 return v2.Contains(v1);
-            else if (ParamRecherche.ModeRecherche == ModeRecherche.StartsWith)
-                return v2.Contains(v1);
-            else if (ParamRecherche.ModeRecherche == ModeRecherche.EndsWith)
+            else if (ParamRecherche.ModeRecherche == ModeRecherche.ValeurContientBase)
+                return v1.Contains(v2);
+            else if (ParamRecherche.ModeRecherche == ModeRecherche.BaseCommenceParValeur)
+                return v2.StartsWith(v1);
+            else if (ParamRecherche.ModeRecherche == ModeRecherche.ValeurCommenceParBase)
+                return v1.StartsWith(v2);
+            else if (ParamRecherche.ModeRecherche == ModeRecherche.BaseFinitParValeur)
                 return v2.EndsWith(v1);
+            else if (ParamRecherche.ModeRecherche == ModeRecherche.ValeurFinitParBase)
+                return v1.EndsWith(v2);
 
             return false;
         }
 
         private void b_recherche_Click(object sender, EventArgs e)
         {
+            //vider les listes
+            DB.entetesColonnes.Clear();
+            //DB.fichiersBases.Clear();
+            //DB.fichiersValeurs.Clear();
+            DB.valeurs.Clear();
+
             backgroundWorker1.RunWorkerAsync();
         }
 
@@ -406,6 +407,10 @@ namespace MultiRechercheExcel
 
             //sauvegarde des résultats
             Sauvegarde();
+
+            int nbResultat = DB.valeurs.FindAll((x) => { return x.Trouve == true; }).Count;
+
+            MessageBox.Show(nbResultat + " résultats");
         }
 
         private void backgroundWorker1_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
@@ -418,7 +423,29 @@ namespace MultiRechercheExcel
             progressBar1.Value = 100;
         }
 
-        private void b_parametrageRecherche_Click(object sender, EventArgs e)
+        private void b_ViderFichiersValeurs_Click(object sender, EventArgs e)
+        {
+            lv_valeurs.Clear();
+            DB.fichiersValeurs.Clear();
+        }
+
+        private void b_ViderFichiersBases_Click(object sender, EventArgs e)
+        {
+            lv_bases.Clear();
+            DB.fichiersBases.Clear();
+        }
+
+        private void gestionDesProfilsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (fGestionProfil == null || !fGestionProfil.CanFocus)
+            {
+                fGestionProfil = new GestionProfil();
+                fGestionProfil.Show();
+            }
+            else if (fGestionProfil.CanFocus) fGestionProfil.Focus();
+        }
+
+        private void paramétrageRechercheToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (fParametresRecherche == null || !fParametresRecherche.CanFocus)
             {
@@ -426,6 +453,14 @@ namespace MultiRechercheExcel
                 fParametresRecherche.Show();
             }
             else if (fParametresRecherche.CanFocus) fParametresRecherche.Focus();
+        }
+
+        private void aProposToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Concocté par Marty sur une idée de Kevin" + Environment.NewLine +
+                "Contact : vincent.marie@intradef.gouv.fr" + Environment.NewLine +
+                Environment.NewLine +
+                "Version " + Settings.version + " du " + Settings.dateVersion + Environment.NewLine);
         }
     }
 }

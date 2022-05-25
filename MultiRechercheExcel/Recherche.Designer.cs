@@ -30,13 +30,12 @@
         {
             this.tb_valeursRecherche = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.lv_recherche = new System.Windows.Forms.ListView();
+            this.lv_valeurs = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.b_ajouterFichierValeurs = new System.Windows.Forms.Button();
-            this.b_gestionProfil = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.lv_base = new System.Windows.Forms.ListView();
+            this.lv_bases = new System.Windows.Forms.ListView();
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.b_ajouterFichierBase = new System.Windows.Forms.Button();
@@ -44,9 +43,15 @@
             this.b_recherche = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.b_parametrageRecherche = new System.Windows.Forms.Button();
+            this.b_ViderFichiersValeurs = new System.Windows.Forms.Button();
+            this.b_ViderFichiersBases = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.gestionDesProfilsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.paramétrageRechercheToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aProposToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tb_valeursRecherche
@@ -59,30 +64,31 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.lv_recherche);
+            this.groupBox1.Controls.Add(this.b_ViderFichiersValeurs);
+            this.groupBox1.Controls.Add(this.lv_valeurs);
             this.groupBox1.Controls.Add(this.b_ajouterFichierValeurs);
             this.groupBox1.Controls.Add(this.tb_valeursRecherche);
             this.groupBox1.Location = new System.Drawing.Point(12, 50);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(306, 248);
+            this.groupBox1.Size = new System.Drawing.Size(306, 276);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Valeurs";
             // 
-            // lv_recherche
+            // lv_valeurs
             // 
-            this.lv_recherche.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lv_valeurs.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2});
-            this.lv_recherche.FullRowSelect = true;
-            this.lv_recherche.GridLines = true;
-            this.lv_recherche.HideSelection = false;
-            this.lv_recherche.Location = new System.Drawing.Point(6, 136);
-            this.lv_recherche.Name = "lv_recherche";
-            this.lv_recherche.Size = new System.Drawing.Size(294, 97);
-            this.lv_recherche.TabIndex = 3;
-            this.lv_recherche.UseCompatibleStateImageBehavior = false;
-            this.lv_recherche.View = System.Windows.Forms.View.Details;
+            this.lv_valeurs.FullRowSelect = true;
+            this.lv_valeurs.GridLines = true;
+            this.lv_valeurs.HideSelection = false;
+            this.lv_valeurs.Location = new System.Drawing.Point(6, 136);
+            this.lv_valeurs.Name = "lv_valeurs";
+            this.lv_valeurs.Size = new System.Drawing.Size(294, 97);
+            this.lv_valeurs.TabIndex = 3;
+            this.lv_valeurs.UseCompatibleStateImageBehavior = false;
+            this.lv_valeurs.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader1
             // 
@@ -103,42 +109,33 @@
             this.b_ajouterFichierValeurs.UseVisualStyleBackColor = true;
             this.b_ajouterFichierValeurs.Click += new System.EventHandler(this.b_ajouterFichierValeurs_Click);
             // 
-            // b_gestionProfil
-            // 
-            this.b_gestionProfil.Location = new System.Drawing.Point(108, 12);
-            this.b_gestionProfil.Name = "b_gestionProfil";
-            this.b_gestionProfil.Size = new System.Drawing.Size(104, 23);
-            this.b_gestionProfil.TabIndex = 4;
-            this.b_gestionProfil.Text = "Gestion profil";
-            this.b_gestionProfil.UseVisualStyleBackColor = true;
-            this.b_gestionProfil.Click += new System.EventHandler(this.b_gestionProfil_Click);
-            // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.lv_base);
+            this.groupBox2.Controls.Add(this.b_ViderFichiersBases);
+            this.groupBox2.Controls.Add(this.lv_bases);
             this.groupBox2.Controls.Add(this.b_ajouterFichierBase);
             this.groupBox2.Controls.Add(this.tb_valeursBase);
             this.groupBox2.Location = new System.Drawing.Point(397, 50);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(306, 248);
+            this.groupBox2.Size = new System.Drawing.Size(306, 276);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Bases";
             // 
-            // lv_base
+            // lv_bases
             // 
-            this.lv_base.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lv_bases.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader3,
             this.columnHeader4});
-            this.lv_base.FullRowSelect = true;
-            this.lv_base.GridLines = true;
-            this.lv_base.HideSelection = false;
-            this.lv_base.Location = new System.Drawing.Point(6, 136);
-            this.lv_base.Name = "lv_base";
-            this.lv_base.Size = new System.Drawing.Size(294, 97);
-            this.lv_base.TabIndex = 3;
-            this.lv_base.UseCompatibleStateImageBehavior = false;
-            this.lv_base.View = System.Windows.Forms.View.Details;
+            this.lv_bases.FullRowSelect = true;
+            this.lv_bases.GridLines = true;
+            this.lv_bases.HideSelection = false;
+            this.lv_bases.Location = new System.Drawing.Point(6, 136);
+            this.lv_bases.Name = "lv_bases";
+            this.lv_bases.Size = new System.Drawing.Size(294, 97);
+            this.lv_bases.TabIndex = 3;
+            this.lv_bases.UseCompatibleStateImageBehavior = false;
+            this.lv_bases.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader3
             // 
@@ -191,34 +188,80 @@
             this.progressBar1.Size = new System.Drawing.Size(294, 23);
             this.progressBar1.TabIndex = 6;
             // 
-            // b_parametrageRecherche
+            // b_ViderFichiersValeurs
             // 
-            this.b_parametrageRecherche.Location = new System.Drawing.Point(298, 12);
-            this.b_parametrageRecherche.Name = "b_parametrageRecherche";
-            this.b_parametrageRecherche.Size = new System.Drawing.Size(133, 23);
-            this.b_parametrageRecherche.TabIndex = 7;
-            this.b_parametrageRecherche.Text = "Paramétrage recherche";
-            this.b_parametrageRecherche.UseVisualStyleBackColor = true;
-            this.b_parametrageRecherche.Click += new System.EventHandler(this.b_parametrageRecherche_Click);
+            this.b_ViderFichiersValeurs.Location = new System.Drawing.Point(196, 247);
+            this.b_ViderFichiersValeurs.Name = "b_ViderFichiersValeurs";
+            this.b_ViderFichiersValeurs.Size = new System.Drawing.Size(104, 23);
+            this.b_ViderFichiersValeurs.TabIndex = 4;
+            this.b_ViderFichiersValeurs.Text = "Vider fichiers";
+            this.b_ViderFichiersValeurs.UseVisualStyleBackColor = true;
+            this.b_ViderFichiersValeurs.Click += new System.EventHandler(this.b_ViderFichiersValeurs_Click);
+            // 
+            // b_ViderFichiersBases
+            // 
+            this.b_ViderFichiersBases.Location = new System.Drawing.Point(202, 247);
+            this.b_ViderFichiersBases.Name = "b_ViderFichiersBases";
+            this.b_ViderFichiersBases.Size = new System.Drawing.Size(104, 23);
+            this.b_ViderFichiersBases.TabIndex = 5;
+            this.b_ViderFichiersBases.Text = "Vider fichiers";
+            this.b_ViderFichiersBases.UseVisualStyleBackColor = true;
+            this.b_ViderFichiersBases.Click += new System.EventHandler(this.b_ViderFichiersBases_Click);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.gestionDesProfilsToolStripMenuItem,
+            this.paramétrageRechercheToolStripMenuItem,
+            this.aProposToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(725, 24);
+            this.menuStrip1.TabIndex = 7;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // gestionDesProfilsToolStripMenuItem
+            // 
+            this.gestionDesProfilsToolStripMenuItem.Name = "gestionDesProfilsToolStripMenuItem";
+            this.gestionDesProfilsToolStripMenuItem.Size = new System.Drawing.Size(116, 20);
+            this.gestionDesProfilsToolStripMenuItem.Text = "Gestion des profils";
+            this.gestionDesProfilsToolStripMenuItem.Click += new System.EventHandler(this.gestionDesProfilsToolStripMenuItem_Click);
+            // 
+            // paramétrageRechercheToolStripMenuItem
+            // 
+            this.paramétrageRechercheToolStripMenuItem.Name = "paramétrageRechercheToolStripMenuItem";
+            this.paramétrageRechercheToolStripMenuItem.Size = new System.Drawing.Size(141, 20);
+            this.paramétrageRechercheToolStripMenuItem.Text = "Paramétrage recherche";
+            this.paramétrageRechercheToolStripMenuItem.Click += new System.EventHandler(this.paramétrageRechercheToolStripMenuItem_Click);
+            // 
+            // aProposToolStripMenuItem
+            // 
+            this.aProposToolStripMenuItem.Name = "aProposToolStripMenuItem";
+            this.aProposToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
+            this.aProposToolStripMenuItem.Text = "A propos";
+            this.aProposToolStripMenuItem.Click += new System.EventHandler(this.aProposToolStripMenuItem_Click);
             // 
             // Recherche
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(725, 399);
-            this.Controls.Add(this.b_parametrageRecherche);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.b_recherche);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.b_gestionProfil);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Recherche";
             this.Text = "MultiRechercheExcel";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -226,11 +269,10 @@
 
         private System.Windows.Forms.TextBox tb_valeursRecherche;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ListView lv_recherche;
+        private System.Windows.Forms.ListView lv_valeurs;
         private System.Windows.Forms.Button b_ajouterFichierValeurs;
-        private System.Windows.Forms.Button b_gestionProfil;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.ListView lv_base;
+        private System.Windows.Forms.ListView lv_bases;
         private System.Windows.Forms.Button b_ajouterFichierBase;
         private System.Windows.Forms.TextBox tb_valeursBase;
         private System.Windows.Forms.Button b_recherche;
@@ -240,7 +282,12 @@
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.ProgressBar progressBar1;
-        private System.Windows.Forms.Button b_parametrageRecherche;
+        private System.Windows.Forms.Button b_ViderFichiersValeurs;
+        private System.Windows.Forms.Button b_ViderFichiersBases;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem gestionDesProfilsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem paramétrageRechercheToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aProposToolStripMenuItem;
     }
 }
 

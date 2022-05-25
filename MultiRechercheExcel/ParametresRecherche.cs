@@ -9,10 +9,10 @@ namespace MultiRechercheExcel
         {
             InitializeComponent();
 
-            cb_typeRecherche.Items.Add("Exact");
-            cb_typeRecherche.Items.Add("Contient");
-            cb_typeRecherche.Items.Add("Commence par");
-            cb_typeRecherche.Items.Add("Finit par");
+            foreach (ModeRecherche mr in (ModeRecherche[])Enum.GetValues(typeof(ModeRecherche)))
+                cb_typeRecherche.Items.Add(mr.ToString());
+            
+            cb_typeRecherche.SelectedIndex = 0;
 
             cb_CasseValeurs.Items.Add("Normal");
             cb_CasseValeurs.Items.Add("Majuscules");

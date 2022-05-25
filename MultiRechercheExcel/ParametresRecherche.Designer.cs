@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cb_CasseValeurs = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -38,6 +39,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cb_CasseBases = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -49,8 +51,6 @@
             this.label11 = new System.Windows.Forms.Label();
             this.cb_typeRecherche = new System.Windows.Forms.ComboBox();
             this.b_sauvegarder = new System.Windows.Forms.Button();
-            this.cb_CasseValeurs = new System.Windows.Forms.ComboBox();
-            this.cb_CasseBases = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -72,6 +72,15 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Valeurs";
+            // 
+            // cb_CasseValeurs
+            // 
+            this.cb_CasseValeurs.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_CasseValeurs.FormattingEnabled = true;
+            this.cb_CasseValeurs.Location = new System.Drawing.Point(24, 65);
+            this.cb_CasseValeurs.Name = "cb_CasseValeurs";
+            this.cb_CasseValeurs.Size = new System.Drawing.Size(121, 21);
+            this.cb_CasseValeurs.TabIndex = 15;
             // 
             // label5
             // 
@@ -157,6 +166,15 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Bases";
             // 
+            // cb_CasseBases
+            // 
+            this.cb_CasseBases.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_CasseBases.FormattingEnabled = true;
+            this.cb_CasseBases.Location = new System.Drawing.Point(24, 65);
+            this.cb_CasseBases.Name = "cb_CasseBases";
+            this.cb_CasseBases.Size = new System.Drawing.Size(121, 21);
+            this.cb_CasseBases.TabIndex = 16;
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -236,9 +254,9 @@
             // 
             this.cb_typeRecherche.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_typeRecherche.FormattingEnabled = true;
-            this.cb_typeRecherche.Location = new System.Drawing.Point(323, 100);
+            this.cb_typeRecherche.Location = new System.Drawing.Point(307, 102);
             this.cb_typeRecherche.Name = "cb_typeRecherche";
-            this.cb_typeRecherche.Size = new System.Drawing.Size(121, 21);
+            this.cb_typeRecherche.Size = new System.Drawing.Size(165, 21);
             this.cb_typeRecherche.TabIndex = 13;
             // 
             // b_sauvegarder
@@ -250,24 +268,6 @@
             this.b_sauvegarder.Text = "Sauvegarder";
             this.b_sauvegarder.UseVisualStyleBackColor = true;
             this.b_sauvegarder.Click += new System.EventHandler(this.b_sauvegarder_Click);
-            // 
-            // cb_CasseValeurs
-            // 
-            this.cb_CasseValeurs.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_CasseValeurs.FormattingEnabled = true;
-            this.cb_CasseValeurs.Location = new System.Drawing.Point(24, 65);
-            this.cb_CasseValeurs.Name = "cb_CasseValeurs";
-            this.cb_CasseValeurs.Size = new System.Drawing.Size(121, 21);
-            this.cb_CasseValeurs.TabIndex = 15;
-            // 
-            // cb_CasseBases
-            // 
-            this.cb_CasseBases.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_CasseBases.FormattingEnabled = true;
-            this.cb_CasseBases.Location = new System.Drawing.Point(24, 65);
-            this.cb_CasseBases.Name = "cb_CasseBases";
-            this.cb_CasseBases.Size = new System.Drawing.Size(121, 21);
-            this.cb_CasseBases.TabIndex = 16;
             // 
             // ParametresRecherche
             // 

@@ -7,8 +7,8 @@ namespace MultiRechercheExcel
     public static class Settings
     {
         private static string fichierConfig = "MultiRechercheExcel.config.txt";
-        public static string dateVersion = "24/05/2022";
-        public static string version = "0.0.1";
+        public static string dateVersion = "25/05/2022";
+        public static string version = "0.0.2";
 
 
         public static bool ReadConfigFile()
