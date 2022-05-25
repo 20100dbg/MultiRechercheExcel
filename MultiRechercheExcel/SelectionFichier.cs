@@ -28,7 +28,6 @@ namespace MultiRechercheExcel
         {
             if (cb_profilFichier.SelectedIndex > -1)
             {
-                b_ajouter.Enabled = true;
                 idxProfil = cb_profilFichier.SelectedIndex;
             }
         }
@@ -42,12 +41,17 @@ namespace MultiRechercheExcel
 
             if (!String.IsNullOrEmpty(opf.FileName) && File.Exists(opf.FileName))
             {
-                filepath = opf.FileName;
-                l_nomFichier.Text = Path.GetFileName(opf.FileName);
+                ChargerFichier(opf.FileName);
             }
             
             opf.Dispose();
 
+        }
+
+        private void ChargerFichier(string filepath)
+        {
+            this.filepath = filepath;
+            l_nomFichier.Text = Path.GetFileName(filepath);
         }
 
         private void b_ajouter_Click(object sender, EventArgs e)
@@ -58,11 +62,23 @@ namespace MultiRechercheExcel
         private void b_annulerAjout_Click(object sender, EventArgs e)
         {
             cancelled = true;
+            Close();
         }
 
         private void SelectionFichier_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (filepath == "" || idxProfil == -1) cancelled = true;
+        }
+
+        private void panel1_DragOver(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Copy;
+        }
+
+        private void panel1_DragDrop(object sender, DragEventArgs e)
+        {
+            string filename = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
+            ChargerFichier(filename);
         }
     }
 }

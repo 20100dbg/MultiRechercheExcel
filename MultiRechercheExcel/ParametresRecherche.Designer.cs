@@ -68,7 +68,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(273, 285);
+            this.groupBox1.Size = new System.Drawing.Size(222, 254);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Valeurs";
@@ -85,7 +85,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(173, 202);
+            this.label5.Location = new System.Drawing.Point(21, 212);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(21, 13);
             this.label5.TabIndex = 11;
@@ -94,7 +94,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(92, 202);
+            this.label4.Location = new System.Drawing.Point(80, 155);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(52, 13);
             this.label4.TabIndex = 10;
@@ -103,7 +103,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(21, 202);
+            this.label3.Location = new System.Drawing.Point(21, 155);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(36, 13);
             this.label3.TabIndex = 9;
@@ -111,21 +111,21 @@
             // 
             // tb_FinValeur
             // 
-            this.tb_FinValeur.Location = new System.Drawing.Point(176, 218);
+            this.tb_FinValeur.Location = new System.Drawing.Point(24, 228);
             this.tb_FinValeur.Name = "tb_FinValeur";
             this.tb_FinValeur.Size = new System.Drawing.Size(33, 20);
             this.tb_FinValeur.TabIndex = 8;
             // 
             // tb_LongueurValeur
             // 
-            this.tb_LongueurValeur.Location = new System.Drawing.Point(95, 218);
+            this.tb_LongueurValeur.Location = new System.Drawing.Point(83, 171);
             this.tb_LongueurValeur.Name = "tb_LongueurValeur";
             this.tb_LongueurValeur.Size = new System.Drawing.Size(33, 20);
             this.tb_LongueurValeur.TabIndex = 7;
             // 
             // tb_DebutValeur
             // 
-            this.tb_DebutValeur.Location = new System.Drawing.Point(24, 218);
+            this.tb_DebutValeur.Location = new System.Drawing.Point(24, 171);
             this.tb_DebutValeur.Name = "tb_DebutValeur";
             this.tb_DebutValeur.Size = new System.Drawing.Size(33, 20);
             this.tb_DebutValeur.TabIndex = 6;
@@ -133,7 +133,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(21, 172);
+            this.label2.Location = new System.Drawing.Point(21, 125);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(68, 13);
             this.label2.TabIndex = 5;
@@ -142,7 +142,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(21, 37);
+            this.label1.Location = new System.Drawing.Point(21, 40);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(36, 13);
             this.label1.TabIndex = 4;
@@ -159,9 +159,9 @@
             this.groupBox2.Controls.Add(this.tb_DebutBase);
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.label10);
-            this.groupBox2.Location = new System.Drawing.Point(488, 12);
+            this.groupBox2.Location = new System.Drawing.Point(454, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(273, 285);
+            this.groupBox2.Size = new System.Drawing.Size(224, 254);
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Bases";
@@ -178,7 +178,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(173, 202);
+            this.label6.Location = new System.Drawing.Point(21, 212);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(21, 13);
             this.label6.TabIndex = 11;
@@ -187,7 +187,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(92, 202);
+            this.label7.Location = new System.Drawing.Point(77, 155);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(52, 13);
             this.label7.TabIndex = 10;
@@ -196,7 +196,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(21, 202);
+            this.label8.Location = new System.Drawing.Point(21, 155);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(36, 13);
             this.label8.TabIndex = 9;
@@ -204,21 +204,21 @@
             // 
             // tb_FinBase
             // 
-            this.tb_FinBase.Location = new System.Drawing.Point(176, 218);
+            this.tb_FinBase.Location = new System.Drawing.Point(24, 228);
             this.tb_FinBase.Name = "tb_FinBase";
             this.tb_FinBase.Size = new System.Drawing.Size(33, 20);
             this.tb_FinBase.TabIndex = 8;
             // 
             // tb_LongueurBase
             // 
-            this.tb_LongueurBase.Location = new System.Drawing.Point(95, 218);
+            this.tb_LongueurBase.Location = new System.Drawing.Point(80, 171);
             this.tb_LongueurBase.Name = "tb_LongueurBase";
             this.tb_LongueurBase.Size = new System.Drawing.Size(33, 20);
             this.tb_LongueurBase.TabIndex = 7;
             // 
             // tb_DebutBase
             // 
-            this.tb_DebutBase.Location = new System.Drawing.Point(24, 218);
+            this.tb_DebutBase.Location = new System.Drawing.Point(24, 171);
             this.tb_DebutBase.Name = "tb_DebutBase";
             this.tb_DebutBase.Size = new System.Drawing.Size(33, 20);
             this.tb_DebutBase.TabIndex = 6;
@@ -226,7 +226,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(21, 172);
+            this.label9.Location = new System.Drawing.Point(21, 125);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(68, 13);
             this.label9.TabIndex = 5;
@@ -235,7 +235,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(21, 37);
+            this.label10.Location = new System.Drawing.Point(21, 40);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(36, 13);
             this.label10.TabIndex = 4;
@@ -244,7 +244,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(331, 77);
+            this.label11.Location = new System.Drawing.Point(275, 52);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(97, 13);
             this.label11.TabIndex = 12;
@@ -254,16 +254,16 @@
             // 
             this.cb_typeRecherche.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_typeRecherche.FormattingEnabled = true;
-            this.cb_typeRecherche.Location = new System.Drawing.Point(307, 102);
+            this.cb_typeRecherche.Location = new System.Drawing.Point(251, 77);
             this.cb_typeRecherche.Name = "cb_typeRecherche";
             this.cb_typeRecherche.Size = new System.Drawing.Size(165, 21);
             this.cb_typeRecherche.TabIndex = 13;
             // 
             // b_sauvegarder
             // 
-            this.b_sauvegarder.Location = new System.Drawing.Point(334, 305);
+            this.b_sauvegarder.Location = new System.Drawing.Point(278, 222);
             this.b_sauvegarder.Name = "b_sauvegarder";
-            this.b_sauvegarder.Size = new System.Drawing.Size(105, 23);
+            this.b_sauvegarder.Size = new System.Drawing.Size(118, 44);
             this.b_sauvegarder.TabIndex = 14;
             this.b_sauvegarder.Text = "Sauvegarder";
             this.b_sauvegarder.UseVisualStyleBackColor = true;
@@ -273,7 +273,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(773, 340);
+            this.ClientSize = new System.Drawing.Size(689, 278);
             this.Controls.Add(this.b_sauvegarder);
             this.Controls.Add(this.cb_typeRecherche);
             this.Controls.Add(this.label11);

@@ -110,19 +110,20 @@ namespace MultiRechercheExcel
                         colDone = true;
                     }
 
-
                     for (int j = 0; j < p.colsEltecs.Length; j++)
                     {
                         int col = p.colsEltecs[j];
-
-                        yield return new Valeur
+                        if (row <= totalRows && col <= totalCols)
                         {
-                            Colonnes = new List<Colonne>(cols),
-                            FichierValeur = filename,
-                            FichierBase = "",
-                            ValeurOrigine = myWorksheet.Cells[row, col].Value.ToString(),
-                            Trouve = false
-                        };
+                            yield return new Valeur
+                            {
+                                Colonnes = new List<Colonne>(cols),
+                                FichierValeur = filename,
+                                FichierBase = "",
+                                ValeurOrigine = myWorksheet.Cells[row, col].Value.ToString(),
+                                Trouve = false
+                            };
+                        }
                     }
                 }
             }
@@ -152,13 +153,17 @@ namespace MultiRechercheExcel
 
                 for (int i = 0; i < p.colsCustom.Length; i++)
                 {
-                    tabCustom[i] = tabLigne[p.colsCustom[i] - 1];
-
-                    cols.Add(new Colonne
+                    int idxCol = p.colsCustom[i] - 1;
+                    if (idxCol < tabLigne.Length)
                     {
-                        Nom = filename + "-" + i,
-                        Valeur = tabLigne[p.colsCustom[i] - 1]
-                    });
+                        tabCustom[i] = tabLigne[idxCol];
+
+                        cols.Add(new Colonne
+                        {
+                            Nom = filename + "-" + i,
+                            Valeur = tabLigne[idxCol]
+                        });
+                    }
                 }
 
                 if (!colDone)
@@ -170,14 +175,19 @@ namespace MultiRechercheExcel
 
                 for (int j = 0; j < p.colsEltecs.Length; j++)
                 {
-                    yield return new Valeur
+                    int idxCol = p.colsEltecs[j] - 1;
+
+                    if (idxCol < tabLigne.Length)
                     {
-                        Colonnes = new List<Colonne>(cols),
-                        FichierValeur = Path.GetFileName(filepath),
-                        FichierBase = "",
-                        ValeurOrigine = tabLigne[p.colsEltecs[j] - 1],
-                        Trouve = false
-                    };
+                        yield return new Valeur
+                        {
+                            Colonnes = new List<Colonne>(cols),
+                            FichierValeur = Path.GetFileName(filepath),
+                            FichierBase = "",
+                            ValeurOrigine = tabLigne[idxCol],
+                            Trouve = false
+                        };
+                    }
                 }
             }
         }
@@ -336,23 +346,28 @@ namespace MultiRechercheExcel
 
             //est ce que la chaine doit etre tronquée
 
-            if (pr.debutChaine > 0 || pr.longueurChaine > 0 || pr.finChaine > 0)
+            if (pr.debutChaine > 0 || pr.longueurChaine > 0)
             {
                 int longueur = pr.longueurChaine;
                 int debut = pr.debutChaine;
-                int fin = pr.finChaine;
 
                 if (debut > 0) debut -= 1;
                 else debut = 0;
 
-                if (longueur == 0)
-                {
-                    if (fin > 0) fin -= 1;
-                    else fin = v.Length - 1;
-                    longueur = fin - debut;
-                }
+                if (longueur == 0) longueur = v.Length - 1 - debut;
+                
                 if (v.Length > debut + longueur)
                     v = v.Substring(debut, longueur);
+            }
+            else if (pr.finChaine > 0)
+            {
+                int fin = pr.finChaine;
+
+                if (fin < v.Length - 1)
+                {
+                    int debut = v.Length - fin;
+                    v = v.Substring(debut);
+                }
             }
 
 

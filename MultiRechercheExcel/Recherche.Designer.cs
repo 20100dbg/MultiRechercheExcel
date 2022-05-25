@@ -166,9 +166,9 @@
             // 
             // b_recherche
             // 
-            this.b_recherche.Location = new System.Drawing.Point(622, 347);
+            this.b_recherche.Location = new System.Drawing.Point(593, 346);
             this.b_recherche.Name = "b_recherche";
-            this.b_recherche.Size = new System.Drawing.Size(75, 23);
+            this.b_recherche.Size = new System.Drawing.Size(86, 37);
             this.b_recherche.TabIndex = 5;
             this.b_recherche.Text = "Recherche";
             this.b_recherche.UseVisualStyleBackColor = true;
@@ -183,7 +183,7 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(18, 346);
+            this.progressBar1.Location = new System.Drawing.Point(18, 360);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(294, 23);
             this.progressBar1.TabIndex = 6;
