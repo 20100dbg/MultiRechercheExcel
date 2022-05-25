@@ -31,19 +31,20 @@
             this.tb_valeursRecherche = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lv_recherche = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.b_ajouterFichierValeurs = new System.Windows.Forms.Button();
             this.b_gestionProfil = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lv_base = new System.Windows.Forms.ListView();
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.b_ajouterFichierBase = new System.Windows.Forms.Button();
             this.tb_valeursBase = new System.Windows.Forms.TextBox();
             this.b_recherche = new System.Windows.Forms.Button();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.b_parametrageRecherche = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -66,7 +67,7 @@
             this.groupBox1.Size = new System.Drawing.Size(306, 248);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Recherche";
+            this.groupBox1.Text = "Valeurs";
             // 
             // lv_recherche
             // 
@@ -82,6 +83,15 @@
             this.lv_recherche.TabIndex = 3;
             this.lv_recherche.UseCompatibleStateImageBehavior = false;
             this.lv_recherche.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Fichier";
+            this.columnHeader1.Width = 200;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Profil";
             // 
             // b_ajouterFichierValeurs
             // 
@@ -130,6 +140,15 @@
             this.lv_base.UseCompatibleStateImageBehavior = false;
             this.lv_base.View = System.Windows.Forms.View.Details;
             // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Fichier";
+            this.columnHeader3.Width = 200;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Profil";
+            // 
             // b_ajouterFichierBase
             // 
             this.b_ajouterFichierBase.Location = new System.Drawing.Point(196, 102);
@@ -158,24 +177,6 @@
             this.b_recherche.UseVisualStyleBackColor = true;
             this.b_recherche.Click += new System.EventHandler(this.b_recherche_Click);
             // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "Fichier";
-            this.columnHeader1.Width = 200;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "Profil";
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Fichier";
-            this.columnHeader3.Width = 200;
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Profil";
-            // 
             // backgroundWorker1
             // 
             this.backgroundWorker1.WorkerReportsProgress = true;
@@ -190,11 +191,22 @@
             this.progressBar1.Size = new System.Drawing.Size(294, 23);
             this.progressBar1.TabIndex = 6;
             // 
+            // b_parametrageRecherche
+            // 
+            this.b_parametrageRecherche.Location = new System.Drawing.Point(298, 12);
+            this.b_parametrageRecherche.Name = "b_parametrageRecherche";
+            this.b_parametrageRecherche.Size = new System.Drawing.Size(133, 23);
+            this.b_parametrageRecherche.TabIndex = 7;
+            this.b_parametrageRecherche.Text = "Paramétrage recherche";
+            this.b_parametrageRecherche.UseVisualStyleBackColor = true;
+            this.b_parametrageRecherche.Click += new System.EventHandler(this.b_parametrageRecherche_Click);
+            // 
             // Recherche
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(725, 399);
+            this.Controls.Add(this.b_parametrageRecherche);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.b_recherche);
             this.Controls.Add(this.groupBox2);
@@ -228,6 +240,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Button b_parametrageRecherche;
     }
 }
 

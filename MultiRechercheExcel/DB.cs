@@ -54,8 +54,8 @@ namespace MultiRechercheExcel
 
     public class ParamRecherche
     {
-        public ModeRecherche Mode_Recherche = ModeRecherche.Exact;
-        public ModeCasse Mode_Casse = ModeCasse.Normal;
+        public static ModeRecherche ModeRecherche = ModeRecherche.Exact;
+        public ModeCasse ModeCasse = ModeCasse.Normal;
         public int debutChaine = 0;
         public int longueurChaine = 0;
         public int finChaine = 0;

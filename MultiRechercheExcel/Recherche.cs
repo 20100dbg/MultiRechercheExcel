@@ -10,12 +10,17 @@ namespace MultiRechercheExcel
     {
         GestionProfil fGestionProfil;
         SelectionFichier fSelectionFichier;
+        ParametresRecherche fParametresRecherche;
 
         public Recherche()
         {
             InitializeComponent();
 
+            DB.prBase = new ParamRecherche();
+            DB.prValeur = new ParamRecherche();
+
             Settings.ReadConfigFile();
+
         }
 
         private void b_gestionProfil_Click(object sender, EventArgs e)
@@ -334,9 +339,9 @@ namespace MultiRechercheExcel
 
         private string TransformerValeur(string v, ParamRecherche pr)
         {
-            if (pr.Mode_Casse == ModeCasse.Lower)
+            if (pr.ModeCasse == ModeCasse.Lower)
                 v = v.ToLower();
-            else if (pr.Mode_Casse == ModeCasse.Upper)
+            else if (pr.ModeCasse == ModeCasse.Upper)
                 v = v.ToUpper();
 
             //est ce que la chaine doit etre tronquée
@@ -373,13 +378,13 @@ namespace MultiRechercheExcel
             v2 = TransformerValeur(v2, pr);
 
 
-            if (pr.Mode_Recherche == ModeRecherche.Exact)
+            if (ParamRecherche.ModeRecherche == ModeRecherche.Exact)
                 return v1 == v2;
-            else if (pr.Mode_Recherche == ModeRecherche.Contains)
+            else if (ParamRecherche.ModeRecherche == ModeRecherche.Contains)
                 return v2.Contains(v1);
-            else if (pr.Mode_Recherche == ModeRecherche.StartsWith)
+            else if (ParamRecherche.ModeRecherche == ModeRecherche.StartsWith)
                 return v2.Contains(v1);
-            else if (pr.Mode_Recherche == ModeRecherche.EndsWith)
+            else if (ParamRecherche.ModeRecherche == ModeRecherche.EndsWith)
                 return v2.EndsWith(v1);
 
             return false;
@@ -410,6 +415,16 @@ namespace MultiRechercheExcel
         private void backgroundWorker1_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
             progressBar1.Value = 100;
+        }
+
+        private void b_parametrageRecherche_Click(object sender, EventArgs e)
+        {
+            if (fParametresRecherche == null || !fParametresRecherche.CanFocus)
+            {
+                fParametresRecherche = new ParametresRecherche();
+                fParametresRecherche.Show();
+            }
+            else if (fParametresRecherche.CanFocus) fParametresRecherche.Focus();
         }
     }
 }

@@ -6,13 +6,9 @@ namespace MultiRechercheExcel
 {
     public static class Settings
     {
-
-
         private static string fichierConfig = "MultiRechercheExcel.config.txt";
         public static string dateVersion = "24/05/2022";
         public static string version = "0.0.1";
-
-
 
 
         public static bool ReadConfigFile()
@@ -41,6 +37,20 @@ namespace MultiRechercheExcel
                         };
                         DB.profils.Add(p);
                     }
+                    else if (keyValue[0] == "paramValeur")
+                    {
+                        DB.prValeur.ModeCasse = (ModeCasse)int.Parse(values[0]);
+                        DB.prValeur.debutChaine = int.Parse(values[1]);
+                        DB.prValeur.longueurChaine = int.Parse(values[2]);
+                        DB.prValeur.finChaine = int.Parse(values[3]);
+                    }
+                    else if (keyValue[0] == "paramBase")
+                    {
+                        DB.prBase.ModeCasse = (ModeCasse)int.Parse(values[0]);
+                        DB.prBase.debutChaine = int.Parse(values[1]);
+                        DB.prBase.longueurChaine = int.Parse(values[2]);
+                        DB.prBase.finChaine = int.Parse(values[3]);
+                    }
                 }
             }
             return true;
@@ -59,6 +69,16 @@ namespace MultiRechercheExcel
                     DB.profils[i].nbEntetes + ";" +
                     DB.profils[i].separateur);
             }
+
+            sb.AppendLine("paramBase=" + DB.prBase.ModeCasse + ";" +
+                                        DB.prBase.debutChaine + ";" +
+                                        DB.prBase.longueurChaine + ";" +
+                                        DB.prBase.finChaine);
+
+            sb.AppendLine("paramValeur=" + DB.prValeur.ModeCasse + ";" +
+                                        DB.prValeur.debutChaine + ";" +
+                                        DB.prValeur.longueurChaine + ";" +
+                                        DB.prValeur.finChaine);
 
             using (StreamWriter sw = new StreamWriter(Settings.fichierConfig))
             {
