@@ -29,11 +29,11 @@ namespace MultiRechercheExcel
                     {
                         Profil p = new Profil
                         {
-                            nom = values[0],
-                            colsEltecs = Profil.getIntArray(values[1]),
-                            colsCustom = Profil.getIntArray(values[2]),
-                            nbEntetes = int.Parse(values[3]),
-                            separateur = int.Parse(values[4])
+                            Nom = values[0],
+                            ColsEltecs = Profil.getIntArray(values[1]),
+                            ColsCustom = Profil.getIntArray(values[2]),
+                            NbEntetes = int.Parse(values[3]),
+                            IdxSeparateur = int.Parse(values[4])
                         };
                         DB.profils.Add(p);
                     }
@@ -63,11 +63,11 @@ namespace MultiRechercheExcel
             for (int i = 0; i < DB.profils.Count; i++)
             {
                 sb.AppendLine("profil=" +
-                    DB.profils[i].nom + ";" +
-                    String.Join(",", DB.profils[i].colsEltecs) + ";" +
-                    String.Join(",", DB.profils[i].colsCustom) + ";" +
-                    DB.profils[i].nbEntetes + ";" +
-                    DB.profils[i].separateur);
+                    DB.profils[i].Nom + ";" +
+                    String.Join(",", DB.profils[i].ColsEltecs) + ";" +
+                    String.Join(",", DB.profils[i].ColsCustom) + ";" +
+                    DB.profils[i].NbEntetes + ";" +
+                    DB.profils[i].IdxSeparateur);
             }
 
             sb.AppendLine("paramBase=" + (int)DB.prBase.ModeCasse + ";" +
@@ -88,11 +88,10 @@ namespace MultiRechercheExcel
         
         public static void LoadDefaut()
         {
-            DB.profils.Add(new Profil { nom = "Fichier texte", colsEltecs = new int[] { 1 }, colsCustom = new int[] { }, nbEntetes = 0, separateur = 0 });
-            DB.profils.Add(new Profil { nom = "SPAER", colsEltecs = new int[] { 14, 15, 16, 20, 21 }, colsCustom = new int[] { 2 }, nbEntetes = 2, separateur = 1 });
-            DB.profils.Add(new Profil { nom = "NETHAWK", colsEltecs = new int[] { 5, 7, 17 }, colsCustom = new int[] { 3, 4, 18 }, nbEntetes = 2, separateur = 1 });
-            DB.profils.Add(new Profil { nom = "DEMETER", colsEltecs = new int[] { 8, 9, 11, 13, 14 }, colsCustom = new int[] { 1, 42, 43 }, nbEntetes = 2, separateur = 1 });
-
+            DB.profils.Add(new Profil { Nom = "Fichier texte", ColsEltecs = new int[] { 1 }, ColsCustom = new int[] { }, NbEntetes = 0, IdxSeparateur = 0 });
+            DB.profils.Add(new Profil { Nom = "SPAER", ColsEltecs = new int[] { 14, 15, 16, 20, 21 }, ColsCustom = new int[] { 2 }, NbEntetes = 2, IdxSeparateur = 1 });
+            DB.profils.Add(new Profil { Nom = "NETHAWK", ColsEltecs = new int[] { 5, 7, 17 }, ColsCustom = new int[] { 3, 4, 18 }, NbEntetes = 2, IdxSeparateur = 1 });
+            DB.profils.Add(new Profil { Nom = "DEMETER", ColsEltecs = new int[] { 8, 9, 11, 13, 14 }, ColsCustom = new int[] { 1, 42, 43 }, NbEntetes = 2, IdxSeparateur = 1 });
         }
 
     }

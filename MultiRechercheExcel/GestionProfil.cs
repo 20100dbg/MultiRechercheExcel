@@ -20,7 +20,7 @@ namespace MultiRechercheExcel
         {
             for (int i = 0; i < DB.profils.Count; i++)
             {
-                cb_profil.Items.Add(DB.profils[i].nom);
+                cb_profil.Items.Add(DB.profils[i].Nom);
             }
         }
 
@@ -30,11 +30,11 @@ namespace MultiRechercheExcel
 
             if (idxProfil > -1)
             {
-                tb_nom_profil.Text = DB.profils[idxProfil].nom;
-                nbEntetes.Value = DB.profils[idxProfil].nbEntetes;
-                tb_colEltecs.Text = Profil.getStringFromIntArray(DB.profils[idxProfil].colsEltecs);
-                tb_colCustom.Text = Profil.getStringFromIntArray(DB.profils[idxProfil].colsCustom);
-                cb_separateur.SelectedIndex = DB.profils[idxProfil].separateur;
+                tb_nom_profil.Text = DB.profils[idxProfil].Nom;
+                nbEntetes.Value = DB.profils[idxProfil].NbEntetes;
+                tb_colEltecs.Text = Profil.getStringFromIntArray(DB.profils[idxProfil].ColsEltecs);
+                tb_colCustom.Text = Profil.getStringFromIntArray(DB.profils[idxProfil].ColsCustom);
+                cb_separateur.SelectedIndex = DB.profils[idxProfil].IdxSeparateur;
             }
         }
 
@@ -50,11 +50,11 @@ namespace MultiRechercheExcel
 
             Profil p = new Profil
             {
-                nom = tb_nom_profil.Text,
-                nbEntetes = (int)nbEntetes.Value,
-                colsEltecs = new int[] { 1 },
-                colsCustom = new int[] { },
-                separateur = cb_separateur.SelectedIndex
+                Nom = tb_nom_profil.Text,
+                NbEntetes = (int)nbEntetes.Value,
+                ColsEltecs = new int[] { 1 },
+                ColsCustom = new int[] { },
+                IdxSeparateur = cb_separateur.SelectedIndex
             };
             DB.profils.Add(p);
 
@@ -73,6 +73,7 @@ namespace MultiRechercheExcel
                 cb_profil.Items.RemoveAt(idxProfil);
 
                 cb_profil.SelectedIndex = 0;
+                Settings.WriteConfigFile();
             }
         }
 
@@ -83,16 +84,16 @@ namespace MultiRechercheExcel
 
             if (idxProfil > -1)
             {
-                DB.profils[idxProfil].nom = tb_nom_profil.Text;
-                DB.profils[idxProfil].nbEntetes = (int)nbEntetes.Value;
-                DB.profils[idxProfil].colsEltecs = Profil.getIntArray(tb_colEltecs.Text.ToUpper());
-                DB.profils[idxProfil].colsCustom = Profil.getIntArray(tb_colCustom.Text.ToUpper());
-                DB.profils[idxProfil].separateur = cb_separateur.SelectedIndex;
+                DB.profils[idxProfil].Nom = tb_nom_profil.Text;
+                DB.profils[idxProfil].NbEntetes = (int)nbEntetes.Value;
+                DB.profils[idxProfil].ColsEltecs = Profil.getIntArray(tb_colEltecs.Text.ToUpper());
+                DB.profils[idxProfil].ColsCustom = Profil.getIntArray(tb_colCustom.Text.ToUpper());
+                DB.profils[idxProfil].IdxSeparateur = cb_separateur.SelectedIndex;
 
                 //String colEtecs = Profil.getStringFromIntArray(DB.profils[idxProfil].colsEltecs);
                 //String colCustom = Profil.getStringFromIntArray(DB.profils[idxProfil].colsCustom);
 
-                cb_profil.Items[idxProfil] = DB.profils[idxProfil].nom;
+                cb_profil.Items[idxProfil] = DB.profils[idxProfil].Nom;
                 Settings.WriteConfigFile();
 
                 MessageBox.Show("Profil enregistré");

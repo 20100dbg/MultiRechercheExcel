@@ -30,11 +30,13 @@
         {
             this.tb_valeursRecherche = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.b_ViderFichiersValeurs = new System.Windows.Forms.Button();
             this.lv_valeurs = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.b_ajouterFichierValeurs = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.b_ViderFichiersBases = new System.Windows.Forms.Button();
             this.lv_bases = new System.Windows.Forms.ListView();
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -43,8 +45,6 @@
             this.b_recherche = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.b_ViderFichiersValeurs = new System.Windows.Forms.Button();
-            this.b_ViderFichiersBases = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.gestionDesProfilsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.paramétrageRechercheToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,6 +74,16 @@
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Valeurs";
+            // 
+            // b_ViderFichiersValeurs
+            // 
+            this.b_ViderFichiersValeurs.Location = new System.Drawing.Point(196, 247);
+            this.b_ViderFichiersValeurs.Name = "b_ViderFichiersValeurs";
+            this.b_ViderFichiersValeurs.Size = new System.Drawing.Size(104, 23);
+            this.b_ViderFichiersValeurs.TabIndex = 4;
+            this.b_ViderFichiersValeurs.Text = "Vider fichiers";
+            this.b_ViderFichiersValeurs.UseVisualStyleBackColor = true;
+            this.b_ViderFichiersValeurs.Click += new System.EventHandler(this.b_ViderFichiersValeurs_Click);
             // 
             // lv_valeurs
             // 
@@ -121,6 +131,16 @@
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Bases";
+            // 
+            // b_ViderFichiersBases
+            // 
+            this.b_ViderFichiersBases.Location = new System.Drawing.Point(202, 247);
+            this.b_ViderFichiersBases.Name = "b_ViderFichiersBases";
+            this.b_ViderFichiersBases.Size = new System.Drawing.Size(104, 23);
+            this.b_ViderFichiersBases.TabIndex = 5;
+            this.b_ViderFichiersBases.Text = "Vider fichiers";
+            this.b_ViderFichiersBases.UseVisualStyleBackColor = true;
+            this.b_ViderFichiersBases.Click += new System.EventHandler(this.b_ViderFichiersBases_Click);
             // 
             // lv_bases
             // 
@@ -187,26 +207,6 @@
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(294, 23);
             this.progressBar1.TabIndex = 6;
-            // 
-            // b_ViderFichiersValeurs
-            // 
-            this.b_ViderFichiersValeurs.Location = new System.Drawing.Point(196, 247);
-            this.b_ViderFichiersValeurs.Name = "b_ViderFichiersValeurs";
-            this.b_ViderFichiersValeurs.Size = new System.Drawing.Size(104, 23);
-            this.b_ViderFichiersValeurs.TabIndex = 4;
-            this.b_ViderFichiersValeurs.Text = "Vider fichiers";
-            this.b_ViderFichiersValeurs.UseVisualStyleBackColor = true;
-            this.b_ViderFichiersValeurs.Click += new System.EventHandler(this.b_ViderFichiersValeurs_Click);
-            // 
-            // b_ViderFichiersBases
-            // 
-            this.b_ViderFichiersBases.Location = new System.Drawing.Point(202, 247);
-            this.b_ViderFichiersBases.Name = "b_ViderFichiersBases";
-            this.b_ViderFichiersBases.Size = new System.Drawing.Size(104, 23);
-            this.b_ViderFichiersBases.TabIndex = 5;
-            this.b_ViderFichiersBases.Text = "Vider fichiers";
-            this.b_ViderFichiersBases.UseVisualStyleBackColor = true;
-            this.b_ViderFichiersBases.Click += new System.EventHandler(this.b_ViderFichiersBases_Click);
             // 
             // menuStrip1
             // 

@@ -20,7 +20,7 @@ namespace MultiRechercheExcel
         {
             for (int i = 0; i < DB.profils.Count; i++)
             {
-                cb_profilFichier.Items.Add(DB.profils[i].nom);
+                cb_profilFichier.Items.Add(DB.profils[i].Nom);
             }
         }
 
