@@ -1,105 +1,221 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace MultiRechercheExcel
 {
     public partial class GestionProfil : Form
     {
+        List<ActionFichier> actions = new List<ActionFichier>();
+
         public GestionProfil()
         {
             InitializeComponent();
             
             ChargerProfils();
+
             cb_separateur.Items.Add(";");
             cb_separateur.Items.Add(",");
             cb_separateur.Items.Add("Espace");
             cb_separateur.Items.Add("Tabulation");
+
+            foreach (TypeActionFichier typeAction in (TypeActionFichier[])Enum.GetValues(typeof(TypeActionFichier)))
+                cb_TypeAction.Items.Add(typeAction.ToString());
+
+            foreach (ModeCasse modeCasse in (ModeCasse[])Enum.GetValues(typeof(ModeCasse)))
+                cb_CasseAction.Items.Add(modeCasse.ToString());
+
+            cb_TypeAction.SelectedIndex = 0;
+            cb_CasseAction.SelectedIndex = 0;
         }
 
         private void ChargerProfils()
         {
-            for (int i = 0; i < DB.profils.Count; i++)
-            {
-                cb_profil.Items.Add(DB.profils[i].Nom);
-            }
+            for (int i = 0; i < DB.profilsRecherche.Count; i++)
+                cb_ProfilRecherche.Items.Add(DB.profilsRecherche[i].Nom);
+
+            for (int i = 0; i < DB.profilsAction.Count; i++)
+                cb_ProfilAction.Items.Add(DB.profilsAction[i].Nom);
+
+            cb_ProfilRecherche.SelectedIndex = 0;
+            cb_ProfilAction.SelectedIndex = 0;
         }
 
         private void cb_profil_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int idxProfil = cb_profil.SelectedIndex;
+            int idxProfil = cb_ProfilRecherche.SelectedIndex;
 
             if (idxProfil > -1)
             {
-                tb_nom_profil.Text = DB.profils[idxProfil].Nom;
-                nbEntetes.Value = DB.profils[idxProfil].NbEntetes;
-                tb_colEltecs.Text = Profil.getStringFromIntArray(DB.profils[idxProfil].ColsEltecs);
-                tb_colCustom.Text = Profil.getStringFromIntArray(DB.profils[idxProfil].ColsCustom);
-                cb_separateur.SelectedIndex = DB.profils[idxProfil].IdxSeparateur;
+                tb_NomRecherche.Text = DB.profilsRecherche[idxProfil].Nom;
+                num_NbEntetes.Value = DB.profilsRecherche[idxProfil].NbEntetes;
+                tb_ColsEltecs.Text = Profil.getStringFromIntArray(DB.profilsRecherche[idxProfil].ColsEltecs);
+                tb_ColsAfficher.Text = Profil.getStringFromIntArray(DB.profilsRecherche[idxProfil].ColsCustom);
+                cb_separateur.SelectedIndex = DB.profilsRecherche[idxProfil].IdxSeparateur;
             }
         }
 
 
-        private void b_new_profil_Click(object sender, EventArgs e)
+        private void b_NouveauRecherche_Click(object sender, EventArgs e)
         {
-            tb_nom_profil.Text = "Nouveau profil";
-            nbEntetes.Value = 0;
-            tb_colEltecs.Text = "1";
-            tb_colCustom.Text = "";
+            tb_NomRecherche.Text = "Nouveau profil";
+            num_NbEntetes.Value = 0;
+            tb_ColsEltecs.Text = "1";
+            tb_ColsAfficher.Text = "";
             cb_separateur.SelectedIndex = 0;
 
 
             Profil p = new Profil
             {
-                Nom = tb_nom_profil.Text,
-                NbEntetes = (int)nbEntetes.Value,
+                Nom = tb_NomRecherche.Text,
+                NbEntetes = (int)num_NbEntetes.Value,
                 ColsEltecs = new int[] { 1 },
                 ColsCustom = new int[] { },
                 IdxSeparateur = cb_separateur.SelectedIndex
             };
-            DB.profils.Add(p);
+            DB.profilsRecherche.Add(p);
 
-            cb_profil.Items.Add(p);
-            cb_profil.SelectedIndex = cb_profil.Items.Count - 1;
+            cb_ProfilRecherche.Items.Add(p);
+            cb_ProfilRecherche.SelectedIndex = cb_ProfilRecherche.Items.Count - 1;
         }
 
 
-        private void b_del_profil_Click(object sender, EventArgs e)
+        private void b_SupprimerRecherche_Click(object sender, EventArgs e)
         {
-            int idxProfil = cb_profil.SelectedIndex;
+            int idxProfil = cb_ProfilRecherche.SelectedIndex;
 
             if (idxProfil > -1)
             {
-                DB.profils.RemoveAt(idxProfil);
-                cb_profil.Items.RemoveAt(idxProfil);
+                DB.profilsRecherche.RemoveAt(idxProfil);
+                cb_ProfilRecherche.Items.RemoveAt(idxProfil);
 
-                cb_profil.SelectedIndex = 0;
+                cb_ProfilRecherche.SelectedIndex = 0;
                 Settings.WriteConfigFile();
             }
         }
 
 
-        private void b_save_profil_Click(object sender, EventArgs e)
+        private void b_SauvegarderProfil_Click(object sender, EventArgs e)
         {
-            int idxProfil = cb_profil.SelectedIndex;
+            int idxProfil = cb_ProfilRecherche.SelectedIndex;
 
             if (idxProfil > -1)
             {
-                DB.profils[idxProfil].Nom = tb_nom_profil.Text;
-                DB.profils[idxProfil].NbEntetes = (int)nbEntetes.Value;
-                DB.profils[idxProfil].ColsEltecs = Profil.getIntArray(tb_colEltecs.Text.ToUpper());
-                DB.profils[idxProfil].ColsCustom = Profil.getIntArray(tb_colCustom.Text.ToUpper());
-                DB.profils[idxProfil].IdxSeparateur = cb_separateur.SelectedIndex;
+                DB.profilsRecherche[idxProfil].Nom = tb_NomRecherche.Text;
+                DB.profilsRecherche[idxProfil].NbEntetes = (int)num_NbEntetes.Value;
+                DB.profilsRecherche[idxProfil].ColsEltecs = Profil.getIntArray(tb_ColsEltecs.Text.ToUpper());
+                DB.profilsRecherche[idxProfil].ColsCustom = Profil.getIntArray(tb_ColsAfficher.Text.ToUpper());
+                DB.profilsRecherche[idxProfil].IdxSeparateur = cb_separateur.SelectedIndex;
 
-                //String colEtecs = Profil.getStringFromIntArray(DB.profils[idxProfil].colsEltecs);
-                //String colCustom = Profil.getStringFromIntArray(DB.profils[idxProfil].colsCustom);
-
-                cb_profil.Items[idxProfil] = DB.profils[idxProfil].Nom;
+                cb_ProfilRecherche.Items[idxProfil] = DB.profilsRecherche[idxProfil].Nom;
                 Settings.WriteConfigFile();
 
                 MessageBox.Show("Profil enregistré");
             }
         }
 
+
+
+        private void cb_ProfilAction_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int idxProfil = cb_ProfilAction.SelectedIndex;
+
+            if (idxProfil > -1)
+            {
+                tb_NomAction.Text = DB.profilsAction[idxProfil].Nom;
+            }
+        }
+
+        private void cb_TypeAction_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cb_TypeAction.SelectedIndex > -1)
+            {
+                TypeActionFichier typeActionFichier = (TypeActionFichier)cb_TypeAction.SelectedItem;
+
+                if (typeActionFichier == TypeActionFichier.TransformerColonne ||
+                    typeActionFichier == TypeActionFichier.TransformerFichier)
+                {
+                    groupBox3.Visible = true;
+                }
+                else
+                    groupBox3.Visible = false;
+            }
+        }
+
+
+        private void b_NouveauProfilAction_Click(object sender, EventArgs e)
+        {
+            tb_NomAction.Text = "Nouveau profil";
+
+            ProfilAction pa = new ProfilAction
+            {
+                Nom = tb_NomAction.Text,
+            };
+            DB.profilsAction.Add(pa);
+
+            cb_ProfilAction.Items.Add(pa);
+            cb_ProfilAction.SelectedIndex = cb_ProfilAction.Items.Count - 1;
+        }
+
+
+        private void b_SupprimerProfilAction_Click(object sender, EventArgs e)
+        {
+            int idxProfil = cb_ProfilAction.SelectedIndex;
+
+            if (idxProfil > -1)
+            {
+                DB.profilsAction.RemoveAt(idxProfil);
+                cb_ProfilAction.Items.RemoveAt(idxProfil);
+
+                cb_ProfilAction.SelectedIndex = 0;
+                Settings.WriteConfigFile();
+            }
+        }
+
+
+        private void b_ajouterAction_Click(object sender, EventArgs e)
+        {
+            ActionFichier af = new ActionFichier
+            {
+                TypeActionFichier = (TypeActionFichier)cb_TypeAction.SelectedItem,
+                IdxSrc = (int)num_Source.Value,
+                IdxDst = (int)num_Destination.Value,
+                ModifChaine = new ParamRecherche
+                {
+                    ModeCasse = (ModeCasse)cb_CasseAction.SelectedItem,
+                    debutChaine = (int)num_DebutAction.Value,
+                    longueurChaine = (int)num_LongueurAction.Value,
+                    finChaine = (int)num_FinAction.Value
+                }
+            };
+
+            actions.Add(af);
+            lv_actions.Items.Add(new ListViewItem(new String[] {
+                af.TypeActionFichier.ToString(),
+                af.IdxSrc.ToString(),
+                af.IdxDst.ToString(),
+                ""
+                }));
+        }
+
+        private void b_SauvegarderAction_Click(object sender, EventArgs e)
+        {
+            int idxProfil = cb_ProfilRecherche.SelectedIndex;
+
+            if (idxProfil > -1)
+            {
+                DB.profilsAction[idxProfil].Nom = tb_NomAction.Text;
+                DB.profilsAction[idxProfil].Actions.AddRange(actions);
+
+                cb_ProfilAction.Items[idxProfil] = DB.profilsAction[idxProfil].Nom;
+                Settings.WriteConfigFile();
+
+                actions.Clear();
+                lv_actions.Items.Clear();
+
+                MessageBox.Show("Profil enregistré");
+            }
+        }
 
         private void b_fermer_Click(object sender, EventArgs e)
         {

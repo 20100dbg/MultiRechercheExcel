@@ -42,20 +42,19 @@ namespace MultiRechercheExcel
 
             //valeur
             DB.prValeur.ModeCasse = (ModeCasse)cb_CasseValeurs.SelectedIndex;
-
-            if (!int.TryParse(tb_DebutValeur.Text, out DB.prValeur.debutChaine)) DB.prValeur.debutChaine = 0;
-            if (!int.TryParse(tb_LongueurValeur.Text, out DB.prValeur.longueurChaine)) DB.prValeur.longueurChaine = 0;
-            if (!int.TryParse(tb_FinValeur.Text, out DB.prValeur.finChaine)) DB.prValeur.finChaine = 0;
+            DB.prValeur.debutChaine = (int)tb_DebutValeur.Value;
+            DB.prValeur.longueurChaine = (int)tb_LongueurValeur.Value;
+            DB.prValeur.finChaine = (int)tb_FinValeur.Value;
 
             //base
             DB.prBase.ModeCasse = (ModeCasse)cb_CasseBases.SelectedIndex;
-
-            if (!int.TryParse(tb_DebutBase.Text, out DB.prBase.debutChaine)) DB.prBase.debutChaine = 0;
-            if (!int.TryParse(tb_LongueurBase.Text, out DB.prBase.longueurChaine)) DB.prBase.longueurChaine = 0;
-            if (!int.TryParse(tb_FinBase.Text, out DB.prBase.finChaine)) DB.prBase.finChaine = 0;
+            DB.prBase.debutChaine = (int)tb_DebutBase.Value;
+            DB.prBase.longueurChaine = (int)tb_LongueurBase.Value;
+            DB.prBase.finChaine = (int)tb_FinBase.Value;
 
             Settings.WriteConfigFile();
             Close();
         }
+
     }
 }

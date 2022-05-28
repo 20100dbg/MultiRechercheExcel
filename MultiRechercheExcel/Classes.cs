@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace MultiRechercheExcel
 {
@@ -20,7 +21,8 @@ namespace MultiRechercheExcel
 
     public static class DB
     {
-        public static List<Profil> profils = new List<Profil>();
+        public static List<Profil> profilsRecherche = new List<Profil>();
+        public static List<ProfilAction> profilsAction = new List<ProfilAction>();
 
         public static List<Fichier> fichiersValeurs = new List<Fichier>();
         public static List<Fichier> fichiersBases = new List<Fichier>();
@@ -60,8 +62,13 @@ namespace MultiRechercheExcel
 
     public class Fichier
     {
-        public string Nom { get; set; }
+        public string Chemin { get; set; }
         public int IdxProfil { get; set; }
+
+        public override string ToString()
+        {
+            return Path.GetFileName(Chemin);
+        }
     }
 
     public class ParamRecherche

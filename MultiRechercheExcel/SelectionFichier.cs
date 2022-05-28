@@ -18,9 +18,9 @@ namespace MultiRechercheExcel
 
         private void ChargerProfils()
         {
-            for (int i = 0; i < DB.profils.Count; i++)
+            for (int i = 0; i < DB.profilsRecherche.Count; i++)
             {
-                cb_profilFichier.Items.Add(DB.profils[i].Nom);
+                cb_profilFichier.Items.Add(DB.profilsRecherche[i].Nom);
             }
         }
 

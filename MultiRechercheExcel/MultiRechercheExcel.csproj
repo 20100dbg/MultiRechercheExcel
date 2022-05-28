@@ -62,7 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DB.cs" />
+    <Compile Include="Classes.cs" />
     <Compile Include="GestionProfil.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -75,7 +75,6 @@
     <Compile Include="ParametresRecherche.Designer.cs">
       <DependentUpon>ParametresRecherche.cs</DependentUpon>
     </Compile>
-    <Compile Include="Profil.cs" />
     <Compile Include="Recherche.cs">
       <SubType>Form</SubType>
     </Compile>
