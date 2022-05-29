@@ -25,7 +25,7 @@ namespace MultiRechercheExcel
             for (int i = 0; i < DB.profilsAction.Count; i++)
                 cb_ProfilAction.Items.Add(DB.profilsAction[i].Nom);
 
-            cb_ProfilAction.SelectedIndex = 0;
+            //cb_ProfilAction.SelectedIndex = 0;
 
             Log("Lecture fichier de config " + Settings.ReadConfigFile());
         }
@@ -96,16 +96,16 @@ namespace MultiRechercheExcel
                 {
                     if (row <= p.NbEntetes) continue;
 
-                    //pour chaque ligne, il faut d'abord récupérer toutes les colonnes custom
+                    //pour chaque ligne, il faut d'abord récupérer toutes les colonnes à afficher
                     //et les assigner à chaque objet valeur créé pour chaque cols Eltec
 
-                    string[] tabCustom = new string[p.ColsCustom.Length];
+                    string[] tabAffichees = new string[p.ColsAffichees.Length];
                     List<Colonne> cols = new List<Colonne>();
 
-                    for (int j = 0; j < p.ColsCustom.Length; j++)
+                    for (int j = 0; j < p.ColsAffichees.Length; j++)
                     {
-                        int col = p.ColsCustom[j];
-                        tabCustom[j] = myWorksheet.Cells[row, col].Value.ToString();
+                        int col = p.ColsAffichees[j];
+                        tabAffichees[j] = myWorksheet.Cells[row, col].Value.ToString();
 
                         cols.Add(new Colonne
                         {
@@ -160,15 +160,15 @@ namespace MultiRechercheExcel
 
                 String[] tabLigne = str.Split(new String[] { Profil.GetSeparateurFromIndex(p.IdxSeparateur) }, StringSplitOptions.None);
 
-                string[] tabCustom = new string[p.ColsCustom.Length];
+                string[] tabAffichees = new string[p.ColsAffichees.Length];
                 List<Colonne> cols = new List<Colonne>();
 
-                for (int i = 0; i < p.ColsCustom.Length; i++)
+                for (int i = 0; i < p.ColsAffichees.Length; i++)
                 {
-                    int idxCol = p.ColsCustom[i] - 1;
+                    int idxCol = p.ColsAffichees[i] - 1;
                     if (idxCol < tabLigne.Length)
                     {
-                        tabCustom[i] = tabLigne[idxCol];
+                        tabAffichees[i] = tabLigne[idxCol];
 
                         cols.Add(new Colonne
                         {

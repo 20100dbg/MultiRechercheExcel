@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace MultiRechercheExcel
@@ -52,6 +53,11 @@ namespace MultiRechercheExcel
         {
             this.filepath = filepath;
             l_nomFichier.Text = Path.GetFileName(filepath);
+
+            string profilName = DetectFileProfil(filepath);
+            int idxProfil = Profil.GetProfilIdxByName(profilName);
+
+            cb_profilFichier.SelectedIndex = idxProfil;
         }
 
         private void b_ajouter_Click(object sender, EventArgs e)
@@ -79,6 +85,24 @@ namespace MultiRechercheExcel
         {
             string filename = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
             ChargerFichier(filename);
+        }
+
+        private String DetectFileProfil(String filename)
+        {
+            StreamReader sr = new StreamReader(filename);
+            String firstLine = sr.ReadLine();
+            sr.Close();
+
+            if (firstLine.StartsWith("# MONITORING FILE")) return "SPAER";
+            else if (firstLine.StartsWith("#Fichier:")) return "DEMETER";
+            else if (firstLine.StartsWith("Analysis Report")) return "NETHAWK";
+            else
+            {
+                Regex rgx = new Regex("^[0-9]+$");
+                if (rgx.Match(firstLine).Success) return "Fichier texte";
+            }
+
+            return "";
         }
     }
 }

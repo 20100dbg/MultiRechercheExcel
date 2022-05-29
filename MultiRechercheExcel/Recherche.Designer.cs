@@ -118,6 +118,7 @@
             // columnHeader2
             // 
             this.columnHeader2.Text = "Profil";
+            this.columnHeader2.Width = 90;
             // 
             // b_ajouterFichierValeurs
             // 
@@ -222,6 +223,7 @@
             this.b_recherche.TabIndex = 8;
             this.b_recherche.Text = "Recherche";
             this.b_recherche.UseVisualStyleBackColor = true;
+            this.b_recherche.Click += new System.EventHandler(this.b_recherche_Click);
             // 
             // groupBox2
             // 
@@ -244,6 +246,7 @@
             this.b_ViderFichiersBases.TabIndex = 5;
             this.b_ViderFichiersBases.Text = "Vider fichiers";
             this.b_ViderFichiersBases.UseVisualStyleBackColor = true;
+            this.b_ViderFichiersBases.Click += new System.EventHandler(this.b_ViderFichiersBases_Click);
             // 
             // lv_bases
             // 
@@ -268,6 +271,7 @@
             // columnHeader4
             // 
             this.columnHeader4.Text = "Profil";
+            this.columnHeader4.Width = 90;
             // 
             // b_ajouterFichierBase
             // 
@@ -277,6 +281,7 @@
             this.b_ajouterFichierBase.TabIndex = 2;
             this.b_ajouterFichierBase.Text = "Ajouter fichier";
             this.b_ajouterFichierBase.UseVisualStyleBackColor = true;
+            this.b_ajouterFichierBase.Click += new System.EventHandler(this.b_ajouterFichierBase_Click);
             // 
             // tb_valeursBase
             // 

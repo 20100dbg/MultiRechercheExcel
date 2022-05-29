@@ -85,7 +85,7 @@ namespace MultiRechercheExcel
         public string Nom;
         public int NbEntetes;
         public int[] ColsEltecs;
-        public int[] ColsCustom;
+        public int[] ColsAffichees;
         public int IdxSeparateur;
 
         public static int[] getIntArray(String str)
@@ -101,6 +101,15 @@ namespace MultiRechercheExcel
             }
 
             return tabInt.ToArray();
+        }
+
+        public static int GetProfilIdxByName(string name)
+        {
+            for (int i = 0; i < DB.profilsRecherche.Count; i++)
+            {
+                if (name.ToUpper() == DB.profilsRecherche[i].Nom.ToUpper()) return i;
+            }
+            return -1;
         }
 
         public static String GetSeparateurFromIndex(int idx)
@@ -135,5 +144,10 @@ namespace MultiRechercheExcel
     {
         public string Nom { get; set; }
         public List<ActionFichier> Actions { get; set; }
+
+        public override string ToString()
+        {
+            return Nom;
+        }
     }
 }

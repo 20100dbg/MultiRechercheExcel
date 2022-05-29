@@ -12,18 +12,18 @@ namespace MultiRechercheExcel
         {
             InitializeComponent();
             
-            ChargerProfils();
-
-            cb_separateur.Items.Add(";");
-            cb_separateur.Items.Add(",");
+            cb_separateur.Items.Add("Point virgule");
+            cb_separateur.Items.Add("Virgule");
             cb_separateur.Items.Add("Espace");
             cb_separateur.Items.Add("Tabulation");
 
+            ChargerProfils();
+
             foreach (TypeActionFichier typeAction in (TypeActionFichier[])Enum.GetValues(typeof(TypeActionFichier)))
-                cb_TypeAction.Items.Add(typeAction.ToString());
+                cb_TypeAction.Items.Add(typeAction);
 
             foreach (ModeCasse modeCasse in (ModeCasse[])Enum.GetValues(typeof(ModeCasse)))
-                cb_CasseAction.Items.Add(modeCasse.ToString());
+                cb_CasseAction.Items.Add(modeCasse);
 
             cb_TypeAction.SelectedIndex = 0;
             cb_CasseAction.SelectedIndex = 0;
@@ -36,9 +36,6 @@ namespace MultiRechercheExcel
 
             for (int i = 0; i < DB.profilsAction.Count; i++)
                 cb_ProfilAction.Items.Add(DB.profilsAction[i].Nom);
-
-            cb_ProfilRecherche.SelectedIndex = 0;
-            cb_ProfilAction.SelectedIndex = 0;
         }
 
         private void cb_profil_SelectedIndexChanged(object sender, EventArgs e)
@@ -50,7 +47,7 @@ namespace MultiRechercheExcel
                 tb_NomRecherche.Text = DB.profilsRecherche[idxProfil].Nom;
                 num_NbEntetes.Value = DB.profilsRecherche[idxProfil].NbEntetes;
                 tb_ColsEltecs.Text = Profil.getStringFromIntArray(DB.profilsRecherche[idxProfil].ColsEltecs);
-                tb_ColsAfficher.Text = Profil.getStringFromIntArray(DB.profilsRecherche[idxProfil].ColsCustom);
+                tb_ColsAfficher.Text = Profil.getStringFromIntArray(DB.profilsRecherche[idxProfil].ColsAffichees);
                 cb_separateur.SelectedIndex = DB.profilsRecherche[idxProfil].IdxSeparateur;
             }
         }
@@ -70,7 +67,7 @@ namespace MultiRechercheExcel
                 Nom = tb_NomRecherche.Text,
                 NbEntetes = (int)num_NbEntetes.Value,
                 ColsEltecs = new int[] { 1 },
-                ColsCustom = new int[] { },
+                ColsAffichees = new int[] { },
                 IdxSeparateur = cb_separateur.SelectedIndex
             };
             DB.profilsRecherche.Add(p);
@@ -104,7 +101,7 @@ namespace MultiRechercheExcel
                 DB.profilsRecherche[idxProfil].Nom = tb_NomRecherche.Text;
                 DB.profilsRecherche[idxProfil].NbEntetes = (int)num_NbEntetes.Value;
                 DB.profilsRecherche[idxProfil].ColsEltecs = Profil.getIntArray(tb_ColsEltecs.Text.ToUpper());
-                DB.profilsRecherche[idxProfil].ColsCustom = Profil.getIntArray(tb_ColsAfficher.Text.ToUpper());
+                DB.profilsRecherche[idxProfil].ColsAffichees = Profil.getIntArray(tb_ColsAfficher.Text.ToUpper());
                 DB.profilsRecherche[idxProfil].IdxSeparateur = cb_separateur.SelectedIndex;
 
                 cb_ProfilRecherche.Items[idxProfil] = DB.profilsRecherche[idxProfil].Nom;
@@ -150,6 +147,7 @@ namespace MultiRechercheExcel
             ProfilAction pa = new ProfilAction
             {
                 Nom = tb_NomAction.Text,
+                Actions = new List<ActionFichier>()
             };
             DB.profilsAction.Add(pa);
 
@@ -200,7 +198,7 @@ namespace MultiRechercheExcel
 
         private void b_SauvegarderAction_Click(object sender, EventArgs e)
         {
-            int idxProfil = cb_ProfilRecherche.SelectedIndex;
+            int idxProfil = cb_ProfilAction.SelectedIndex;
 
             if (idxProfil > -1)
             {

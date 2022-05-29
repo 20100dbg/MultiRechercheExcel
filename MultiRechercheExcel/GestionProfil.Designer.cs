@@ -61,7 +61,6 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.num_Destination = new System.Windows.Forms.NumericUpDown();
             this.num_Source = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
@@ -401,8 +400,7 @@
             this.lv_actions.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader4});
+            this.columnHeader3});
             this.lv_actions.FullRowSelect = true;
             this.lv_actions.GridLines = true;
             this.lv_actions.HideSelection = false;
@@ -416,6 +414,7 @@
             // columnHeader1
             // 
             this.columnHeader1.Text = "Action";
+            this.columnHeader1.Width = 185;
             // 
             // columnHeader2
             // 
@@ -424,10 +423,6 @@
             // columnHeader3
             // 
             this.columnHeader3.Text = "Dst";
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Transformation";
             // 
             // num_Destination
             // 
@@ -617,6 +612,5 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.ColumnHeader columnHeader4;
     }
 }
