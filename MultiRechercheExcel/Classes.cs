@@ -30,8 +30,9 @@ namespace MultiRechercheExcel
         public static List<Valeur> valeurs = new List<Valeur>();
         public static List<string> entetesColonnes = new List<string>();
 
-        public static ParamRecherche prValeur { get; set; }
-        public static ParamRecherche prBase { get; set; }
+        public static ParamRecherche ParamRecherche { get; set; }
+        public static TransformationChaine tcValeur { get; set; }
+        public static TransformationChaine tcBase { get; set; }
     }
 
     public class Colonne
@@ -74,10 +75,27 @@ namespace MultiRechercheExcel
     public class ParamRecherche
     {
         public static ModeRecherche ModeRecherche = ModeRecherche.Exact;
+     /*
         public ModeCasse ModeCasse = ModeCasse.Normal;
         public int debutChaine = 0;
         public int longueurChaine = 0;
         public int finChaine = 0;
+     */
+    }
+
+    public class TransformationChaine
+    {
+        public ModeCasse ModeCasse = ModeCasse.Normal;
+        
+        public int debutChaine = 0;
+        public int longueurChaine = 0;
+        public int finChaine = 0;
+
+        public string carPad = "";
+        public int nbCarPad = 0;
+        public bool leftPad = true;
+
+        public string valeurDefaut = "";
     }
 
     public class Profil
@@ -138,6 +156,7 @@ namespace MultiRechercheExcel
         public int IdxSrc { get; set; }
         public int IdxDst { get; set; }
         public ParamRecherche ModifChaine { get; set; }
+        public TransformationChaine TransChaine { get; set; }
     }
 
     public class ProfilAction

@@ -178,7 +178,7 @@ namespace MultiRechercheExcel
                 TypeActionFichier = (TypeActionFichier)cb_TypeAction.SelectedItem,
                 IdxSrc = (int)num_Source.Value,
                 IdxDst = (int)num_Destination.Value,
-                ModifChaine = new ParamRecherche
+                TransChaine = new TransformationChaine
                 {
                     ModeCasse = (ModeCasse)cb_CasseAction.SelectedItem,
                     debutChaine = (int)num_DebutAction.Value,

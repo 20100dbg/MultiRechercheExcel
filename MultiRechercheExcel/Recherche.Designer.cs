@@ -43,7 +43,6 @@
             this.aProposToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.b_recherche = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.b_ViderFichiersBases = new System.Windows.Forms.Button();
@@ -52,16 +51,18 @@
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.b_ajouterFichierBase = new System.Windows.Forms.Button();
             this.tb_valeursBase = new System.Windows.Forms.TextBox();
-            this.b_ajouterFichierTransformation = new System.Windows.Forms.Button();
-            this.lb_fichiersTransformation = new System.Windows.Forms.ListBox();
-            this.cb_ProfilAction = new System.Windows.Forms.ComboBox();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.b_AppliquerTransformation = new System.Windows.Forms.Button();
+            this.cb_ProfilAction = new System.Windows.Forms.ComboBox();
+            this.lb_fichiersTransformation = new System.Windows.Forms.ListBox();
+            this.b_ajouterFichierTransformation = new System.Windows.Forms.Button();
+            this.l_filename = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tb_valeursRecherche
@@ -189,6 +190,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.l_filename);
             this.tabPage1.Controls.Add(this.b_recherche);
             this.tabPage1.Controls.Add(this.groupBox2);
             this.tabPage1.Controls.Add(this.groupBox1);
@@ -200,20 +202,6 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Recherche";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.b_AppliquerTransformation);
-            this.tabPage2.Controls.Add(this.cb_ProfilAction);
-            this.tabPage2.Controls.Add(this.lb_fichiersTransformation);
-            this.tabPage2.Controls.Add(this.b_ajouterFichierTransformation);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(697, 356);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Transformation";
-            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // b_recherche
             // 
@@ -291,32 +279,19 @@
             this.tb_valeursBase.Size = new System.Drawing.Size(294, 53);
             this.tb_valeursBase.TabIndex = 1;
             // 
-            // b_ajouterFichierTransformation
+            // tabPage2
             // 
-            this.b_ajouterFichierTransformation.Location = new System.Drawing.Point(22, 22);
-            this.b_ajouterFichierTransformation.Name = "b_ajouterFichierTransformation";
-            this.b_ajouterFichierTransformation.Size = new System.Drawing.Size(104, 23);
-            this.b_ajouterFichierTransformation.TabIndex = 3;
-            this.b_ajouterFichierTransformation.Text = "Ajouter fichier";
-            this.b_ajouterFichierTransformation.UseVisualStyleBackColor = true;
-            this.b_ajouterFichierTransformation.Click += new System.EventHandler(this.b_ajouterFichierTransformation_Click);
-            // 
-            // lb_fichiersTransformation
-            // 
-            this.lb_fichiersTransformation.FormattingEnabled = true;
-            this.lb_fichiersTransformation.Location = new System.Drawing.Point(22, 65);
-            this.lb_fichiersTransformation.Name = "lb_fichiersTransformation";
-            this.lb_fichiersTransformation.Size = new System.Drawing.Size(161, 147);
-            this.lb_fichiersTransformation.TabIndex = 4;
-            // 
-            // cb_ProfilAction
-            // 
-            this.cb_ProfilAction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_ProfilAction.FormattingEnabled = true;
-            this.cb_ProfilAction.Location = new System.Drawing.Point(233, 65);
-            this.cb_ProfilAction.Name = "cb_ProfilAction";
-            this.cb_ProfilAction.Size = new System.Drawing.Size(121, 21);
-            this.cb_ProfilAction.TabIndex = 5;
+            this.tabPage2.Controls.Add(this.b_AppliquerTransformation);
+            this.tabPage2.Controls.Add(this.cb_ProfilAction);
+            this.tabPage2.Controls.Add(this.lb_fichiersTransformation);
+            this.tabPage2.Controls.Add(this.b_ajouterFichierTransformation);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(697, 356);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Transformation";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // b_AppliquerTransformation
             // 
@@ -327,6 +302,41 @@
             this.b_AppliquerTransformation.Text = "Appliquer";
             this.b_AppliquerTransformation.UseVisualStyleBackColor = true;
             this.b_AppliquerTransformation.Click += new System.EventHandler(this.b_AppliquerTransformation_Click);
+            // 
+            // cb_ProfilAction
+            // 
+            this.cb_ProfilAction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_ProfilAction.FormattingEnabled = true;
+            this.cb_ProfilAction.Location = new System.Drawing.Point(233, 65);
+            this.cb_ProfilAction.Name = "cb_ProfilAction";
+            this.cb_ProfilAction.Size = new System.Drawing.Size(121, 21);
+            this.cb_ProfilAction.TabIndex = 5;
+            // 
+            // lb_fichiersTransformation
+            // 
+            this.lb_fichiersTransformation.FormattingEnabled = true;
+            this.lb_fichiersTransformation.Location = new System.Drawing.Point(22, 65);
+            this.lb_fichiersTransformation.Name = "lb_fichiersTransformation";
+            this.lb_fichiersTransformation.Size = new System.Drawing.Size(161, 147);
+            this.lb_fichiersTransformation.TabIndex = 4;
+            // 
+            // b_ajouterFichierTransformation
+            // 
+            this.b_ajouterFichierTransformation.Location = new System.Drawing.Point(22, 22);
+            this.b_ajouterFichierTransformation.Name = "b_ajouterFichierTransformation";
+            this.b_ajouterFichierTransformation.Size = new System.Drawing.Size(104, 23);
+            this.b_ajouterFichierTransformation.TabIndex = 3;
+            this.b_ajouterFichierTransformation.Text = "Ajouter fichier";
+            this.b_ajouterFichierTransformation.UseVisualStyleBackColor = true;
+            this.b_ajouterFichierTransformation.Click += new System.EventHandler(this.b_ajouterFichierTransformation_Click);
+            // 
+            // l_filename
+            // 
+            this.l_filename.AutoSize = true;
+            this.l_filename.Location = new System.Drawing.Point(328, 326);
+            this.l_filename.Name = "l_filename";
+            this.l_filename.Size = new System.Drawing.Size(0, 13);
+            this.l_filename.TabIndex = 9;
             // 
             // Recherche
             // 
@@ -344,9 +354,10 @@
             this.menuStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -382,6 +393,7 @@
         private System.Windows.Forms.ComboBox cb_ProfilAction;
         private System.Windows.Forms.Button b_ajouterFichierTransformation;
         private System.Windows.Forms.ListBox lb_fichiersTransformation;
+        private System.Windows.Forms.Label l_filename;
     }
 }
 

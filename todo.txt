@@ -1,1 +1,1 @@
-detecter le type de fichier selon le nommage
+tester les profils actions

@@ -73,6 +73,12 @@
             this.label12 = new System.Windows.Forms.Label();
             this.b_SupprimerProfilAction = new System.Windows.Forms.Button();
             this.b_NouveauProfilAction = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.tb_valeurDefaut = new System.Windows.Forms.TextBox();
+            this.tb_carPad = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.num_nbCarPad = new System.Windows.Forms.NumericUpDown();
+            this.cb_padLeft = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.num_NbEntetes)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -82,11 +88,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.num_DebutAction)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_Destination)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_Source)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_nbCarPad)).BeginInit();
             this.SuspendLayout();
             // 
             // b_fermer
             // 
-            this.b_fermer.Location = new System.Drawing.Point(12, 424);
+            this.b_fermer.Location = new System.Drawing.Point(12, 477);
             this.b_fermer.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.b_fermer.Name = "b_fermer";
             this.b_fermer.Size = new System.Drawing.Size(107, 36);
@@ -110,7 +117,7 @@
             this.tb_ColsAfficher.Location = new System.Drawing.Point(165, 131);
             this.tb_ColsAfficher.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tb_ColsAfficher.Name = "tb_ColsAfficher";
-            this.tb_ColsAfficher.Size = new System.Drawing.Size(210, 22);
+            this.tb_ColsAfficher.Size = new System.Drawing.Size(174, 22);
             this.tb_ColsAfficher.TabIndex = 55;
             // 
             // label3
@@ -148,12 +155,12 @@
             this.tb_NomRecherche.Location = new System.Drawing.Point(165, 77);
             this.tb_NomRecherche.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tb_NomRecherche.Name = "tb_NomRecherche";
-            this.tb_NomRecherche.Size = new System.Drawing.Size(210, 20);
+            this.tb_NomRecherche.Size = new System.Drawing.Size(174, 20);
             this.tb_NomRecherche.TabIndex = 53;
             // 
             // b_SupprimerRecherche
             // 
-            this.b_SupprimerRecherche.Location = new System.Drawing.Point(343, 27);
+            this.b_SupprimerRecherche.Location = new System.Drawing.Point(305, 27);
             this.b_SupprimerRecherche.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.b_SupprimerRecherche.Name = "b_SupprimerRecherche";
             this.b_SupprimerRecherche.Size = new System.Drawing.Size(74, 23);
@@ -164,7 +171,7 @@
             // 
             // b_NouveauRecherche
             // 
-            this.b_NouveauRecherche.Location = new System.Drawing.Point(265, 27);
+            this.b_NouveauRecherche.Location = new System.Drawing.Point(227, 27);
             this.b_NouveauRecherche.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.b_NouveauRecherche.Name = "b_NouveauRecherche";
             this.b_NouveauRecherche.Size = new System.Drawing.Size(74, 23);
@@ -190,7 +197,7 @@
             this.cb_ProfilRecherche.Location = new System.Drawing.Point(55, 29);
             this.cb_ProfilRecherche.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cb_ProfilRecherche.Name = "cb_ProfilRecherche";
-            this.cb_ProfilRecherche.Size = new System.Drawing.Size(191, 21);
+            this.cb_ProfilRecherche.Size = new System.Drawing.Size(159, 21);
             this.cb_ProfilRecherche.TabIndex = 50;
             this.cb_ProfilRecherche.SelectedIndexChanged += new System.EventHandler(this.cb_profil_SelectedIndexChanged);
             // 
@@ -205,7 +212,7 @@
             // 
             // b_SauvegarderProfil
             // 
-            this.b_SauvegarderProfil.Location = new System.Drawing.Point(328, 252);
+            this.b_SauvegarderProfil.Location = new System.Drawing.Point(290, 252);
             this.b_SauvegarderProfil.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.b_SauvegarderProfil.Name = "b_SauvegarderProfil";
             this.b_SauvegarderProfil.Size = new System.Drawing.Size(89, 40);
@@ -230,7 +237,7 @@
             this.tb_ColsEltecs.Location = new System.Drawing.Point(165, 103);
             this.tb_ColsEltecs.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tb_ColsEltecs.Name = "tb_ColsEltecs";
-            this.tb_ColsEltecs.Size = new System.Drawing.Size(210, 22);
+            this.tb_ColsEltecs.Size = new System.Drawing.Size(174, 22);
             this.tb_ColsEltecs.TabIndex = 54;
             // 
             // label1
@@ -262,7 +269,7 @@
             this.groupBox1.Controls.Add(this.b_NouveauRecherche);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(434, 320);
+            this.groupBox1.Size = new System.Drawing.Size(392, 304);
             this.groupBox1.TabIndex = 65;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Profil de recherche";
@@ -284,15 +291,21 @@
             this.groupBox2.Controls.Add(this.label12);
             this.groupBox2.Controls.Add(this.b_SupprimerProfilAction);
             this.groupBox2.Controls.Add(this.b_NouveauProfilAction);
-            this.groupBox2.Location = new System.Drawing.Point(476, 12);
+            this.groupBox2.Location = new System.Drawing.Point(427, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(434, 411);
+            this.groupBox2.Size = new System.Drawing.Size(434, 501);
             this.groupBox2.TabIndex = 66;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Actions sur fichiers Excel";
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.cb_padLeft);
+            this.groupBox3.Controls.Add(this.num_nbCarPad);
+            this.groupBox3.Controls.Add(this.tb_carPad);
+            this.groupBox3.Controls.Add(this.label17);
+            this.groupBox3.Controls.Add(this.tb_valeurDefaut);
+            this.groupBox3.Controls.Add(this.label10);
             this.groupBox3.Controls.Add(this.cb_CasseAction);
             this.groupBox3.Controls.Add(this.label9);
             this.groupBox3.Controls.Add(this.label16);
@@ -304,7 +317,7 @@
             this.groupBox3.Controls.Add(this.num_DebutAction);
             this.groupBox3.Location = new System.Drawing.Point(14, 183);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(403, 109);
+            this.groupBox3.Size = new System.Drawing.Size(403, 192);
             this.groupBox3.TabIndex = 83;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Transformation";
@@ -341,14 +354,14 @@
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(148, 57);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(55, 13);
+            this.label13.Size = new System.Drawing.Size(85, 13);
             this.label13.TabIndex = 80;
-            this.label13.Text = "A partir de";
+            this.label13.Text = "A partir du début";
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(13, 62);
+            this.label15.Location = new System.Drawing.Point(13, 74);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(68, 13);
             this.label15.TabIndex = 75;
@@ -356,7 +369,7 @@
             // 
             // num_FinAction
             // 
-            this.num_FinAction.Location = new System.Drawing.Point(230, 81);
+            this.num_FinAction.Location = new System.Drawing.Point(239, 81);
             this.num_FinAction.Name = "num_FinAction";
             this.num_FinAction.Size = new System.Drawing.Size(44, 20);
             this.num_FinAction.TabIndex = 82;
@@ -364,7 +377,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(282, 57);
+            this.label14.Location = new System.Drawing.Point(291, 69);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(52, 13);
             this.label14.TabIndex = 76;
@@ -372,14 +385,14 @@
             // 
             // num_LongueurAction
             // 
-            this.num_LongueurAction.Location = new System.Drawing.Point(340, 55);
+            this.num_LongueurAction.Location = new System.Drawing.Point(349, 67);
             this.num_LongueurAction.Name = "num_LongueurAction";
             this.num_LongueurAction.Size = new System.Drawing.Size(44, 20);
             this.num_LongueurAction.TabIndex = 81;
             // 
             // num_DebutAction
             // 
-            this.num_DebutAction.Location = new System.Drawing.Point(230, 55);
+            this.num_DebutAction.Location = new System.Drawing.Point(239, 55);
             this.num_DebutAction.Name = "num_DebutAction";
             this.num_DebutAction.Size = new System.Drawing.Size(44, 20);
             this.num_DebutAction.TabIndex = 78;
@@ -404,7 +417,7 @@
             this.lv_actions.FullRowSelect = true;
             this.lv_actions.GridLines = true;
             this.lv_actions.HideSelection = false;
-            this.lv_actions.Location = new System.Drawing.Point(14, 308);
+            this.lv_actions.Location = new System.Drawing.Point(14, 398);
             this.lv_actions.Name = "lv_actions";
             this.lv_actions.Size = new System.Drawing.Size(309, 97);
             this.lv_actions.TabIndex = 72;
@@ -481,7 +494,7 @@
             // 
             // b_SauvegarderAction
             // 
-            this.b_SauvegarderAction.Location = new System.Drawing.Point(328, 365);
+            this.b_SauvegarderAction.Location = new System.Drawing.Point(328, 455);
             this.b_SauvegarderAction.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.b_SauvegarderAction.Name = "b_SauvegarderAction";
             this.b_SauvegarderAction.Size = new System.Drawing.Size(89, 40);
@@ -540,11 +553,62 @@
             this.b_NouveauProfilAction.UseVisualStyleBackColor = true;
             this.b_NouveauProfilAction.Click += new System.EventHandler(this.b_NouveauProfilAction_Click);
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(18, 124);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(88, 13);
+            this.label10.TabIndex = 83;
+            this.label10.Text = "Valeur par défaut";
+            // 
+            // tb_valeurDefaut
+            // 
+            this.tb_valeurDefaut.Location = new System.Drawing.Point(156, 121);
+            this.tb_valeurDefaut.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.tb_valeurDefaut.Name = "tb_valeurDefaut";
+            this.tb_valeurDefaut.Size = new System.Drawing.Size(132, 20);
+            this.tb_valeurDefaut.TabIndex = 84;
+            // 
+            // tb_carPad
+            // 
+            this.tb_carPad.Location = new System.Drawing.Point(156, 158);
+            this.tb_carPad.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.tb_carPad.Name = "tb_carPad";
+            this.tb_carPad.Size = new System.Drawing.Size(40, 20);
+            this.tb_carPad.TabIndex = 86;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(18, 161);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(67, 13);
+            this.label17.TabIndex = 85;
+            this.label17.Text = "Remplissage";
+            // 
+            // num_nbCarPad
+            // 
+            this.num_nbCarPad.Location = new System.Drawing.Point(239, 158);
+            this.num_nbCarPad.Name = "num_nbCarPad";
+            this.num_nbCarPad.Size = new System.Drawing.Size(44, 20);
+            this.num_nbCarPad.TabIndex = 87;
+            // 
+            // cb_padLeft
+            // 
+            this.cb_padLeft.AutoSize = true;
+            this.cb_padLeft.Location = new System.Drawing.Point(313, 160);
+            this.cb_padLeft.Name = "cb_padLeft";
+            this.cb_padLeft.Size = new System.Drawing.Size(64, 17);
+            this.cb_padLeft.TabIndex = 88;
+            this.cb_padLeft.Text = "Gauche";
+            this.cb_padLeft.UseVisualStyleBackColor = true;
+            // 
             // GestionProfil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(922, 435);
+            this.ClientSize = new System.Drawing.Size(870, 525);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.b_fermer);
@@ -562,6 +626,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.num_DebutAction)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_Destination)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_Source)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_nbCarPad)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -612,5 +677,11 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.TextBox tb_carPad;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TextBox tb_valeurDefaut;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.NumericUpDown num_nbCarPad;
+        private System.Windows.Forms.CheckBox cb_padLeft;
     }
 }

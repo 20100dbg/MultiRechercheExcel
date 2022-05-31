@@ -7,9 +7,9 @@ namespace MultiRechercheExcel
     public static class Settings
     {
         private static string fichierConfig = "MultiRechercheExcel.config.txt";
-        public static string dateVersion = "29/05/2022";
-        public static string version = "0.0.3";
-
+        public static string dateVersion = "31/05/2022";
+        public static string version = "0.0.4";
+        public static string savefilename = "";
 
         public static bool ReadConfigFile()
         {
@@ -54,7 +54,7 @@ namespace MultiRechercheExcel
                                 TypeActionFichier = (TypeActionFichier)int.Parse(invalues[0]),
                                 IdxSrc = int.Parse(invalues[1]),
                                 IdxDst = int.Parse(invalues[2]),
-                                ModifChaine = new ParamRecherche
+                                TransChaine = new TransformationChaine
                                 {
                                     ModeCasse = (ModeCasse)int.Parse(invalues[3]),
                                     debutChaine = int.Parse(invalues[4]),
@@ -68,17 +68,17 @@ namespace MultiRechercheExcel
                     }
                     else if (keyValue[0] == "paramValeur")
                     {
-                        DB.prValeur.ModeCasse = (ModeCasse)int.Parse(values[0]);
-                        DB.prValeur.debutChaine = int.Parse(values[1]);
-                        DB.prValeur.longueurChaine = int.Parse(values[2]);
-                        DB.prValeur.finChaine = int.Parse(values[3]);
+                        DB.tcValeur.ModeCasse = (ModeCasse)int.Parse(values[0]);
+                        DB.tcValeur.debutChaine = int.Parse(values[1]);
+                        DB.tcValeur.longueurChaine = int.Parse(values[2]);
+                        DB.tcValeur.finChaine = int.Parse(values[3]);
                     }
                     else if (keyValue[0] == "paramBase")
                     {
-                        DB.prBase.ModeCasse = (ModeCasse)int.Parse(values[0]);
-                        DB.prBase.debutChaine = int.Parse(values[1]);
-                        DB.prBase.longueurChaine = int.Parse(values[2]);
-                        DB.prBase.finChaine = int.Parse(values[3]);
+                        DB.tcBase.ModeCasse = (ModeCasse)int.Parse(values[0]);
+                        DB.tcBase.debutChaine = int.Parse(values[1]);
+                        DB.tcBase.longueurChaine = int.Parse(values[2]);
+                        DB.tcBase.finChaine = int.Parse(values[3]);
                     }
                 }
             }
@@ -109,23 +109,23 @@ namespace MultiRechercheExcel
 
                     sb.Append(";" + (int)af.TypeActionFichier + "|" +
                                 af.IdxSrc + "|" + af.IdxDst + "|" +
-                                (int)af.ModifChaine.ModeCasse + "|" +
-                                af.ModifChaine.debutChaine + "|" +
-                                af.ModifChaine.longueurChaine + "|" +
-                                af.ModifChaine.finChaine);
+                                (int)af.TransChaine.ModeCasse + "|" +
+                                af.TransChaine.debutChaine + "|" +
+                                af.TransChaine.longueurChaine + "|" +
+                                af.TransChaine.finChaine);
                 }
                 sb.Append("\n");
             }
 
-            sb.AppendLine("paramBase=" + (int)DB.prBase.ModeCasse + ";" +
-                                        DB.prBase.debutChaine + ";" +
-                                        DB.prBase.longueurChaine + ";" +
-                                        DB.prBase.finChaine);
+            sb.AppendLine("paramBase=" + (int)DB.tcBase.ModeCasse + ";" +
+                                        DB.tcBase.debutChaine + ";" +
+                                        DB.tcBase.longueurChaine + ";" +
+                                        DB.tcBase.finChaine);
 
-            sb.AppendLine("paramValeur=" + (int)DB.prValeur.ModeCasse + ";" +
-                                        DB.prValeur.debutChaine + ";" +
-                                        DB.prValeur.longueurChaine + ";" +
-                                        DB.prValeur.finChaine);
+            sb.AppendLine("paramValeur=" + (int)DB.tcValeur.ModeCasse + ";" +
+                                        DB.tcValeur.debutChaine + ";" +
+                                        DB.tcValeur.longueurChaine + ";" +
+                                        DB.tcValeur.finChaine);
 
             using (StreamWriter sw = new StreamWriter(Settings.fichierConfig))
             {
