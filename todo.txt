@@ -1,1 +1,1 @@
-tester les profils actions
+- ajout la fusion de colonnes (recherche msisdn dans colonne racine + colonne number)

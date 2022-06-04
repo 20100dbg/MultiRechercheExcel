@@ -63,6 +63,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes.cs" />
+    <Compile Include="ConfigTransformation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigTransformation.Designer.cs">
+      <DependentUpon>ConfigTransformation.cs</DependentUpon>
+    </Compile>
     <Compile Include="GestionProfil.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -90,6 +96,9 @@
       <DependentUpon>SelectionFichier.cs</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
+    <EmbeddedResource Include="ConfigTransformation.resx">
+      <DependentUpon>ConfigTransformation.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GestionProfil.resx">
       <DependentUpon>GestionProfil.cs</DependentUpon>
     </EmbeddedResource>

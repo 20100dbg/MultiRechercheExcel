@@ -75,15 +75,10 @@ namespace MultiRechercheExcel
     public class ParamRecherche
     {
         public static ModeRecherche ModeRecherche = ModeRecherche.Exact;
-     /*
-        public ModeCasse ModeCasse = ModeCasse.Normal;
-        public int debutChaine = 0;
-        public int longueurChaine = 0;
-        public int finChaine = 0;
-     */
+        public static bool RemonterToutesOccurences = true;
     }
 
-    public class TransformationChaine
+    public class TransformationChaine : ICloneable
     {
         public ModeCasse ModeCasse = ModeCasse.Normal;
         
@@ -96,6 +91,28 @@ namespace MultiRechercheExcel
         public bool leftPad = true;
 
         public string valeurDefaut = "";
+        public bool valeurDefautDabord = true;
+
+        public TransformationChaine Clone()
+        {
+            return new TransformationChaine
+            {
+                ModeCasse = this.ModeCasse,
+                debutChaine = this.debutChaine,
+                longueurChaine = this.longueurChaine,
+                finChaine = this.finChaine,
+                carPad = this.carPad,
+                nbCarPad = this.nbCarPad,
+                leftPad = this.leftPad,
+                valeurDefaut = this.valeurDefaut,
+                valeurDefautDabord = this.valeurDefautDabord
+            };
+        }
+        
+        object ICloneable.Clone()
+        {
+            return Clone();
+        }
     }
 
     public class Profil

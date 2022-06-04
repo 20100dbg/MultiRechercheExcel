@@ -6,12 +6,15 @@ namespace MultiRechercheExcel
 {
     public partial class GestionProfil : Form
     {
+        ConfigTransformation fConfigTransformation;
         List<ActionFichier> actions = new List<ActionFichier>();
+        TransformationChaine tc = null;
 
         public GestionProfil()
         {
             InitializeComponent();
-            
+
+            l_transformation.Text = "";
             cb_separateur.Items.Add("Point virgule");
             cb_separateur.Items.Add("Virgule");
             cb_separateur.Items.Add("Espace");
@@ -22,11 +25,8 @@ namespace MultiRechercheExcel
             foreach (TypeActionFichier typeAction in (TypeActionFichier[])Enum.GetValues(typeof(TypeActionFichier)))
                 cb_TypeAction.Items.Add(typeAction);
 
-            foreach (ModeCasse modeCasse in (ModeCasse[])Enum.GetValues(typeof(ModeCasse)))
-                cb_CasseAction.Items.Add(modeCasse);
-
             cb_TypeAction.SelectedIndex = 0;
-            cb_CasseAction.SelectedIndex = 0;
+            
         }
 
         private void ChargerProfils()
@@ -132,10 +132,10 @@ namespace MultiRechercheExcel
                 if (typeActionFichier == TypeActionFichier.TransformerColonne ||
                     typeActionFichier == TypeActionFichier.TransformerFichier)
                 {
-                    groupBox3.Visible = true;
+                    b_configurerTexte.Visible = true;
                 }
                 else
-                    groupBox3.Visible = false;
+                    b_configurerTexte.Visible = false;
             }
         }
 
@@ -175,25 +175,16 @@ namespace MultiRechercheExcel
         {
             ActionFichier af = new ActionFichier
             {
-                TypeActionFichier = (TypeActionFichier)cb_TypeAction.SelectedItem,
-                IdxSrc = (int)num_Source.Value,
-                IdxDst = (int)num_Destination.Value,
-                TransChaine = new TransformationChaine
-                {
-                    ModeCasse = (ModeCasse)cb_CasseAction.SelectedItem,
-                    debutChaine = (int)num_DebutAction.Value,
-                    longueurChaine = (int)num_LongueurAction.Value,
-                    finChaine = (int)num_FinAction.Value
-                }
+                TransChaine = tc
             };
-
+            
             actions.Add(af);
             lv_actions.Items.Add(new ListViewItem(new String[] {
                 af.TypeActionFichier.ToString(),
                 af.IdxSrc.ToString(),
                 af.IdxDst.ToString(),
                 ""
-                }));
+            }));
         }
 
         private void b_SauvegarderAction_Click(object sender, EventArgs e)
@@ -218,6 +209,14 @@ namespace MultiRechercheExcel
         private void b_fermer_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void tb_configurerTexte_Click(object sender, EventArgs e)
+        {
+            fConfigTransformation = new ConfigTransformation(null);
+            fConfigTransformation.ShowDialog();
+
+            l_transformation.Text = "";
         }
     }
 }

@@ -14,6 +14,7 @@ namespace MultiRechercheExcel
         ParametresRecherche fParametresRecherche;
 
         StringBuilder sbLog = new StringBuilder();
+        int nbResultat;
 
         public Recherche()
         {
@@ -23,10 +24,12 @@ namespace MultiRechercheExcel
             DB.tcBase = new TransformationChaine();
             DB.tcValeur = new TransformationChaine();
 
+
             for (int i = 0; i < DB.profilsAction.Count; i++)
                 cb_ProfilAction.Items.Add(DB.profilsAction[i].Nom);
 
             Log("Lecture fichier de config " + Settings.ReadConfigFile());
+            ParamRecherche.RemonterToutesOccurences = true;
         }
 
         private void b_ajouterFichierValeurs_Click(object sender, EventArgs e)
@@ -271,33 +274,42 @@ namespace MultiRechercheExcel
             {
                 string val = TransformerValeur(tabTB[i], DB.tcBase);
 
-                int idx = DB.valeurs.FindIndex((x) => { return ComparaisonValeurs(x.ValeurTransforme, val, DB.ParamRecherche); });
+                int idx = DB.valeurs.FindIndex((x) => { return ComparaisonValeurs(x.ValeurTransforme, val); });
                 if (idx > -1)
                 {
                     DB.valeurs[idx].FichierBase = "entrée manuelle";
                     DB.valeurs[idx].Trouve = true;
+
+                    if (!ParamRecherche.RemonterToutesOccurences)
+                        break;
                 }
             }
 
             for (int i = 0; i < DB.fichiersBases.Count; i++)
             {
+                int idx = 0;
+
                 if (DB.fichiersBases[i].Chemin.EndsWith(".xlsx"))
                 {
                     foreach (Valeur v in LireValeursXLSX(DB.fichiersBases[i].Chemin, DB.fichiersBases[i].IdxProfil))
                     {
-                        int idx = DB.valeurs.FindIndex((x) =>
+                        if (idx == 0 || ParamRecherche.RemonterToutesOccurences)
                         {
-                            string val = TransformerValeur(v.ValeurOrigine, DB.tcBase);
+                            idx = DB.valeurs.FindIndex(idx, (x) =>
+                            {
+                                string val = TransformerValeur(v.ValeurOrigine, DB.tcBase);
 
-                            return x.FichierValeur != DB.fichiersBases[i].Chemin &&
-                                ComparaisonValeurs(x.ValeurTransforme, val, DB.ParamRecherche);
-                        });
+                                return x.FichierValeur != DB.fichiersBases[i].Chemin &&
+                                    ComparaisonValeurs(x.ValeurTransforme, val);
+                            });
 
-                        if (idx > -1)
-                        {
-                            DB.valeurs[idx].Colonnes.AddRange(v.Colonnes);
-                            DB.valeurs[idx].FichierBase = Path.GetFileName(DB.fichiersBases[i].Chemin);
-                            DB.valeurs[idx].Trouve = true;
+                            if (idx > -1)
+                            {
+                                DB.valeurs[idx].Colonnes.AddRange(v.Colonnes);
+                                DB.valeurs[idx].FichierBase = Path.GetFileName(DB.fichiersBases[i].Chemin);
+                                DB.valeurs[idx].Trouve = true;
+                            }
+                            else idx = 0;
                         }
                     }
                 }
@@ -305,19 +317,23 @@ namespace MultiRechercheExcel
                 {
                     foreach (Valeur v in LireValeursCSV(DB.fichiersBases[i].Chemin, DB.fichiersBases[i].IdxProfil))
                     {
-                        int idx = DB.valeurs.FindIndex((x) =>
+                        if (idx == 0 || ParamRecherche.RemonterToutesOccurences)
                         {
-                            string val = TransformerValeur(v.ValeurOrigine, DB.tcBase);
+                            idx = DB.valeurs.FindIndex(idx, (x) =>
+                            {
+                                string val = TransformerValeur(v.ValeurOrigine, DB.tcBase);
 
-                            return x.FichierValeur != DB.fichiersBases[i].Chemin &&
-                                ComparaisonValeurs(x.ValeurTransforme, val, DB.ParamRecherche);
-                        });
-                        
-                        if (idx > -1)
-                        {
-                            DB.valeurs[idx].Colonnes.AddRange(v.Colonnes);
-                            DB.valeurs[idx].FichierBase = Path.GetFileName(DB.fichiersBases[i].Chemin);
-                            DB.valeurs[idx].Trouve = true;
+                                return x.FichierValeur != DB.fichiersBases[i].Chemin &&
+                                    ComparaisonValeurs(x.ValeurTransforme, val);
+                            });
+
+                            if (idx > -1)
+                            {
+                                DB.valeurs[idx].Colonnes.AddRange(v.Colonnes);
+                                DB.valeurs[idx].FichierBase = Path.GetFileName(DB.fichiersBases[i].Chemin);
+                                DB.valeurs[idx].Trouve = true;
+                            }
+                            else idx = 0;
                         }
                     }
                 }
@@ -368,41 +384,36 @@ namespace MultiRechercheExcel
             }
         }
 
-        private string TransformerValeur(string v, TransformationChaine tc)
+        public static string TransformerValeur(string v, TransformationChaine tc)
         {
+            if (tc.valeurDefautDabord && v == "") v = tc.valeurDefaut;
+
             if (tc.ModeCasse == ModeCasse.Lower)
                 v = v.ToLower();
             else if (tc.ModeCasse == ModeCasse.Upper)
                 v = v.ToUpper();
 
-            //est ce que la chaine doit etre tronquée
+            int debut = tc.debutChaine;
+            int longueur = tc.longueurChaine;
+            int fin = tc.finChaine;
 
-            if (tc.debutChaine > 0)
+            if (fin > 0)
             {
-                int longueur = tc.longueurChaine;
-                int debut = tc.debutChaine;
-
-                if (debut > 0) debut -= 1;
-                else debut = 0;
-
-                if (longueur == 0) longueur = v.Length - 1 - debut;
-                
-                if (v.Length > debut + longueur)
-                    v = v.Substring(debut, longueur);
-
-            }
-            else if (tc.finChaine > 0)
-            {
-                int longueur = tc.longueurChaine;
-                int fin = tc.finChaine;
-                
-                if (fin < v.Length - 1)
+                if (fin < v.Length)
                 {
-                    int debut = v.Length - fin;
+                    debut = v.Length - fin;
                     if (longueur == 0) longueur = v.Length - debut;
-                    v = v.Substring(debut, longueur);
                 }
             }
+            else
+            {
+                if (debut > 0 && debut < v.Length) debut -= 1;
+                else debut = 0;
+                if (longueur == 0) longueur = v.Length;
+            }
+
+            if (v.Length > debut + longueur)
+                v = v.Substring(debut, longueur);
 
             if (tc.nbCarPad > 0 && tc.carPad != "")
             {
@@ -410,18 +421,13 @@ namespace MultiRechercheExcel
                 else v = v.PadRight(tc.nbCarPad, tc.carPad[0]);
             }
 
-            if (v == "") v = tc.valeurDefaut;
+            if (!tc.valeurDefautDabord && v == "") v = tc.valeurDefaut;
 
             return v;
         }
 
-        private bool ComparaisonValeurs(string v1, string v2, ParamRecherche pr)
+        private bool ComparaisonValeurs(string v1, string v2)
         {
-            //v1 = valeur, déjà transformé
-            //v2 = base, à transformer ici si besoin
-
-            
-
             if (ParamRecherche.ModeRecherche == ModeRecherche.Exact)
                 return v1 == v2;
             else if (ParamRecherche.ModeRecherche == ModeRecherche.BaseContientValeur)
@@ -449,9 +455,6 @@ namespace MultiRechercheExcel
             Settings.savefilename = DateTime.Now.ToString("yyyyMMdd_HHmmss") + "_result.csv";
 
             backgroundWorker1.RunWorkerAsync();
-
-            l_filename.Text = Settings.savefilename + " sauvegardé";
-            System.Diagnostics.Process.Start(Application.StartupPath + "\\" + Settings.savefilename);
         }
 
         private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
@@ -468,7 +471,7 @@ namespace MultiRechercheExcel
             Sauvegarde();
             
 
-            int nbResultat = DB.valeurs.FindAll((x) => { return x.Trouve == true; }).Count;
+            nbResultat = DB.valeurs.FindAll((x) => { return x.Trouve == true; }).Count;
             Log(nbResultat + " résultats");
 
             MessageBox.Show(nbResultat + " résultats");
@@ -482,6 +485,11 @@ namespace MultiRechercheExcel
         private void backgroundWorker1_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
             progressBar1.Value = 100;
+
+            l_filename.Text = Settings.savefilename + " sauvegardé";
+            
+            if (nbResultat > 0)
+                System.Diagnostics.Process.Start(Application.StartupPath + "\\" + Settings.savefilename);
         }
 
         private void b_ViderFichiersValeurs_Click(object sender, EventArgs e)

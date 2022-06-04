@@ -52,7 +52,7 @@
             // 
             this.cb_profilFichier.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_profilFichier.FormattingEnabled = true;
-            this.cb_profilFichier.Location = new System.Drawing.Point(257, 36);
+            this.cb_profilFichier.Location = new System.Drawing.Point(307, 32);
             this.cb_profilFichier.Name = "cb_profilFichier";
             this.cb_profilFichier.Size = new System.Drawing.Size(121, 21);
             this.cb_profilFichier.TabIndex = 14;
@@ -68,7 +68,7 @@
             // 
             // b_annulerAjout
             // 
-            this.b_annulerAjout.Location = new System.Drawing.Point(202, 106);
+            this.b_annulerAjout.Location = new System.Drawing.Point(236, 112);
             this.b_annulerAjout.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.b_annulerAjout.Name = "b_annulerAjout";
             this.b_annulerAjout.Size = new System.Drawing.Size(74, 23);
@@ -79,7 +79,7 @@
             // 
             // b_ajouter
             // 
-            this.b_ajouter.Location = new System.Drawing.Point(98, 105);
+            this.b_ajouter.Location = new System.Drawing.Point(132, 111);
             this.b_ajouter.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.b_ajouter.Name = "b_ajouter";
             this.b_ajouter.Size = new System.Drawing.Size(74, 23);
@@ -93,9 +93,9 @@
             this.panel1.AllowDrop = true;
             this.panel1.Controls.Add(this.b_choisirFichier);
             this.panel1.Controls.Add(this.l_nomFichier);
-            this.panel1.Location = new System.Drawing.Point(12, 12);
+            this.panel1.Location = new System.Drawing.Point(3, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(225, 72);
+            this.panel1.Size = new System.Drawing.Size(298, 101);
             this.panel1.TabIndex = 18;
             this.panel1.DragDrop += new System.Windows.Forms.DragEventHandler(this.panel1_DragDrop);
             this.panel1.DragOver += new System.Windows.Forms.DragEventHandler(this.panel1_DragOver);
@@ -104,7 +104,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(385, 140);
+            this.ClientSize = new System.Drawing.Size(440, 140);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.b_ajouter);
             this.Controls.Add(this.b_annulerAjout);

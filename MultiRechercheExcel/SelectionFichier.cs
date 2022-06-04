@@ -7,7 +7,7 @@ namespace MultiRechercheExcel
 {
     public partial class SelectionFichier : Form
     {
-        public bool cancelled = false;
+        public bool cancelled = true;
         public string filepath = "";
         public int idxProfil = -1;
 
@@ -15,6 +15,8 @@ namespace MultiRechercheExcel
         {
             InitializeComponent();
             ChargerProfils();
+
+            l_nomFichier.Text = "Sélectionner/faire glisser un fichier";
         }
 
         private void ChargerProfils()
@@ -62,12 +64,12 @@ namespace MultiRechercheExcel
 
         private void b_ajouter_Click(object sender, EventArgs e)
         {
+            cancelled = false;
             Close();
         }
 
         private void b_annulerAjout_Click(object sender, EventArgs e)
         {
-            cancelled = true;
             Close();
         }
 
@@ -87,15 +89,16 @@ namespace MultiRechercheExcel
             ChargerFichier(filename);
         }
 
-        private String DetectFileProfil(String filename)
+        private String DetectFileProfil(String filepath)
         {
-            StreamReader sr = new StreamReader(filename);
+            StreamReader sr = new StreamReader(filepath);
             String firstLine = sr.ReadLine();
             sr.Close();
 
             if (firstLine.StartsWith("# MONITORING FILE")) return "SPAER";
             else if (firstLine.StartsWith("#Fichier:")) return "DEMETER";
             else if (firstLine.StartsWith("Analysis Report")) return "NETHAWK";
+            else if (Path.GetFileName(filepath) == "export_annuaire_eltecs_reference.csv") return "Etincel";
             else
             {
                 Regex rgx = new Regex("^[0-9]+$");
