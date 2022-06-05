@@ -60,7 +60,7 @@
             // 
             // b_tester
             // 
-            this.b_tester.Location = new System.Drawing.Point(295, 245);
+            this.b_tester.Location = new System.Drawing.Point(295, 205);
             this.b_tester.Name = "b_tester";
             this.b_tester.Size = new System.Drawing.Size(75, 20);
             this.b_tester.TabIndex = 109;
@@ -70,7 +70,7 @@
             // 
             // tb_testEntree
             // 
-            this.tb_testEntree.Location = new System.Drawing.Point(152, 245);
+            this.tb_testEntree.Location = new System.Drawing.Point(152, 205);
             this.tb_testEntree.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tb_testEntree.Name = "tb_testEntree";
             this.tb_testEntree.Size = new System.Drawing.Size(132, 20);
@@ -79,7 +79,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 220);
+            this.label1.Location = new System.Drawing.Point(14, 180);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(110, 13);
             this.label1.TabIndex = 107;
@@ -88,7 +88,7 @@
             // cb_padLeft
             // 
             this.cb_padLeft.AutoSize = true;
-            this.cb_padLeft.Location = new System.Drawing.Point(316, 165);
+            this.cb_padLeft.Location = new System.Drawing.Point(316, 132);
             this.cb_padLeft.Name = "cb_padLeft";
             this.cb_padLeft.Size = new System.Drawing.Size(109, 17);
             this.cb_padLeft.TabIndex = 106;
@@ -97,14 +97,14 @@
             // 
             // num_nbCarPad
             // 
-            this.num_nbCarPad.Location = new System.Drawing.Point(240, 163);
+            this.num_nbCarPad.Location = new System.Drawing.Point(240, 130);
             this.num_nbCarPad.Name = "num_nbCarPad";
             this.num_nbCarPad.Size = new System.Drawing.Size(44, 20);
             this.num_nbCarPad.TabIndex = 105;
             // 
             // tb_carPad
             // 
-            this.tb_carPad.Location = new System.Drawing.Point(152, 163);
+            this.tb_carPad.Location = new System.Drawing.Point(152, 130);
             this.tb_carPad.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tb_carPad.Name = "tb_carPad";
             this.tb_carPad.Size = new System.Drawing.Size(28, 20);
@@ -113,7 +113,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(19, 166);
+            this.label17.Location = new System.Drawing.Point(19, 133);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(67, 13);
             this.label17.TabIndex = 103;
@@ -121,20 +121,22 @@
             // 
             // tb_valeurDefaut
             // 
-            this.tb_valeurDefaut.Location = new System.Drawing.Point(152, 126);
+            this.tb_valeurDefaut.Location = new System.Drawing.Point(152, 104);
             this.tb_valeurDefaut.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tb_valeurDefaut.Name = "tb_valeurDefaut";
             this.tb_valeurDefaut.Size = new System.Drawing.Size(132, 20);
             this.tb_valeurDefaut.TabIndex = 102;
+            this.tb_valeurDefaut.Visible = false;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(19, 129);
+            this.label10.Location = new System.Drawing.Point(19, 107);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(88, 13);
             this.label10.TabIndex = 101;
             this.label10.Text = "Valeur par défaut";
+            this.label10.Visible = false;
             // 
             // cb_CasseAction
             // 
@@ -214,7 +216,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(200, 166);
+            this.label2.Location = new System.Drawing.Point(200, 133);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(39, 13);
             this.label2.TabIndex = 110;
@@ -223,7 +225,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(69, 279);
+            this.label3.Location = new System.Drawing.Point(69, 239);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(46, 13);
             this.label3.TabIndex = 111;
@@ -232,7 +234,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(69, 248);
+            this.label4.Location = new System.Drawing.Point(69, 208);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(78, 13);
             this.label4.TabIndex = 112;
@@ -240,7 +242,7 @@
             // 
             // tb_testResultat
             // 
-            this.tb_testResultat.Location = new System.Drawing.Point(152, 276);
+            this.tb_testResultat.Location = new System.Drawing.Point(152, 236);
             this.tb_testResultat.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tb_testResultat.Name = "tb_testResultat";
             this.tb_testResultat.Size = new System.Drawing.Size(132, 20);
@@ -248,7 +250,7 @@
             // 
             // b_valider
             // 
-            this.b_valider.Location = new System.Drawing.Point(295, 329);
+            this.b_valider.Location = new System.Drawing.Point(295, 289);
             this.b_valider.Name = "b_valider";
             this.b_valider.Size = new System.Drawing.Size(99, 31);
             this.b_valider.TabIndex = 114;
@@ -259,18 +261,19 @@
             // cb_valeurDefautDabord
             // 
             this.cb_valeurDefautDabord.AutoSize = true;
-            this.cb_valeurDefautDabord.Location = new System.Drawing.Point(316, 125);
+            this.cb_valeurDefautDabord.Location = new System.Drawing.Point(316, 103);
             this.cb_valeurDefautDabord.Name = "cb_valeurDefautDabord";
             this.cb_valeurDefautDabord.Size = new System.Drawing.Size(110, 17);
             this.cb_valeurDefautDabord.TabIndex = 115;
             this.cb_valeurDefautDabord.Text = "Vérifier en premier";
             this.cb_valeurDefautDabord.UseVisualStyleBackColor = true;
+            this.cb_valeurDefautDabord.Visible = false;
             // 
             // ConfigTransformation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(437, 372);
+            this.ClientSize = new System.Drawing.Size(437, 336);
             this.Controls.Add(this.cb_valeurDefautDabord);
             this.Controls.Add(this.b_valider);
             this.Controls.Add(this.tb_testResultat);

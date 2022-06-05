@@ -90,8 +90,10 @@ namespace MultiRechercheExcel
         public int nbCarPad = 0;
         public bool leftPad = true;
 
+        /*
         public string valeurDefaut = "";
         public bool valeurDefautDabord = true;
+        */
 
         public TransformationChaine Clone()
         {
@@ -104,8 +106,10 @@ namespace MultiRechercheExcel
                 carPad = this.carPad,
                 nbCarPad = this.nbCarPad,
                 leftPad = this.leftPad,
+                /*
                 valeurDefaut = this.valeurDefaut,
                 valeurDefautDabord = this.valeurDefautDabord
+                */
             };
         }
         

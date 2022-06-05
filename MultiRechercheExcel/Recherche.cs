@@ -31,56 +31,8 @@ namespace MultiRechercheExcel
             Log("Lecture fichier de config " + Settings.ReadConfigFile());
             ParamRecherche.RemonterToutesOccurences = true;
         }
-
-        private void b_ajouterFichierValeurs_Click(object sender, EventArgs e)
-        {
-            fSelectionFichier = new SelectionFichier();
-            fSelectionFichier.ShowDialog();
-
-            if (!fSelectionFichier.cancelled)
-            {
-                Fichier f = new Fichier
-                {
-                    Chemin = fSelectionFichier.filepath,
-                    IdxProfil = fSelectionFichier.idxProfil
-                };
-
-                DB.fichiersValeurs.Add(f);
-
-                lv_valeurs.Items.Add(new ListViewItem(new String[] {
-                    Path.GetFileName(f.Chemin),
-                    DB.profilsRecherche[f.IdxProfil].Nom
-                }));
-
-                Log("Ajout fichier valeur " + f.Chemin);
-            }
-        }
-
-        private void b_ajouterFichierBase_Click(object sender, EventArgs e)
-        {
-            fSelectionFichier = new SelectionFichier();
-            fSelectionFichier.ShowDialog();
-
-            if (!fSelectionFichier.cancelled)
-            {
-                Fichier f = new Fichier
-                {
-                    Chemin = fSelectionFichier.filepath,
-                    IdxProfil = fSelectionFichier.idxProfil
-                };
-
-                DB.fichiersBases.Add(f);
-
-                lv_bases.Items.Add(new ListViewItem(new String[] {
-                    Path.GetFileName(f.Chemin),
-                    DB.profilsRecherche[f.IdxProfil].Nom
-                }));
-
-                Log("Ajout fichier base " + f.Chemin);
-            }
-        }
-
-        private IEnumerable<Valeur> LireValeursXLSX(string filepath, int idxProfil)
+        
+        private IEnumerable<Valeur> LireValeursXLSX(string filepath, Profil p)
         {
             string filename = Path.GetFileName(filepath);
 
@@ -91,7 +43,6 @@ namespace MultiRechercheExcel
                 var totalRows = myWorksheet.Dimension.End.Row;
                 var totalCols = myWorksheet.Dimension.End.Column;
 
-                Profil p = DB.profilsRecherche[idxProfil];
                 bool colDone = false;
 
                 for (int row = 1; row <= totalRows; row++)
@@ -143,9 +94,8 @@ namespace MultiRechercheExcel
             }
         }
 
-        private IEnumerable<Valeur> LireValeursCSV(string filepath, int idxProfil)
+        private IEnumerable<Valeur> LireValeursCSV(string filepath, Profil p)
         {
-            Profil p = DB.profilsRecherche[idxProfil];
             string filename = Path.GetFileName(filepath);
 
             StreamReader sr = new StreamReader(filepath);
@@ -210,18 +160,9 @@ namespace MultiRechercheExcel
             }
         }
 
-        private bool InArray(int x, int[] tab)
-        {
-            for (int i = 0; i < tab.Length; i++)
-            {
-                if (tab[i] == x) return true;
-            }
-            return false;
-        }
-
         private void CollecterValeurs()
         {
-            string[] tabTB = tb_valeursRecherche.Text.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] tabTB = tb_valeursRecherche.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
 
             for (int i = 0; i < tabTB.Length; i++)
             {
@@ -241,26 +182,34 @@ namespace MultiRechercheExcel
 
             for (int i = 0; i < DB.fichiersValeurs.Count; i++)
             {
+                Profil p = DB.profilsRecherche[DB.fichiersValeurs[i].IdxProfil];
+                
                 if (DB.fichiersValeurs[i].Chemin.EndsWith(".xlsx"))
                 {
-                    foreach (Valeur v in LireValeursXLSX(DB.fichiersValeurs[i].Chemin, DB.fichiersValeurs[i].IdxProfil))
+                    foreach (Valeur v in LireValeursXLSX(DB.fichiersValeurs[i].Chemin, p))
                     {
-                        string valOrigine = v.ValeurOrigine;
-                        string valTransforme = TransformerValeur(valOrigine, DB.tcValeur);
-                        v.ValeurTransforme = valTransforme;
+                        if (v.ValeurOrigine != "")
+                        {
+                            string valOrigine = v.ValeurOrigine;
+                            string valTransforme = TransformerValeur(valOrigine, DB.tcValeur);
+                            v.ValeurTransforme = valTransforme;
 
-                        DB.valeurs.Add(v);
+                            DB.valeurs.Add(v);
+                        }
                     }
                 }
                 else
                 {
-                    foreach (Valeur v in LireValeursCSV(DB.fichiersValeurs[i].Chemin, DB.fichiersValeurs[i].IdxProfil))
+                    foreach (Valeur v in LireValeursCSV(DB.fichiersValeurs[i].Chemin, p))
                     {
-                        string valOrigine = v.ValeurOrigine;
-                        string valTransforme = TransformerValeur(valOrigine, DB.tcValeur);
-                        v.ValeurTransforme = valTransforme;
+                        if (v.ValeurOrigine != "")
+                        {
+                            string valOrigine = v.ValeurOrigine;
+                            string valTransforme = TransformerValeur(valOrigine, DB.tcValeur);
+                            v.ValeurTransforme = valTransforme;
 
-                        DB.valeurs.Add(v);
+                            DB.valeurs.Add(v);
+                        }
                     }
                 }
             }
@@ -268,7 +217,7 @@ namespace MultiRechercheExcel
 
         private void ParcourirFichiers()
         {
-            string[] tabTB = tb_valeursBase.Text.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] tabTB = tb_valeursBase.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
 
             for (int i = 0; i < tabTB.Length; i++)
             {
@@ -289,9 +238,11 @@ namespace MultiRechercheExcel
             {
                 int idx = 0;
 
+                Profil p = DB.profilsRecherche[DB.fichiersBases[i].IdxProfil];
+
                 if (DB.fichiersBases[i].Chemin.EndsWith(".xlsx"))
                 {
-                    foreach (Valeur v in LireValeursXLSX(DB.fichiersBases[i].Chemin, DB.fichiersBases[i].IdxProfil))
+                    foreach (Valeur v in LireValeursXLSX(DB.fichiersBases[i].Chemin, p))
                     {
                         if (idx == 0 || ParamRecherche.RemonterToutesOccurences)
                         {
@@ -313,9 +264,9 @@ namespace MultiRechercheExcel
                         }
                     }
                 }
-                else if (DB.fichiersBases[i].Chemin.EndsWith(".csv"))
+                else// if (DB.fichiersBases[i].Chemin.EndsWith(".csv"))
                 {
-                    foreach (Valeur v in LireValeursCSV(DB.fichiersBases[i].Chemin, DB.fichiersBases[i].IdxProfil))
+                    foreach (Valeur v in LireValeursCSV(DB.fichiersBases[i].Chemin, p))
                     {
                         if (idx == 0 || ParamRecherche.RemonterToutesOccurences)
                         {
@@ -386,7 +337,7 @@ namespace MultiRechercheExcel
 
         public static string TransformerValeur(string v, TransformationChaine tc)
         {
-            if (tc.valeurDefautDabord && v == "") v = tc.valeurDefaut;
+            //if (tc.valeurDefautDabord && v == "") v = tc.valeurDefaut;
 
             if (tc.ModeCasse == ModeCasse.Lower)
                 v = v.ToLower();
@@ -421,7 +372,7 @@ namespace MultiRechercheExcel
                 else v = v.PadRight(tc.nbCarPad, tc.carPad[0]);
             }
 
-            if (!tc.valeurDefautDabord && v == "") v = tc.valeurDefaut;
+            //if (!tc.valeurDefautDabord && v == "") v = tc.valeurDefaut;
 
             return v;
         }
@@ -445,7 +396,7 @@ namespace MultiRechercheExcel
 
             return false;
         }
-
+        
         private void b_recherche_Click(object sender, EventArgs e)
         {
             //vider les listes
@@ -467,14 +418,12 @@ namespace MultiRechercheExcel
             ParcourirFichiers();
             Log("Parcours des fichiers bases");
 
-            //sauvegarde des résultats
-            Sauvegarde();
-            
-
             nbResultat = DB.valeurs.FindAll((x) => { return x.Trouve == true; }).Count;
             Log(nbResultat + " résultats");
 
-            MessageBox.Show(nbResultat + " résultats");
+            //sauvegarde des résultats
+            if (nbResultat > 0)
+                Sauvegarde();
         }
 
         private void backgroundWorker1_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
@@ -486,50 +435,11 @@ namespace MultiRechercheExcel
         {
             progressBar1.Value = 100;
 
+            MessageBox.Show(nbResultat + " résultats");
             l_filename.Text = Settings.savefilename + " sauvegardé";
             
             if (nbResultat > 0)
                 System.Diagnostics.Process.Start(Application.StartupPath + "\\" + Settings.savefilename);
-        }
-
-        private void b_ViderFichiersValeurs_Click(object sender, EventArgs e)
-        {
-            lv_valeurs.Clear();
-            DB.fichiersValeurs.Clear();
-        }
-
-        private void b_ViderFichiersBases_Click(object sender, EventArgs e)
-        {
-            lv_bases.Clear();
-            DB.fichiersBases.Clear();
-        }
-
-        private void gestionDesProfilsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (fGestionProfil == null || !fGestionProfil.CanFocus)
-            {
-                fGestionProfil = new GestionProfil();
-                fGestionProfil.Show();
-            }
-            else if (fGestionProfil.CanFocus) fGestionProfil.Focus();
-        }
-
-        private void paramétrageRechercheToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (fParametresRecherche == null || !fParametresRecherche.CanFocus)
-            {
-                fParametresRecherche = new ParametresRecherche();
-                fParametresRecherche.Show();
-            }
-            else if (fParametresRecherche.CanFocus) fParametresRecherche.Focus();
-        }
-
-        private void aProposToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Concocté par Marty sur une idée de Kevin" + Environment.NewLine +
-                "Contact : vincent.marie@intradef.gouv.fr" + Environment.NewLine +
-                Environment.NewLine +
-                "Version " + Settings.version + " du " + Settings.dateVersion + Environment.NewLine);
         }
 
         private void Log(string s)
@@ -537,8 +447,7 @@ namespace MultiRechercheExcel
             sbLog.AppendLine(DateTime.Now.ToString("yyyyMMdd_HHmmss") + " : " + s);
         }
 
-        
-
+        #region Transformation
         private void TransformerFichier(string filepath, ProfilAction pa)
         {
             using (ExcelPackage xlPackage = new ExcelPackage(new FileInfo(filepath)))
@@ -648,6 +557,96 @@ namespace MultiRechercheExcel
                 }
             }
         }
+        #endregion
+
+        #region fonctions interface
+        private void b_ajouterFichierValeurs_Click(object sender, EventArgs e)
+        {
+            fSelectionFichier = new SelectionFichier();
+            fSelectionFichier.ShowDialog();
+
+            if (!fSelectionFichier.cancelled)
+            {
+                Fichier f = new Fichier
+                {
+                    Chemin = fSelectionFichier.filepath,
+                    IdxProfil = fSelectionFichier.idxProfil
+                };
+
+                DB.fichiersValeurs.Add(f);
+
+                lv_valeurs.Items.Add(new ListViewItem(new String[] {
+                    Path.GetFileName(f.Chemin),
+                    DB.profilsRecherche[f.IdxProfil].Nom
+                }));
+
+                Log("Ajout fichier valeur " + f.Chemin);
+            }
+        }
+
+        private void b_ajouterFichierBase_Click(object sender, EventArgs e)
+        {
+            fSelectionFichier = new SelectionFichier();
+            fSelectionFichier.ShowDialog();
+
+            if (!fSelectionFichier.cancelled)
+            {
+                Fichier f = new Fichier
+                {
+                    Chemin = fSelectionFichier.filepath,
+                    IdxProfil = fSelectionFichier.idxProfil
+                };
+
+                DB.fichiersBases.Add(f);
+
+                lv_bases.Items.Add(new ListViewItem(new String[] {
+                    Path.GetFileName(f.Chemin),
+                    DB.profilsRecherche[f.IdxProfil].Nom
+                }));
+
+                Log("Ajout fichier base " + f.Chemin);
+            }
+        }
+
+        private void b_ViderFichiersValeurs_Click(object sender, EventArgs e)
+        {
+            lv_valeurs.Items.Clear();
+            DB.fichiersValeurs.Clear();
+        }
+
+        private void b_ViderFichiersBases_Click(object sender, EventArgs e)
+        {
+            lv_bases.Items.Clear();
+            DB.fichiersBases.Clear();
+        }
+
+        private void gestionDesProfilsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (fGestionProfil == null || !fGestionProfil.CanFocus)
+            {
+                fGestionProfil = new GestionProfil();
+                fGestionProfil.Show();
+            }
+            else if (fGestionProfil.CanFocus) fGestionProfil.Focus();
+        }
+
+        private void paramétrageRechercheToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (fParametresRecherche == null || !fParametresRecherche.CanFocus)
+            {
+                fParametresRecherche = new ParametresRecherche();
+                fParametresRecherche.Show();
+            }
+            else if (fParametresRecherche.CanFocus) fParametresRecherche.Focus();
+        }
+
+        private void aProposToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Concocté par Marty sur une idée de Kevin" + Environment.NewLine +
+                "Contact : vincent.marie@intradef.gouv.fr" + Environment.NewLine +
+                Environment.NewLine +
+                "Version " + Settings.version + " du " + Settings.dateVersion + Environment.NewLine);
+        }
 
         private void b_ajouterFichierTransformation_Click(object sender, EventArgs e)
         {
@@ -680,27 +679,7 @@ namespace MultiRechercheExcel
                 TransformerFichier(f.Chemin, pa);
             }
         }
+        #endregion
 
-
-        private void TestAction()
-        {
-            string filepath = "test.xlsx";
-            ProfilAction pa = new ProfilAction
-            {
-                Actions = new List<ActionFichier>() {
-                    new ActionFichier { TypeActionFichier = TypeActionFichier.AjouterColonne, IdxDst = 1 },
-                    new ActionFichier { TypeActionFichier = TypeActionFichier.DupliquerColonne, IdxSrc = 2, IdxDst = 3 },
-                    new ActionFichier { TypeActionFichier = TypeActionFichier.TransformerColonne, IdxDst = 4,
-                        ModifChaine = new ParamRecherche
-                            {
-                             //   ModeCasse = ModeCasse.Upper,
-                             //   longueurChaine = 5
-                            },
-                        }
-                }
-            };
-
-            TransformerFichier(filepath, pa);
-        }
     }
 }

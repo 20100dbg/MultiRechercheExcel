@@ -7,7 +7,7 @@ namespace MultiRechercheExcel
     public static class Settings
     {
         private static string fichierConfig = "MultiRechercheExcel.config.txt";
-        public static string dateVersion = "04/06/2022";
+        public static string dateVersion = "05/06/2022";
         public static string version = "0.0.5";
         public static string savefilename = "";
 
@@ -63,8 +63,10 @@ namespace MultiRechercheExcel
                                     carPad = invalues[7],
                                     nbCarPad = int.Parse(invalues[8]),
                                     leftPad = (invalues[9].ToLower() == "true"),
+                                    /*
                                     valeurDefaut = invalues[10],
                                     valeurDefautDabord = (invalues[11].ToLower() == "true")
+                                    */
                                 }
                             });
                         }
@@ -80,8 +82,10 @@ namespace MultiRechercheExcel
                         DB.tcValeur.carPad = values[4];
                         DB.tcValeur.nbCarPad = int.Parse(values[5]);
                         DB.tcValeur.leftPad = (values[6].ToLower() == "true");
+                        /*
                         DB.tcValeur.valeurDefaut = values[7];
                         DB.tcValeur.valeurDefautDabord = (values[8].ToLower() == "true");
+                        */
                     }
                     else if (keyValue[0] == "paramBase")
                     {
@@ -92,8 +96,10 @@ namespace MultiRechercheExcel
                         DB.tcBase.carPad = values[4];
                         DB.tcBase.nbCarPad = int.Parse(values[5]);
                         DB.tcBase.leftPad = (values[6].ToLower() == "true");
+                        /*
                         DB.tcBase.valeurDefaut = values[7];
                         DB.tcBase.valeurDefautDabord = (values[8].ToLower() == "true");
+                        */
                     }
                 }
             }
@@ -130,9 +136,11 @@ namespace MultiRechercheExcel
                                 af.TransChaine.finChaine + "|" +
                                 af.TransChaine.carPad + "|" +
                                 af.TransChaine.nbCarPad + "|" +
-                                af.TransChaine.leftPad + "|" +
+                                af.TransChaine.leftPad);
+                                /*
                                 af.TransChaine.valeurDefaut + "|" +
                                 af.TransChaine.valeurDefautDabord);
+                                */
                 }
                 sb.Append("\n");
             }
@@ -143,9 +151,11 @@ namespace MultiRechercheExcel
                                         DB.tcBase.finChaine + ";" +
                                         DB.tcBase.carPad + ";" +
                                         DB.tcBase.nbCarPad + ";" +
-                                        DB.tcBase.leftPad + ";" +
+                                        DB.tcBase.leftPad);
+                                        /*
                                         DB.tcBase.valeurDefaut + ";" +
                                         DB.tcBase.valeurDefautDabord);
+                                        */
 
             sb.AppendLine("paramValeur=" + (int)DB.tcValeur.ModeCasse + ";" +
                                         DB.tcValeur.debutChaine + ";" +
@@ -153,9 +163,12 @@ namespace MultiRechercheExcel
                                         DB.tcValeur.finChaine + ";" +
                                         DB.tcValeur.carPad + ";" +
                                         DB.tcValeur.nbCarPad + ";" +
-                                        DB.tcValeur.leftPad + ";" +
+                                        DB.tcValeur.leftPad);
+                                        /*
                                         DB.tcValeur.valeurDefaut + ";" +
                                         DB.tcValeur.valeurDefautDabord);
+                                        */
+
 
             using (StreamWriter sw = new StreamWriter(Settings.fichierConfig))
             {

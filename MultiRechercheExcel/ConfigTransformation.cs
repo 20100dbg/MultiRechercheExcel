@@ -25,8 +25,10 @@ namespace MultiRechercheExcel
                 num_nbCarPad.Value = tcInit.nbCarPad;
                 tb_carPad.Text = tcInit.carPad;
                 cb_padLeft.Checked = tcInit.leftPad;
+                /*
                 tb_valeurDefaut.Text = tcInit.valeurDefaut;
                 cb_valeurDefautDabord.Checked = tcInit.valeurDefautDabord;
+                */
             }
         }
 
@@ -38,7 +40,10 @@ namespace MultiRechercheExcel
                 debutChaine = (int)num_DebutAction.Value,
                 longueurChaine = (int)num_LongueurAction.Value,
                 finChaine = (int)num_FinAction.Value,
+                /*
                 valeurDefaut = tb_valeurDefaut.Text,
+                valeurDefautDabord = cb_valeurDefautDabord.Checked,
+                */
                 carPad = tb_carPad.Text,
                 nbCarPad = (int)num_nbCarPad.Value,
                 leftPad = cb_padLeft.Checked
