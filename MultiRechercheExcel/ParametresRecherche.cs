@@ -21,6 +21,9 @@ namespace MultiRechercheExcel
             tcValeurs = DB.tcValeur;
             tcBases = DB.tcBase;
 
+            l_tcValeurs.Text = tcValeurs.ToString();
+            l_tcBases.Text = tcBases.ToString();
+
             cb_remonterToutesOccurences.Checked = ParamRecherche.RemonterToutesOccurences;
         }
 
@@ -42,7 +45,11 @@ namespace MultiRechercheExcel
             fConfigTransformation.ShowDialog();
 
             if (!fConfigTransformation.cancelled)
+            {
                 tcValeurs = fConfigTransformation.tc.Clone();
+                l_tcValeurs.Text = tcValeurs.ToString();
+            }
+                
         }
 
         private void b_tcBases_Click(object sender, EventArgs e)
@@ -51,7 +58,10 @@ namespace MultiRechercheExcel
             fConfigTransformation.ShowDialog();
 
             if (!fConfigTransformation.cancelled)
+            {
                 tcBases = fConfigTransformation.tc.Clone();
+                l_tcBases.Text = tcBases.ToString();
+            }
         }
     }
 }

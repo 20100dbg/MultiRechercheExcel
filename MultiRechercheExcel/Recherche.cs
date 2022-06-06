@@ -224,7 +224,8 @@ namespace MultiRechercheExcel
                 string val = TransformerValeur(tabTB[i], DB.tcBase);
 
                 int idx = DB.valeurs.FindIndex((x) => { return ComparaisonValeurs(x.ValeurTransforme, val); });
-                if (idx > -1)
+                
+                if (idx > -1 && !DB.valeurs[idx].Trouve)
                 {
                     DB.valeurs[idx].FichierBase = "entrée manuelle";
                     DB.valeurs[idx].Trouve = true;
@@ -236,31 +237,27 @@ namespace MultiRechercheExcel
 
             for (int i = 0; i < DB.fichiersBases.Count; i++)
             {
-                int idx = 0;
-
                 Profil p = DB.profilsRecherche[DB.fichiersBases[i].IdxProfil];
 
                 if (DB.fichiersBases[i].Chemin.EndsWith(".xlsx"))
                 {
                     foreach (Valeur v in LireValeursXLSX(DB.fichiersBases[i].Chemin, p))
                     {
-                        if (idx == 0 || ParamRecherche.RemonterToutesOccurences)
+                        int idx = DB.valeurs.FindIndex((x) =>
                         {
-                            idx = DB.valeurs.FindIndex(idx, (x) =>
-                            {
-                                string val = TransformerValeur(v.ValeurOrigine, DB.tcBase);
+                            string val = TransformerValeur(v.ValeurOrigine, DB.tcBase);
 
-                                return x.FichierValeur != DB.fichiersBases[i].Chemin &&
-                                    ComparaisonValeurs(x.ValeurTransforme, val);
-                            });
+                            return x.FichierValeur != DB.fichiersBases[i].Chemin &&
+                                ComparaisonValeurs(x.ValeurTransforme, val);
+                        });
 
-                            if (idx > -1)
-                            {
-                                DB.valeurs[idx].Colonnes.AddRange(v.Colonnes);
-                                DB.valeurs[idx].FichierBase = Path.GetFileName(DB.fichiersBases[i].Chemin);
-                                DB.valeurs[idx].Trouve = true;
-                            }
-                            else idx = 0;
+                        if (idx > -1 && !DB.valeurs[idx].Trouve)
+                        {
+                            DB.valeurs[idx].Colonnes.AddRange(v.Colonnes);
+                            DB.valeurs[idx].FichierBase = Path.GetFileName(DB.fichiersBases[i].Chemin);
+                            DB.valeurs[idx].Trouve = true;
+
+                            //if (!ParamRecherche.RemonterToutesOccurences) break;
                         }
                     }
                 }
@@ -268,23 +265,21 @@ namespace MultiRechercheExcel
                 {
                     foreach (Valeur v in LireValeursCSV(DB.fichiersBases[i].Chemin, p))
                     {
-                        if (idx == 0 || ParamRecherche.RemonterToutesOccurences)
+                        int idx = DB.valeurs.FindIndex((x) =>
                         {
-                            idx = DB.valeurs.FindIndex(idx, (x) =>
-                            {
-                                string val = TransformerValeur(v.ValeurOrigine, DB.tcBase);
+                            string val = TransformerValeur(v.ValeurOrigine, DB.tcBase);
 
-                                return x.FichierValeur != DB.fichiersBases[i].Chemin &&
-                                    ComparaisonValeurs(x.ValeurTransforme, val);
-                            });
+                            return x.FichierValeur != DB.fichiersBases[i].Chemin &&
+                                ComparaisonValeurs(x.ValeurTransforme, val);
+                        });
 
-                            if (idx > -1)
-                            {
-                                DB.valeurs[idx].Colonnes.AddRange(v.Colonnes);
-                                DB.valeurs[idx].FichierBase = Path.GetFileName(DB.fichiersBases[i].Chemin);
-                                DB.valeurs[idx].Trouve = true;
-                            }
-                            else idx = 0;
+                        if (idx > -1 && !DB.valeurs[idx].Trouve)
+                        {
+                            DB.valeurs[idx].Colonnes.AddRange(v.Colonnes);
+                            DB.valeurs[idx].FichierBase = Path.GetFileName(DB.fichiersBases[i].Chemin);
+                            DB.valeurs[idx].Trouve = true;
+
+                            //if (!ParamRecherche.RemonterToutesOccurences) break;
                         }
                     }
                 }

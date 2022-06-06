@@ -59,7 +59,7 @@
             // l_tcValeurs
             // 
             this.l_tcValeurs.AutoSize = true;
-            this.l_tcValeurs.Location = new System.Drawing.Point(6, 73);
+            this.l_tcValeurs.Location = new System.Drawing.Point(6, 68);
             this.l_tcValeurs.Name = "l_tcValeurs";
             this.l_tcValeurs.Size = new System.Drawing.Size(31, 13);
             this.l_tcValeurs.TabIndex = 6;
@@ -99,7 +99,7 @@
             // l_tcBases
             // 
             this.l_tcBases.AutoSize = true;
-            this.l_tcBases.Location = new System.Drawing.Point(14, 73);
+            this.l_tcBases.Location = new System.Drawing.Point(14, 68);
             this.l_tcBases.Name = "l_tcBases";
             this.l_tcBases.Size = new System.Drawing.Size(31, 13);
             this.l_tcBases.TabIndex = 9;
@@ -161,6 +161,7 @@
             this.cb_remonterToutesOccurences.TabIndex = 16;
             this.cb_remonterToutesOccurences.Text = "Remonter toutes les occurences au lieu de la première";
             this.cb_remonterToutesOccurences.UseVisualStyleBackColor = true;
+            this.cb_remonterToutesOccurences.Visible = false;
             // 
             // ParametresRecherche
             // 

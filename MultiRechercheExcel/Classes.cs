@@ -117,6 +117,13 @@ namespace MultiRechercheExcel
         {
             return Clone();
         }
+
+        public override string ToString()
+        {
+            return "casse " + this.ModeCasse.ToString() + Environment.NewLine +
+                "substring(" + debutChaine + "," + longueurChaine + "," + finChaine + ")" + Environment.NewLine +
+                "pad" + ((leftPad) ? "left" : "right") + "(" + carPad + "," + nbCarPad + ")";
+        }
     }
 
     public class Profil

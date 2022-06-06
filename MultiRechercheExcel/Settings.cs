@@ -7,8 +7,8 @@ namespace MultiRechercheExcel
     public static class Settings
     {
         private static string fichierConfig = "MultiRechercheExcel.config.txt";
-        public static string dateVersion = "05/06/2022";
-        public static string version = "0.0.5";
+        public static string dateVersion = "06/06/2022";
+        public static string version = "0.0.6";
         public static string savefilename = "";
 
         public static bool ReadConfigFile()
@@ -174,14 +174,6 @@ namespace MultiRechercheExcel
             {
                 sw.Write(sb.ToString());
             }
-        }
-        
-        public static void LoadDefaut()
-        {
-            DB.profilsRecherche.Add(new Profil { Nom = "Fichier texte", ColsEltecs = new int[] { 1 }, ColsAffichees = new int[] { }, NbEntetes = 0, IdxSeparateur = 0 });
-            DB.profilsRecherche.Add(new Profil { Nom = "SPAER", ColsEltecs = new int[] { 14, 15, 16, 20, 21 }, ColsAffichees = new int[] { 2 }, NbEntetes = 2, IdxSeparateur = 1 });
-            DB.profilsRecherche.Add(new Profil { Nom = "NETHAWK", ColsEltecs = new int[] { 5, 7, 17 }, ColsAffichees = new int[] { 3, 4, 18 }, NbEntetes = 2, IdxSeparateur = 1 });
-            DB.profilsRecherche.Add(new Profil { Nom = "DEMETER", ColsEltecs = new int[] { 8, 9, 11, 13, 14 }, ColsAffichees = new int[] { 1, 42, 43 }, NbEntetes = 2, IdxSeparateur = 1 });
         }
 
     }
