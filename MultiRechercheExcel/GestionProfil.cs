@@ -13,6 +13,7 @@ namespace MultiRechercheExcel
         public GestionProfil()
         {
             InitializeComponent();
+            this.Icon = MultiRechercheExcel.Properties.Resources.MultiRechercheExcel;
 
             l_transformation.Text = "";
             cb_separateur.Items.Add("Point virgule");
@@ -119,7 +120,22 @@ namespace MultiRechercheExcel
 
             if (idxProfil > -1)
             {
+                razProfilAction();
+
                 tb_NomAction.Text = DB.profilsAction[idxProfil].Nom;
+                actions.AddRange(DB.profilsAction[idxProfil].Actions);
+
+                for (int i = 0; i < DB.profilsAction[idxProfil].Actions.Count; i++)
+                {
+                    ActionFichier af = DB.profilsAction[idxProfil].Actions[i];
+                    lv_actions.Items.Add(new ListViewItem(new String[] {
+                        af.TypeActionFichier.ToString(),
+                        af.IdxSrc.ToString(),
+                        af.IdxDst.ToString(),
+                        ""
+                    }));
+                }
+                
             }
         }
 
@@ -128,6 +144,20 @@ namespace MultiRechercheExcel
             if (cb_TypeAction.SelectedIndex > -1)
             {
                 TypeActionFichier typeActionFichier = (TypeActionFichier)cb_TypeAction.SelectedItem;
+
+                l_source.Visible = num_Source.Visible = false;
+                l_destination.Visible = num_Destination.Visible = true;
+
+                if (typeActionFichier == TypeActionFichier.DeplacerColonne ||
+                    typeActionFichier == TypeActionFichier.DeplacerLigne ||
+                    typeActionFichier == TypeActionFichier.DupliquerColonne ||
+                    typeActionFichier == TypeActionFichier.DupliquerLigne)
+                {
+                    l_source.Visible = num_Source.Visible = true;
+                }
+
+                if (typeActionFichier == TypeActionFichier.TransformerFichier)
+                    l_destination.Visible = num_Destination.Visible = false;
 
                 if (typeActionFichier == TypeActionFichier.TransformerColonne ||
                     typeActionFichier == TypeActionFichier.TransformerFichier)
@@ -139,9 +169,19 @@ namespace MultiRechercheExcel
             }
         }
 
+        private void razProfilAction()
+        {
+            tb_NomAction.Text = "";
+            actions = new List<ActionFichier>();
+            tc = null;
+
+            num_Destination.Value = num_Source.Value = 0;
+            lv_actions.Items.Clear();
+        }
 
         private void b_NouveauProfilAction_Click(object sender, EventArgs e)
         {
+            razProfilAction();
             tb_NomAction.Text = "Nouveau profil";
 
             ProfilAction pa = new ProfilAction
@@ -165,7 +205,11 @@ namespace MultiRechercheExcel
                 DB.profilsAction.RemoveAt(idxProfil);
                 cb_ProfilAction.Items.RemoveAt(idxProfil);
 
-                cb_ProfilAction.SelectedIndex = 0;
+                if (cb_ProfilAction.Items.Count > 0)
+                    cb_ProfilAction.SelectedIndex = 0;
+
+                razProfilAction();
+                
                 Settings.WriteConfigFile();
             }
         }
@@ -175,7 +219,10 @@ namespace MultiRechercheExcel
         {
             ActionFichier af = new ActionFichier
             {
-                TransChaine = tc
+                TransChaine = tc,
+                IdxSrc = (int)num_Source.Value,
+                IdxDst = (int)num_Destination.Value,
+                TypeActionFichier = (TypeActionFichier)cb_TypeAction.SelectedItem
             };
             
             actions.Add(af);
@@ -194,6 +241,7 @@ namespace MultiRechercheExcel
             if (idxProfil > -1)
             {
                 DB.profilsAction[idxProfil].Nom = tb_NomAction.Text;
+                DB.profilsAction[idxProfil].Actions.Clear();
                 DB.profilsAction[idxProfil].Actions.AddRange(actions);
 
                 cb_ProfilAction.Items[idxProfil] = DB.profilsAction[idxProfil].Nom;
@@ -217,6 +265,57 @@ namespace MultiRechercheExcel
             fConfigTransformation.ShowDialog();
 
             l_transformation.Text = "";
+        }
+
+        private void b_supprimerAction_Click(object sender, EventArgs e)
+        {
+            int idxProfil = cb_ProfilAction.SelectedIndex;
+
+            if (idxProfil > -1)
+            {
+                for (int i = lv_actions.Items.Count - 1; i >= 0; i--)
+                {
+                    if (lv_actions.Items[i].Selected)
+                    {
+                        //DB.profilsAction[idxProfil].Actions.RemoveAt(i);
+                        actions.RemoveAt(i);
+                        lv_actions.Items.RemoveAt(i);
+                    }
+
+                }
+            }
+        }
+
+        private void b_monterAction_Click(object sender, EventArgs e)
+        {
+            if (lv_actions.SelectedIndices.Count == 0 ||
+                lv_actions.SelectedIndices[0] == 0) return;
+
+            int idx = lv_actions.SelectedIndices[0];
+            ActionFichier af = actions[idx];
+            actions.RemoveAt(idx);
+            actions.Insert(idx - 1, af);
+
+            ListViewItem lvi = lv_actions.Items[idx];
+            lv_actions.Items.RemoveAt(idx);
+            lv_actions.Items.Insert(idx - 1, lvi);
+            
+        }
+
+        private void b_descendreAction_Click(object sender, EventArgs e)
+        {
+            if (lv_actions.SelectedIndices.Count == 0 ||
+                lv_actions.SelectedIndices[0] == lv_actions.Items.Count - 1) return;
+
+            int idx = lv_actions.SelectedIndices[0];
+            ActionFichier af = actions[idx];
+            actions.RemoveAt(idx);
+            actions.Insert(idx + 1, af);
+            
+
+            ListViewItem lvi = lv_actions.Items[idx];
+            lv_actions.Items.RemoveAt(idx);
+            lv_actions.Items.Insert(idx + 1, lvi);
         }
     }
 }

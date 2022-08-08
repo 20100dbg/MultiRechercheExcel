@@ -52,6 +52,7 @@
             this.tb_testResultat = new System.Windows.Forms.TextBox();
             this.b_valider = new System.Windows.Forms.Button();
             this.cb_valeurDefautDabord = new System.Windows.Forms.CheckBox();
+            this.b_raz = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.num_nbCarPad)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_FinAction)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_LongueurAction)).BeginInit();
@@ -269,11 +270,22 @@
             this.cb_valeurDefautDabord.UseVisualStyleBackColor = true;
             this.cb_valeurDefautDabord.Visible = false;
             // 
+            // b_raz
+            // 
+            this.b_raz.Location = new System.Drawing.Point(12, 293);
+            this.b_raz.Name = "b_raz";
+            this.b_raz.Size = new System.Drawing.Size(99, 31);
+            this.b_raz.TabIndex = 116;
+            this.b_raz.Text = "RaZ - par défaut";
+            this.b_raz.UseVisualStyleBackColor = true;
+            this.b_raz.Click += new System.EventHandler(this.b_raz_Click);
+            // 
             // ConfigTransformation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(437, 336);
+            this.Controls.Add(this.b_raz);
             this.Controls.Add(this.cb_valeurDefautDabord);
             this.Controls.Add(this.b_valider);
             this.Controls.Add(this.tb_testResultat);
@@ -335,5 +347,6 @@
         private System.Windows.Forms.TextBox tb_testResultat;
         private System.Windows.Forms.Button b_valider;
         private System.Windows.Forms.CheckBox cb_valeurDefautDabord;
+        private System.Windows.Forms.Button b_raz;
     }
 }

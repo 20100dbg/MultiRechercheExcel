@@ -7,8 +7,8 @@ namespace MultiRechercheExcel
     public static class Settings
     {
         private static string fichierConfig = "MultiRechercheExcel.config.txt";
-        public static string dateVersion = "06/06/2022";
-        public static string version = "0.0.6";
+        public static string dateVersion = "08/08/2022";
+        public static string version = "0.0.7";
         public static string savefilename = "";
 
         public static bool ReadConfigFile()
@@ -45,9 +45,9 @@ namespace MultiRechercheExcel
                             Actions = new System.Collections.Generic.List<ActionFichier>()
                         };
 
-                        for (int i = 0; i < values.Length; i++)
+                        for (int i = 1; i < values.Length; i++)
                         {
-                            String[] invalues = values[1].Split(new char[] { '|' });
+                            String[] invalues = values[i].Split(new char[] { '|' });
 
                             pa.Actions.Add(new ActionFichier
                             {
@@ -129,18 +129,24 @@ namespace MultiRechercheExcel
                     ActionFichier af = DB.profilsAction[i].Actions[j];
 
                     sb.Append(";" + (int)af.TypeActionFichier + "|" +
-                                af.IdxSrc + "|" + af.IdxDst + "|" +
-                                (int)af.TransChaine.ModeCasse + "|" +
+                                af.IdxSrc + "|" + af.IdxDst + "|");
+
+                    if (af.TransChaine == null) sb.Append("0|0|0|0|0|0|0");
+                    else
+                    {
+                        sb.Append((int)af.TransChaine.ModeCasse + "|" +
                                 af.TransChaine.debutChaine + "|" +
                                 af.TransChaine.longueurChaine + "|" +
                                 af.TransChaine.finChaine + "|" +
                                 af.TransChaine.carPad + "|" +
                                 af.TransChaine.nbCarPad + "|" +
                                 af.TransChaine.leftPad);
-                                /*
-                                af.TransChaine.valeurDefaut + "|" +
-                                af.TransChaine.valeurDefautDabord);
-                                */
+                    }
+
+                    /*
+                    af.TransChaine.valeurDefaut + "|" +
+                    af.TransChaine.valeurDefautDabord);
+                    */
                 }
                 sb.Append("\n");
             }

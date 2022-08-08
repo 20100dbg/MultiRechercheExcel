@@ -11,6 +11,7 @@ namespace MultiRechercheExcel
         public ConfigTransformation(TransformationChaine tcInit)
         {
             InitializeComponent();
+            this.Icon = MultiRechercheExcel.Properties.Resources.MultiRechercheExcel;
 
             foreach (ModeCasse modeCasse in (ModeCasse[])Enum.GetValues(typeof(ModeCasse)))
                 cb_CasseAction.Items.Add(modeCasse);
@@ -25,6 +26,7 @@ namespace MultiRechercheExcel
                 num_nbCarPad.Value = tcInit.nbCarPad;
                 tb_carPad.Text = tcInit.carPad;
                 cb_padLeft.Checked = tcInit.leftPad;
+                
                 /*
                 tb_valeurDefaut.Text = tcInit.valeurDefaut;
                 cb_valeurDefautDabord.Checked = tcInit.valeurDefautDabord;
@@ -43,7 +45,7 @@ namespace MultiRechercheExcel
                 /*
                 valeurDefaut = tb_valeurDefaut.Text,
                 valeurDefautDabord = cb_valeurDefautDabord.Checked,
-                */
+               */
                 carPad = tb_carPad.Text,
                 nbCarPad = (int)num_nbCarPad.Value,
                 leftPad = cb_padLeft.Checked
@@ -68,5 +70,20 @@ namespace MultiRechercheExcel
             Close();
         }
 
+        private void b_raz_Click(object sender, EventArgs e)
+        {
+            cb_CasseAction.SelectedIndex = 0;
+            num_DebutAction.Value = 0;
+            num_FinAction.Value = 0;
+            num_LongueurAction.Value = 0;
+            num_nbCarPad.Value = 0;
+            /*
+            tb_valeurDefaut.Text = "";
+            cb_valeurDefautDabord.Checked = false;
+            */
+            tb_carPad.Text = "";
+            num_nbCarPad.Value = 0;
+            cb_padLeft.Checked = true;
+        }
     }
 }

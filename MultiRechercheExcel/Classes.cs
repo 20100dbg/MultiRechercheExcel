@@ -185,6 +185,11 @@ namespace MultiRechercheExcel
         public int IdxDst { get; set; }
         public ParamRecherche ModifChaine { get; set; }
         public TransformationChaine TransChaine { get; set; }
+
+        public override string ToString()
+        {
+            return TypeActionFichier.ToString();
+        }
     }
 
     public class ProfilAction

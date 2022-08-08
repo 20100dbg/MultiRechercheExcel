@@ -12,6 +12,7 @@ namespace MultiRechercheExcel
         public ParametresRecherche()
         {
             InitializeComponent();
+            this.Icon = MultiRechercheExcel.Properties.Resources.MultiRechercheExcel;
 
             foreach (ModeRecherche mr in (ModeRecherche[])Enum.GetValues(typeof(ModeRecherche)))
                 cb_typeRecherche.Items.Add(mr.ToString());

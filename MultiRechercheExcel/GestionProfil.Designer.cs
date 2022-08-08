@@ -46,6 +46,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.b_descendreAction = new System.Windows.Forms.Button();
+            this.b_monterAction = new System.Windows.Forms.Button();
+            this.b_supprimerAction = new System.Windows.Forms.Button();
+            this.l_destination = new System.Windows.Forms.Label();
+            this.l_transformation = new System.Windows.Forms.Label();
             this.b_configurerTexte = new System.Windows.Forms.Button();
             this.b_ajouterAction = new System.Windows.Forms.Button();
             this.lv_actions = new System.Windows.Forms.ListView();
@@ -54,7 +59,7 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.num_Destination = new System.Windows.Forms.NumericUpDown();
             this.num_Source = new System.Windows.Forms.NumericUpDown();
-            this.label8 = new System.Windows.Forms.Label();
+            this.l_source = new System.Windows.Forms.Label();
             this.cb_ProfilAction = new System.Windows.Forms.ComboBox();
             this.cb_TypeAction = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -64,7 +69,6 @@
             this.label12 = new System.Windows.Forms.Label();
             this.b_SupprimerProfilAction = new System.Windows.Forms.Button();
             this.b_NouveauProfilAction = new System.Windows.Forms.Button();
-            this.l_transformation = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.num_NbEntetes)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -257,13 +261,17 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.b_descendreAction);
+            this.groupBox2.Controls.Add(this.b_monterAction);
+            this.groupBox2.Controls.Add(this.b_supprimerAction);
+            this.groupBox2.Controls.Add(this.l_destination);
             this.groupBox2.Controls.Add(this.l_transformation);
             this.groupBox2.Controls.Add(this.b_configurerTexte);
             this.groupBox2.Controls.Add(this.b_ajouterAction);
             this.groupBox2.Controls.Add(this.lv_actions);
             this.groupBox2.Controls.Add(this.num_Destination);
             this.groupBox2.Controls.Add(this.num_Source);
-            this.groupBox2.Controls.Add(this.label8);
+            this.groupBox2.Controls.Add(this.l_source);
             this.groupBox2.Controls.Add(this.cb_ProfilAction);
             this.groupBox2.Controls.Add(this.cb_TypeAction);
             this.groupBox2.Controls.Add(this.label4);
@@ -279,6 +287,59 @@
             this.groupBox2.TabIndex = 66;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Actions sur fichiers Excel";
+            // 
+            // b_descendreAction
+            // 
+            this.b_descendreAction.Location = new System.Drawing.Point(318, 326);
+            this.b_descendreAction.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.b_descendreAction.Name = "b_descendreAction";
+            this.b_descendreAction.Size = new System.Drawing.Size(18, 23);
+            this.b_descendreAction.TabIndex = 79;
+            this.b_descendreAction.Text = "v";
+            this.b_descendreAction.UseVisualStyleBackColor = true;
+            this.b_descendreAction.Click += new System.EventHandler(this.b_descendreAction_Click);
+            // 
+            // b_monterAction
+            // 
+            this.b_monterAction.Location = new System.Drawing.Point(318, 252);
+            this.b_monterAction.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.b_monterAction.Name = "b_monterAction";
+            this.b_monterAction.Size = new System.Drawing.Size(18, 23);
+            this.b_monterAction.TabIndex = 78;
+            this.b_monterAction.Text = "^";
+            this.b_monterAction.UseVisualStyleBackColor = true;
+            this.b_monterAction.Click += new System.EventHandler(this.b_monterAction_Click);
+            // 
+            // b_supprimerAction
+            // 
+            this.b_supprimerAction.Location = new System.Drawing.Point(340, 261);
+            this.b_supprimerAction.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.b_supprimerAction.Name = "b_supprimerAction";
+            this.b_supprimerAction.Size = new System.Drawing.Size(89, 23);
+            this.b_supprimerAction.TabIndex = 77;
+            this.b_supprimerAction.Text = "Suppr action";
+            this.b_supprimerAction.UseVisualStyleBackColor = true;
+            this.b_supprimerAction.Click += new System.EventHandler(this.b_supprimerAction_Click);
+            // 
+            // l_destination
+            // 
+            this.l_destination.AutoSize = true;
+            this.l_destination.Location = new System.Drawing.Point(212, 154);
+            this.l_destination.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.l_destination.Name = "l_destination";
+            this.l_destination.Size = new System.Drawing.Size(87, 13);
+            this.l_destination.TabIndex = 76;
+            this.l_destination.Text = "Index destination";
+            // 
+            // l_transformation
+            // 
+            this.l_transformation.AutoSize = true;
+            this.l_transformation.Location = new System.Drawing.Point(302, 188);
+            this.l_transformation.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.l_transformation.Name = "l_transformation";
+            this.l_transformation.Size = new System.Drawing.Size(43, 13);
+            this.l_transformation.TabIndex = 75;
+            this.l_transformation.Text = "______";
             // 
             // b_configurerTexte
             // 
@@ -333,27 +394,27 @@
             // 
             // num_Destination
             // 
-            this.num_Destination.Location = new System.Drawing.Point(216, 150);
+            this.num_Destination.Location = new System.Drawing.Point(305, 152);
             this.num_Destination.Name = "num_Destination";
             this.num_Destination.Size = new System.Drawing.Size(45, 20);
             this.num_Destination.TabIndex = 69;
             // 
             // num_Source
             // 
-            this.num_Source.Location = new System.Drawing.Point(165, 150);
+            this.num_Source.Location = new System.Drawing.Point(125, 150);
             this.num_Source.Name = "num_Source";
             this.num_Source.Size = new System.Drawing.Size(45, 20);
             this.num_Source.TabIndex = 67;
             // 
-            // label8
+            // l_source
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(7, 152);
-            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(128, 13);
-            this.label8.TabIndex = 66;
-            this.label8.Text = "Index source - destination";
+            this.l_source.AutoSize = true;
+            this.l_source.Location = new System.Drawing.Point(52, 154);
+            this.l_source.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.l_source.Name = "l_source";
+            this.l_source.Size = new System.Drawing.Size(68, 13);
+            this.l_source.TabIndex = 66;
+            this.l_source.Text = "Index source";
             // 
             // cb_ProfilAction
             // 
@@ -388,7 +449,7 @@
             // 
             // b_SauvegarderAction
             // 
-            this.b_SauvegarderAction.Location = new System.Drawing.Point(320, 309);
+            this.b_SauvegarderAction.Location = new System.Drawing.Point(340, 309);
             this.b_SauvegarderAction.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.b_SauvegarderAction.Name = "b_SauvegarderAction";
             this.b_SauvegarderAction.Size = new System.Drawing.Size(89, 40);
@@ -447,16 +508,6 @@
             this.b_NouveauProfilAction.UseVisualStyleBackColor = true;
             this.b_NouveauProfilAction.Click += new System.EventHandler(this.b_NouveauProfilAction_Click);
             // 
-            // l_transformation
-            // 
-            this.l_transformation.AutoSize = true;
-            this.l_transformation.Location = new System.Drawing.Point(302, 188);
-            this.l_transformation.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.l_transformation.Name = "l_transformation";
-            this.l_transformation.Size = new System.Drawing.Size(43, 13);
-            this.l_transformation.TabIndex = 75;
-            this.l_transformation.Text = "______";
-            // 
             // GestionProfil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -497,7 +548,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label l_source;
         private System.Windows.Forms.ComboBox cb_ProfilAction;
         private System.Windows.Forms.ComboBox cb_TypeAction;
         private System.Windows.Forms.Label label4;
@@ -516,5 +567,9 @@
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.Button b_configurerTexte;
         private System.Windows.Forms.Label l_transformation;
+        private System.Windows.Forms.Label l_destination;
+        private System.Windows.Forms.Button b_supprimerAction;
+        private System.Windows.Forms.Button b_monterAction;
+        private System.Windows.Forms.Button b_descendreAction;
     }
 }

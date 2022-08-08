@@ -14,6 +14,8 @@ namespace MultiRechercheExcel
         public SelectionFichier()
         {
             InitializeComponent();
+            this.Icon = MultiRechercheExcel.Properties.Resources.MultiRechercheExcel;
+
             ChargerProfils();
 
             l_nomFichier.Text = "Sélectionner/faire glisser un fichier";

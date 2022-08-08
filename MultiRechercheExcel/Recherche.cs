@@ -19,7 +19,8 @@ namespace MultiRechercheExcel
         public Recherche()
         {
             InitializeComponent();
-            this.Name += " " + Settings.dateVersion;
+            this.Icon = MultiRechercheExcel.Properties.Resources.MultiRechercheExcel;
+            this.Text += " " + Settings.version;
 
             DB.tcBase = new TransformationChaine();
             DB.tcValeur = new TransformationChaine();
