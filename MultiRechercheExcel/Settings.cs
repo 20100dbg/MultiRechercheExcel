@@ -7,9 +7,16 @@ namespace MultiRechercheExcel
     public static class Settings
     {
         private static string fichierConfig = "MultiRechercheExcel.config.txt";
-        public static string dateVersion = "08/08/2022";
-        public static string version = "0.0.7";
+        public static string dateVersion = "22/09/2022";
+        public static string version = "0.0.8";
         public static string savefilename = "";
+        public static string dbname = "bases.sqlite";
+
+        private static StringBuilder sbLog = new StringBuilder();
+        public static void Log(string s)
+        {
+            sbLog.AppendLine(DateTime.Now.ToString("yyyyMMdd_HHmmss") + " : " + s);
+        }
 
         public static bool ReadConfigFile()
         {
@@ -30,8 +37,8 @@ namespace MultiRechercheExcel
                         Profil p = new Profil
                         {
                             Nom = values[0],
-                            ColsEltecs = Profil.getIntArray(values[1]),
-                            ColsAffichees = Profil.getIntArray(values[2]),
+                            ColsEltecs = Profil.GetIntArray(values[1]),
+                            ColsAffichees = Profil.GetIntArray(values[2]),
                             NbEntetes = int.Parse(values[3]),
                             IdxSeparateur = int.Parse(values[4])
                         };

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Data.SQLite;
 
 namespace MultiRechercheExcel
 {
@@ -26,6 +27,7 @@ namespace MultiRechercheExcel
 
         public static List<Fichier> fichiersValeurs = new List<Fichier>();
         public static List<Fichier> fichiersBases = new List<Fichier>();
+        public static List<MaBase> bases = new List<MaBase>();
 
         public static List<Valeur> valeurs = new List<Valeur>();
         public static List<string> entetesColonnes = new List<string>();
@@ -33,7 +35,43 @@ namespace MultiRechercheExcel
         public static ParamRecherche ParamRecherche { get; set; }
         public static TransformationChaine tcValeur { get; set; }
         public static TransformationChaine tcBase { get; set; }
+
+        public static SQLiteConnection SQLiteCon { get; set; }
     }
+
+    public static class SQLiteDB
+    {
+        public static Boolean Connect()
+        {
+            if (File.Exists(Settings.dbname))
+            {
+                DB.SQLiteCon = new SQLiteConnection("URI=file:" + Settings.dbname);
+                DB.SQLiteCon.Open();
+                return true;
+            }
+            else
+                return false;
+        }
+
+        public static Boolean CreateDatabase()
+        {
+            if (!File.Exists(Settings.dbname))
+            {
+                SQLiteConnection.CreateFile(Settings.dbname);
+                return true;
+            }
+            else
+                return false;
+        }
+
+        public static void InsertDefaultData()
+        {
+            String sql = "CREATE TABLE bases (nom text, profil text, nbColonne integer);";
+            SQLiteCommand cmd = new SQLiteCommand(sql, DB.SQLiteCon);
+            cmd.ExecuteNonQuery();
+        }
+    }
+
 
     public class Colonne
     {
@@ -126,6 +164,31 @@ namespace MultiRechercheExcel
         }
     }
 
+    public class MaBase
+    {
+        public string Nom;
+        public int NbColonnes;
+        public Profil Profil;
+
+        public static int GetIdxFromNom(string nom)
+        {
+            nom = nom.ToLower();
+            int idx = -1;
+
+            for (int i = 0; i < DB.bases.Count; i++)
+            {
+                if (DB.bases[i].Nom.ToLower() == nom) idx = i;
+            }
+
+            return idx;
+        }
+
+        public override string ToString()
+        {
+            return Nom;
+        }
+    }
+
     public class Profil
     {
         public string Nom;
@@ -133,8 +196,11 @@ namespace MultiRechercheExcel
         public int[] ColsEltecs;
         public int[] ColsAffichees;
         public int IdxSeparateur;
+        public int IdxFeuille;
+        public string NomFeuille;
 
-        public static int[] getIntArray(String str)
+
+        public static int[] GetIntArray(String str)
         {
             String[] tab = str.Split(new String[] { ",", ";", " " }, StringSplitOptions.RemoveEmptyEntries);
             List<int> tabInt = new List<int>();
@@ -158,7 +224,7 @@ namespace MultiRechercheExcel
             return -1;
         }
 
-        public static String GetSeparateurFromIndex(int idx)
+        public static string GetSeparateurFromIndex(int idx)
         {
             if (idx == 0) return ";";
             else if (idx == 1) return ",";
@@ -167,7 +233,7 @@ namespace MultiRechercheExcel
             return ";";
         }
 
-        public static String getStringFromIntArray(int[] tab)
+        public static string GetStringFromIntArray(int[] tab)
         {
             return String.Join(",", tab);
         }

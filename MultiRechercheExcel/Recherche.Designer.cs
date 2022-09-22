@@ -30,6 +30,7 @@
         {
             this.tb_valeursRecherche = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.b_ViderFichiersValeurs = new System.Windows.Forms.Button();
             this.lv_valeurs = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -40,11 +41,16 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.paramétrageRechercheToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gestionDesProfilsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gestionDesBasesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aProposToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.l_filename = new System.Windows.Forms.Label();
             this.b_recherche = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cb_bases = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.b_ViderFichiersBases = new System.Windows.Forms.Button();
             this.lv_bases = new System.Windows.Forms.ListView();
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -56,7 +62,6 @@
             this.cb_ProfilAction = new System.Windows.Forms.ComboBox();
             this.lb_fichiersTransformation = new System.Windows.Forms.ListBox();
             this.b_ajouterFichierTransformation = new System.Windows.Forms.Button();
-            this.l_filename = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -67,28 +72,39 @@
             // 
             // tb_valeursRecherche
             // 
-            this.tb_valeursRecherche.Location = new System.Drawing.Point(6, 33);
+            this.tb_valeursRecherche.Location = new System.Drawing.Point(9, 51);
             this.tb_valeursRecherche.Multiline = true;
             this.tb_valeursRecherche.Name = "tb_valeursRecherche";
-            this.tb_valeursRecherche.Size = new System.Drawing.Size(294, 53);
+            this.tb_valeursRecherche.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.tb_valeursRecherche.Size = new System.Drawing.Size(376, 53);
             this.tb_valeursRecherche.TabIndex = 1;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.b_ViderFichiersValeurs);
             this.groupBox1.Controls.Add(this.lv_valeurs);
             this.groupBox1.Controls.Add(this.b_ajouterFichierValeurs);
             this.groupBox1.Controls.Add(this.tb_valeursRecherche);
             this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(306, 276);
+            this.groupBox1.Size = new System.Drawing.Size(404, 368);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Valeurs";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 35);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(69, 13);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Valeurs libres";
+            // 
             // b_ViderFichiersValeurs
             // 
-            this.b_ViderFichiersValeurs.Location = new System.Drawing.Point(196, 247);
+            this.b_ViderFichiersValeurs.Location = new System.Drawing.Point(281, 266);
             this.b_ViderFichiersValeurs.Name = "b_ViderFichiersValeurs";
             this.b_ViderFichiersValeurs.Size = new System.Drawing.Size(104, 23);
             this.b_ViderFichiersValeurs.TabIndex = 4;
@@ -104,9 +120,9 @@
             this.lv_valeurs.FullRowSelect = true;
             this.lv_valeurs.GridLines = true;
             this.lv_valeurs.HideSelection = false;
-            this.lv_valeurs.Location = new System.Drawing.Point(6, 136);
+            this.lv_valeurs.Location = new System.Drawing.Point(9, 145);
             this.lv_valeurs.Name = "lv_valeurs";
-            this.lv_valeurs.Size = new System.Drawing.Size(294, 97);
+            this.lv_valeurs.Size = new System.Drawing.Size(376, 115);
             this.lv_valeurs.TabIndex = 3;
             this.lv_valeurs.UseCompatibleStateImageBehavior = false;
             this.lv_valeurs.View = System.Windows.Forms.View.Details;
@@ -123,7 +139,7 @@
             // 
             // b_ajouterFichierValeurs
             // 
-            this.b_ajouterFichierValeurs.Location = new System.Drawing.Point(196, 102);
+            this.b_ajouterFichierValeurs.Location = new System.Drawing.Point(9, 266);
             this.b_ajouterFichierValeurs.Name = "b_ajouterFichierValeurs";
             this.b_ajouterFichierValeurs.Size = new System.Drawing.Size(104, 23);
             this.b_ajouterFichierValeurs.TabIndex = 2;
@@ -140,7 +156,7 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(12, 316);
+            this.progressBar1.Location = new System.Drawing.Point(12, 415);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(294, 23);
             this.progressBar1.TabIndex = 6;
@@ -150,10 +166,11 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.paramétrageRechercheToolStripMenuItem,
             this.gestionDesProfilsToolStripMenuItem,
+            this.gestionDesBasesToolStripMenuItem,
             this.aProposToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(707, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(850, 24);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -171,6 +188,13 @@
             this.gestionDesProfilsToolStripMenuItem.Text = "Gestion des profils";
             this.gestionDesProfilsToolStripMenuItem.Click += new System.EventHandler(this.gestionDesProfilsToolStripMenuItem_Click);
             // 
+            // gestionDesBasesToolStripMenuItem
+            // 
+            this.gestionDesBasesToolStripMenuItem.Name = "gestionDesBasesToolStripMenuItem";
+            this.gestionDesBasesToolStripMenuItem.Size = new System.Drawing.Size(112, 20);
+            this.gestionDesBasesToolStripMenuItem.Text = "Gestion des bases";
+            this.gestionDesBasesToolStripMenuItem.Click += new System.EventHandler(this.gestionDesBasesToolStripMenuItem_Click);
+            // 
             // aProposToolStripMenuItem
             // 
             this.aProposToolStripMenuItem.Name = "aProposToolStripMenuItem";
@@ -185,7 +209,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 27);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(705, 382);
+            this.tabControl1.Size = new System.Drawing.Size(850, 472);
             this.tabControl1.TabIndex = 8;
             // 
             // tabPage1
@@ -198,14 +222,22 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(697, 356);
+            this.tabPage1.Size = new System.Drawing.Size(842, 446);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Recherche";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // l_filename
+            // 
+            this.l_filename.AutoSize = true;
+            this.l_filename.Location = new System.Drawing.Point(328, 425);
+            this.l_filename.Name = "l_filename";
+            this.l_filename.Size = new System.Drawing.Size(0, 13);
+            this.l_filename.TabIndex = 9;
+            // 
             // b_recherche
             // 
-            this.b_recherche.Location = new System.Drawing.Point(605, 302);
+            this.b_recherche.Location = new System.Drawing.Point(706, 403);
             this.b_recherche.Name = "b_recherche";
             this.b_recherche.Size = new System.Drawing.Size(86, 37);
             this.b_recherche.TabIndex = 8;
@@ -215,20 +247,50 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.cb_bases);
+            this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.b_ViderFichiersBases);
             this.groupBox2.Controls.Add(this.lv_bases);
             this.groupBox2.Controls.Add(this.b_ajouterFichierBase);
             this.groupBox2.Controls.Add(this.tb_valeursBase);
-            this.groupBox2.Location = new System.Drawing.Point(385, 6);
+            this.groupBox2.Location = new System.Drawing.Point(416, 6);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(306, 276);
+            this.groupBox2.Size = new System.Drawing.Size(405, 368);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Bases";
+            this.groupBox2.Text = "Références";
+            // 
+            // cb_bases
+            // 
+            this.cb_bases.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_bases.FormattingEnabled = true;
+            this.cb_bases.Location = new System.Drawing.Point(154, 325);
+            this.cb_bases.Name = "cb_bases";
+            this.cb_bases.Size = new System.Drawing.Size(121, 21);
+            this.cb_bases.TabIndex = 13;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(74, 328);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(36, 13);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Bases";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 35);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(69, 13);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Valeurs libres";
             // 
             // b_ViderFichiersBases
             // 
-            this.b_ViderFichiersBases.Location = new System.Drawing.Point(196, 247);
+            this.b_ViderFichiersBases.Location = new System.Drawing.Point(278, 266);
             this.b_ViderFichiersBases.Name = "b_ViderFichiersBases";
             this.b_ViderFichiersBases.Size = new System.Drawing.Size(104, 23);
             this.b_ViderFichiersBases.TabIndex = 5;
@@ -244,9 +306,9 @@
             this.lv_bases.FullRowSelect = true;
             this.lv_bases.GridLines = true;
             this.lv_bases.HideSelection = false;
-            this.lv_bases.Location = new System.Drawing.Point(6, 136);
+            this.lv_bases.Location = new System.Drawing.Point(6, 145);
             this.lv_bases.Name = "lv_bases";
-            this.lv_bases.Size = new System.Drawing.Size(294, 97);
+            this.lv_bases.Size = new System.Drawing.Size(376, 115);
             this.lv_bases.TabIndex = 3;
             this.lv_bases.UseCompatibleStateImageBehavior = false;
             this.lv_bases.View = System.Windows.Forms.View.Details;
@@ -263,7 +325,7 @@
             // 
             // b_ajouterFichierBase
             // 
-            this.b_ajouterFichierBase.Location = new System.Drawing.Point(196, 102);
+            this.b_ajouterFichierBase.Location = new System.Drawing.Point(6, 266);
             this.b_ajouterFichierBase.Name = "b_ajouterFichierBase";
             this.b_ajouterFichierBase.Size = new System.Drawing.Size(104, 23);
             this.b_ajouterFichierBase.TabIndex = 2;
@@ -273,10 +335,11 @@
             // 
             // tb_valeursBase
             // 
-            this.tb_valeursBase.Location = new System.Drawing.Point(6, 33);
+            this.tb_valeursBase.Location = new System.Drawing.Point(6, 51);
             this.tb_valeursBase.Multiline = true;
             this.tb_valeursBase.Name = "tb_valeursBase";
-            this.tb_valeursBase.Size = new System.Drawing.Size(294, 53);
+            this.tb_valeursBase.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.tb_valeursBase.Size = new System.Drawing.Size(376, 53);
             this.tb_valeursBase.TabIndex = 1;
             // 
             // tabPage2
@@ -288,7 +351,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(697, 356);
+            this.tabPage2.Size = new System.Drawing.Size(842, 446);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Transformation";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -330,19 +393,11 @@
             this.b_ajouterFichierTransformation.UseVisualStyleBackColor = true;
             this.b_ajouterFichierTransformation.Click += new System.EventHandler(this.b_ajouterFichierTransformation_Click);
             // 
-            // l_filename
-            // 
-            this.l_filename.AutoSize = true;
-            this.l_filename.Location = new System.Drawing.Point(328, 326);
-            this.l_filename.Name = "l_filename";
-            this.l_filename.Size = new System.Drawing.Size(0, 13);
-            this.l_filename.TabIndex = 9;
-            // 
             // Recherche
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(707, 411);
+            this.ClientSize = new System.Drawing.Size(850, 499);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -394,6 +449,11 @@
         private System.Windows.Forms.Button b_ajouterFichierTransformation;
         private System.Windows.Forms.ListBox lb_fichiersTransformation;
         private System.Windows.Forms.Label l_filename;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox cb_bases;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ToolStripMenuItem gestionDesBasesToolStripMenuItem;
     }
 }
 

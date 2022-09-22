@@ -47,8 +47,8 @@ namespace MultiRechercheExcel
             {
                 tb_NomRecherche.Text = DB.profilsRecherche[idxProfil].Nom;
                 num_NbEntetes.Value = DB.profilsRecherche[idxProfil].NbEntetes;
-                tb_ColsEltecs.Text = Profil.getStringFromIntArray(DB.profilsRecherche[idxProfil].ColsEltecs);
-                tb_ColsAfficher.Text = Profil.getStringFromIntArray(DB.profilsRecherche[idxProfil].ColsAffichees);
+                tb_ColsEltecs.Text = Profil.GetStringFromIntArray(DB.profilsRecherche[idxProfil].ColsEltecs);
+                tb_ColsAfficher.Text = Profil.GetStringFromIntArray(DB.profilsRecherche[idxProfil].ColsAffichees);
                 cb_separateur.SelectedIndex = DB.profilsRecherche[idxProfil].IdxSeparateur;
             }
         }
@@ -101,9 +101,20 @@ namespace MultiRechercheExcel
             {
                 DB.profilsRecherche[idxProfil].Nom = tb_NomRecherche.Text;
                 DB.profilsRecherche[idxProfil].NbEntetes = (int)num_NbEntetes.Value;
-                DB.profilsRecherche[idxProfil].ColsEltecs = Profil.getIntArray(tb_ColsEltecs.Text.ToUpper());
-                DB.profilsRecherche[idxProfil].ColsAffichees = Profil.getIntArray(tb_ColsAfficher.Text.ToUpper());
+                DB.profilsRecherche[idxProfil].ColsEltecs = Profil.GetIntArray(tb_ColsEltecs.Text.ToUpper());
+                DB.profilsRecherche[idxProfil].ColsAffichees = Profil.GetIntArray(tb_ColsAfficher.Text.ToUpper());
                 DB.profilsRecherche[idxProfil].IdxSeparateur = cb_separateur.SelectedIndex;
+
+                if (rb_nomFeuille.Checked)
+                {
+                    DB.profilsRecherche[idxProfil].NomFeuille = tb_nomFeuille.Text;
+                    DB.profilsRecherche[idxProfil].IdxFeuille = -1;
+                }
+                else
+                {
+                    DB.profilsRecherche[idxProfil].NomFeuille = "";
+                    DB.profilsRecherche[idxProfil].IdxFeuille = (int)num_idxFeuille.Value; // - 1;
+                }
 
                 cb_ProfilRecherche.Items[idxProfil] = DB.profilsRecherche[idxProfil].Nom;
                 Settings.WriteConfigFile();

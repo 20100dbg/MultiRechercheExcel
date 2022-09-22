@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
@@ -10,29 +11,40 @@ namespace MultiRechercheExcel
     public partial class Recherche : Form
     {
         GestionProfil fGestionProfil;
+        GestionBase fGestionBase;
         SelectionFichier fSelectionFichier;
         ParametresRecherche fParametresRecherche;
 
-        StringBuilder sbLog = new StringBuilder();
         int nbResultat;
+        MaBase baseActuelle = null;
 
         public Recherche()
         {
             InitializeComponent();
-            this.Icon = MultiRechercheExcel.Properties.Resources.MultiRechercheExcel;
+            this.Icon = Properties.Resources.MultiRechercheExcel;
             this.Text += " " + Settings.version;
+
+            if (!SQLiteDB.Connect())
+            {
+                SQLiteDB.CreateDatabase();
+                SQLiteDB.Connect();
+                SQLiteDB.InsertDefaultData();
+            }
 
             DB.tcBase = new TransformationChaine();
             DB.tcValeur = new TransformationChaine();
 
-
             for (int i = 0; i < DB.profilsAction.Count; i++)
                 cb_ProfilAction.Items.Add(DB.profilsAction[i].Nom);
 
-            Log("Lecture fichier de config " + Settings.ReadConfigFile());
+            Settings.Log("Lecture fichier de config " + Settings.ReadConfigFile());
             ParamRecherche.RemonterToutesOccurences = true;
+
+            GetListeBases();
+            RemplirCBbases();
+
         }
-        
+
         private IEnumerable<Valeur> LireValeursXLSX(string filepath, Profil p)
         {
             string filename = Path.GetFileName(filepath);
@@ -41,6 +53,16 @@ namespace MultiRechercheExcel
             {
                 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
                 var myWorksheet = xlPackage.Workbook.Worksheets[0];
+
+                if (p.IdxFeuille > -1 && xlPackage.Workbook.Worksheets.Count > p.IdxFeuille)
+                {
+                    myWorksheet = xlPackage.Workbook.Worksheets[p.IdxFeuille];
+                }
+                else if (p.NomFeuille != "")
+                {
+                    myWorksheet = xlPackage.Workbook.Worksheets[p.NomFeuille];
+                }
+
                 var totalRows = myWorksheet.Dimension.End.Row;
                 var totalCols = myWorksheet.Dimension.End.Column;
 
@@ -89,7 +111,7 @@ namespace MultiRechercheExcel
                             };
                         }
                         else
-                            Log(filename + " ("+ p.Nom +") : dépassement de colonne");
+                            Settings.Log(filename + " (" + p.Nom + ") : dépassement de colonne");
                     }
                 }
             }
@@ -130,7 +152,7 @@ namespace MultiRechercheExcel
                         });
                     }
                     else
-                        Log(filename + " (" + p.Nom + ") : dépassement de colonne");
+                        Settings.Log(filename + " (" + p.Nom + ") : dépassement de colonne");
                 }
 
                 if (!colDone)
@@ -156,7 +178,7 @@ namespace MultiRechercheExcel
                         };
                     }
                     else
-                        Log(filename + " (" + p.Nom + ") : dépassement de colonne");
+                        Settings.Log(filename + " (" + p.Nom + ") : dépassement de colonne");
                 }
             }
         }
@@ -184,7 +206,7 @@ namespace MultiRechercheExcel
             for (int i = 0; i < DB.fichiersValeurs.Count; i++)
             {
                 Profil p = DB.profilsRecherche[DB.fichiersValeurs[i].IdxProfil];
-                
+
                 if (DB.fichiersValeurs[i].Chemin.EndsWith(".xlsx"))
                 {
                     foreach (Valeur v in LireValeursXLSX(DB.fichiersValeurs[i].Chemin, p))
@@ -225,7 +247,7 @@ namespace MultiRechercheExcel
                 string val = TransformerValeur(tabTB[i], DB.tcBase);
 
                 int idx = DB.valeurs.FindIndex((x) => { return ComparaisonValeurs(x.ValeurTransforme, val); });
-                
+
                 if (idx > -1 && !DB.valeurs[idx].Trouve)
                 {
                     DB.valeurs[idx].FichierBase = "entrée manuelle";
@@ -290,9 +312,60 @@ namespace MultiRechercheExcel
             }
         }
 
+        private void RechercheBase()
+        {
+            if (baseActuelle == null) return;
+
+            string sql = "SELECT * FROM " + baseActuelle.Nom + " WHERE ";
+
+            //
+            for (int j = 0; j < baseActuelle.Profil.ColsEltecs.Length; j++)
+            {
+                sql += "val" + baseActuelle.Profil.ColsEltecs[j] + " = '{val}'";
+                if (j < baseActuelle.Profil.ColsEltecs.Length - 1) sql += " OR ";
+            }
+
+            for (int j = 0; j < baseActuelle.Profil.ColsAffichees.Length; j++)
+            {
+                DB.entetesColonnes.Add("val" + baseActuelle.Profil.ColsAffichees[j]);
+            }
+                
+
+            for (int i = 0; i < DB.valeurs.Count; i++)
+            {
+                string sql2 = sql.Replace("{val}", DB.valeurs[i].ValeurTransforme);
+                SQLiteCommand cmd = new SQLiteCommand(sql2, DB.SQLiteCon);
+
+                using (SQLiteDataReader rdr = cmd.ExecuteReader())
+                {
+                    while (rdr.Read())
+                    {
+                        //b.Profil.ColsAffichees.Length
+
+                        Object[] tab = new Object[rdr.FieldCount];
+                        rdr.GetValues(tab);
+
+                        for (int j = 0; j < baseActuelle.Profil.ColsAffichees.Length; j++)
+                        {
+                            int col = baseActuelle.Profil.ColsAffichees[j];
+                            DB.valeurs[i].Colonnes.Add(new Colonne
+                            {
+                                Nom = "val" + col,
+                                Valeur = tab[col - 1].ToString()
+                            });
+                        }
+
+                        DB.valeurs[i].FichierBase = "Base " + baseActuelle.Nom;
+                        DB.valeurs[i].Trouve = true;
+                    }
+
+                }
+            }
+        }
+
         private void Sauvegarde()
         {
-            Log("Sauvegarde " + Settings.savefilename);
+            Settings.Log("Sauvegarde " + Settings.savefilename);
 
             using (StreamWriter sw = new StreamWriter(Settings.savefilename, false, System.Text.Encoding.GetEncoding(1252)))
             {
@@ -392,12 +465,15 @@ namespace MultiRechercheExcel
 
             return false;
         }
-        
+
         private void b_recherche_Click(object sender, EventArgs e)
         {
             //vider les listes
             DB.entetesColonnes.Clear();
             DB.valeurs.Clear();
+
+            if (cb_bases.SelectedIndex > -1) baseActuelle = (MaBase)cb_bases.SelectedItem;
+            else baseActuelle = null;
 
             Settings.savefilename = DateTime.Now.ToString("yyyyMMdd_HHmmss") + "_result.csv";
 
@@ -407,15 +483,20 @@ namespace MultiRechercheExcel
         private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             //remplir le DB.valeurs
+            Settings.Log("Collecte des valeurs");
             CollecterValeurs();
-            Log("Collecte des valeurs");
 
             //parcourir les fichiers
+            Settings.Log("Parcours des fichiers bases");
             ParcourirFichiers();
-            Log("Parcours des fichiers bases");
+
+            //recherche dans la base sélectionnée
+            Settings.Log("Recherche en base");
+            RechercheBase();
+
 
             nbResultat = DB.valeurs.FindAll((x) => { return x.Trouve == true; }).Count;
-            Log(nbResultat + " résultats");
+            Settings.Log(nbResultat + " résultats");
 
             //sauvegarde des résultats
             if (nbResultat > 0)
@@ -433,15 +514,11 @@ namespace MultiRechercheExcel
 
             MessageBox.Show(nbResultat + " résultats");
             l_filename.Text = Settings.savefilename + " sauvegardé";
-            
+
             if (nbResultat > 0)
                 System.Diagnostics.Process.Start(Application.StartupPath + "\\" + Settings.savefilename);
         }
 
-        private void Log(string s)
-        {
-            sbLog.AppendLine(DateTime.Now.ToString("yyyyMMdd_HHmmss") + " : " + s);
-        }
 
         #region Transformation
         private void TransformerFichier(string filepath, ProfilAction pa)
@@ -576,7 +653,7 @@ namespace MultiRechercheExcel
                     DB.profilsRecherche[f.IdxProfil].Nom
                 }));
 
-                Log("Ajout fichier valeur " + f.Chemin);
+                Settings.Log("Ajout fichier valeur " + f.Chemin);
             }
         }
 
@@ -600,7 +677,7 @@ namespace MultiRechercheExcel
                     DB.profilsRecherche[f.IdxProfil].Nom
                 }));
 
-                Log("Ajout fichier base " + f.Chemin);
+                Settings.Log("Ajout fichier base " + f.Chemin);
             }
         }
 
@@ -659,7 +736,7 @@ namespace MultiRechercheExcel
 
                 lb_fichiersTransformation.Items.Add(f);
 
-                Log("Ajout fichier transformation " + f.Chemin);
+                Settings.Log("Ajout fichier transformation " + f.Chemin);
             }
         }
 
@@ -675,7 +752,52 @@ namespace MultiRechercheExcel
                 TransformerFichier(f.Chemin, pa);
             }
         }
+
         #endregion
+
+        private void gestionDesBasesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (fGestionBase == null || !fGestionBase.CanFocus)
+            {
+                fGestionBase = new GestionBase(this);
+                fGestionBase.Show();
+            }
+            else if (fGestionBase.CanFocus) fGestionBase.Focus();
+        }
+
+
+        public void GetListeBases()
+        {
+            DB.bases.Clear();
+            string sql = "SELECT nom, profil, nbColonne FROM bases";
+
+            SQLiteCommand cmd = new SQLiteCommand(sql, DB.SQLiteCon);
+
+            using (SQLiteDataReader rdr = cmd.ExecuteReader())
+            {
+                while (rdr.Read())
+                {
+                    int idxProfil = Profil.GetProfilIdxByName(rdr.GetString(1));
+                    DB.bases.Add(new MaBase
+                    {
+                        Nom = rdr.GetString(0),
+                        Profil = DB.profilsRecherche[idxProfil],
+                        NbColonnes = rdr.GetInt32(2)
+                    });
+                }
+            }
+        }
+
+
+        public void RemplirCBbases()
+        {
+            cb_bases.Items.Clear();
+
+            for (int i = 0; i < DB.bases.Count; i++)
+            {
+                cb_bases.Items.Add(DB.bases[i]);
+            }
+        }
 
     }
 }

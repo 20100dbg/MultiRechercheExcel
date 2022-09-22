@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GestionProfil));
             this.b_fermer = new System.Windows.Forms.Button();
             this.cb_separateur = new System.Windows.Forms.ComboBox();
             this.tb_ColsAfficher = new System.Windows.Forms.TextBox();
@@ -69,16 +70,21 @@
             this.label12 = new System.Windows.Forms.Label();
             this.b_SupprimerProfilAction = new System.Windows.Forms.Button();
             this.b_NouveauProfilAction = new System.Windows.Forms.Button();
+            this.num_idxFeuille = new System.Windows.Forms.NumericUpDown();
+            this.rb_numFeuille = new System.Windows.Forms.RadioButton();
+            this.rb_nomFeuille = new System.Windows.Forms.RadioButton();
+            this.tb_nomFeuille = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.num_NbEntetes)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_Destination)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_Source)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_idxFeuille)).BeginInit();
             this.SuspendLayout();
             // 
             // b_fermer
             // 
-            this.b_fermer.Location = new System.Drawing.Point(9, 341);
+            this.b_fermer.Location = new System.Drawing.Point(9, 400);
             this.b_fermer.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.b_fermer.Name = "b_fermer";
             this.b_fermer.Size = new System.Drawing.Size(107, 36);
@@ -197,7 +203,7 @@
             // 
             // b_SauvegarderProfil
             // 
-            this.b_SauvegarderProfil.Location = new System.Drawing.Point(290, 252);
+            this.b_SauvegarderProfil.Location = new System.Drawing.Point(298, 317);
             this.b_SauvegarderProfil.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.b_SauvegarderProfil.Name = "b_SauvegarderProfil";
             this.b_SauvegarderProfil.Size = new System.Drawing.Size(89, 40);
@@ -237,6 +243,10 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.tb_nomFeuille);
+            this.groupBox1.Controls.Add(this.rb_nomFeuille);
+            this.groupBox1.Controls.Add(this.rb_numFeuille);
+            this.groupBox1.Controls.Add(this.num_idxFeuille);
             this.groupBox1.Controls.Add(this.cb_ProfilRecherche);
             this.groupBox1.Controls.Add(this.cb_separateur);
             this.groupBox1.Controls.Add(this.label1);
@@ -254,7 +264,7 @@
             this.groupBox1.Controls.Add(this.b_NouveauRecherche);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(392, 304);
+            this.groupBox1.Size = new System.Drawing.Size(392, 365);
             this.groupBox1.TabIndex = 65;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Profil de recherche";
@@ -283,41 +293,41 @@
             this.groupBox2.Controls.Add(this.b_NouveauProfilAction);
             this.groupBox2.Location = new System.Drawing.Point(427, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(434, 365);
+            this.groupBox2.Size = new System.Drawing.Size(434, 410);
             this.groupBox2.TabIndex = 66;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Actions sur fichiers Excel";
             // 
             // b_descendreAction
             // 
-            this.b_descendreAction.Location = new System.Drawing.Point(318, 326);
+            this.b_descendreAction.Image = ((System.Drawing.Image)(resources.GetObject("b_descendreAction.Image")));
+            this.b_descendreAction.Location = new System.Drawing.Point(318, 317);
             this.b_descendreAction.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.b_descendreAction.Name = "b_descendreAction";
-            this.b_descendreAction.Size = new System.Drawing.Size(18, 23);
+            this.b_descendreAction.Size = new System.Drawing.Size(27, 32);
             this.b_descendreAction.TabIndex = 79;
-            this.b_descendreAction.Text = "v";
             this.b_descendreAction.UseVisualStyleBackColor = true;
             this.b_descendreAction.Click += new System.EventHandler(this.b_descendreAction_Click);
             // 
             // b_monterAction
             // 
+            this.b_monterAction.Image = ((System.Drawing.Image)(resources.GetObject("b_monterAction.Image")));
             this.b_monterAction.Location = new System.Drawing.Point(318, 252);
             this.b_monterAction.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.b_monterAction.Name = "b_monterAction";
-            this.b_monterAction.Size = new System.Drawing.Size(18, 23);
+            this.b_monterAction.Size = new System.Drawing.Size(27, 32);
             this.b_monterAction.TabIndex = 78;
-            this.b_monterAction.Text = "^";
             this.b_monterAction.UseVisualStyleBackColor = true;
             this.b_monterAction.Click += new System.EventHandler(this.b_monterAction_Click);
             // 
             // b_supprimerAction
             // 
-            this.b_supprimerAction.Location = new System.Drawing.Point(340, 261);
+            this.b_supprimerAction.Location = new System.Drawing.Point(359, 283);
             this.b_supprimerAction.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.b_supprimerAction.Name = "b_supprimerAction";
-            this.b_supprimerAction.Size = new System.Drawing.Size(89, 23);
+            this.b_supprimerAction.Size = new System.Drawing.Size(68, 36);
             this.b_supprimerAction.TabIndex = 77;
-            this.b_supprimerAction.Text = "Suppr action";
+            this.b_supprimerAction.Text = "Supprimer action";
             this.b_supprimerAction.UseVisualStyleBackColor = true;
             this.b_supprimerAction.Click += new System.EventHandler(this.b_supprimerAction_Click);
             // 
@@ -449,7 +459,7 @@
             // 
             // b_SauvegarderAction
             // 
-            this.b_SauvegarderAction.Location = new System.Drawing.Point(340, 309);
+            this.b_SauvegarderAction.Location = new System.Drawing.Point(340, 364);
             this.b_SauvegarderAction.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.b_SauvegarderAction.Name = "b_SauvegarderAction";
             this.b_SauvegarderAction.Size = new System.Drawing.Size(89, 40);
@@ -508,11 +518,62 @@
             this.b_NouveauProfilAction.UseVisualStyleBackColor = true;
             this.b_NouveauProfilAction.Click += new System.EventHandler(this.b_NouveauProfilAction_Click);
             // 
+            // num_idxFeuille
+            // 
+            this.num_idxFeuille.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.num_idxFeuille.Location = new System.Drawing.Point(165, 252);
+            this.num_idxFeuille.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.num_idxFeuille.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.num_idxFeuille.Name = "num_idxFeuille";
+            this.num_idxFeuille.Size = new System.Drawing.Size(68, 22);
+            this.num_idxFeuille.TabIndex = 65;
+            this.num_idxFeuille.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // rb_numFeuille
+            // 
+            this.rb_numFeuille.AutoSize = true;
+            this.rb_numFeuille.Checked = true;
+            this.rb_numFeuille.Location = new System.Drawing.Point(10, 254);
+            this.rb_numFeuille.Name = "rb_numFeuille";
+            this.rb_numFeuille.Size = new System.Drawing.Size(92, 17);
+            this.rb_numFeuille.TabIndex = 67;
+            this.rb_numFeuille.TabStop = true;
+            this.rb_numFeuille.Text = "Numero feuille";
+            this.rb_numFeuille.UseVisualStyleBackColor = true;
+            // 
+            // rb_nomFeuille
+            // 
+            this.rb_nomFeuille.AutoSize = true;
+            this.rb_nomFeuille.Location = new System.Drawing.Point(10, 283);
+            this.rb_nomFeuille.Name = "rb_nomFeuille";
+            this.rb_nomFeuille.Size = new System.Drawing.Size(77, 17);
+            this.rb_nomFeuille.TabIndex = 69;
+            this.rb_nomFeuille.TabStop = true;
+            this.rb_nomFeuille.Text = "Nom feuille";
+            this.rb_nomFeuille.UseVisualStyleBackColor = true;
+            // 
+            // tb_nomFeuille
+            // 
+            this.tb_nomFeuille.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tb_nomFeuille.Location = new System.Drawing.Point(165, 280);
+            this.tb_nomFeuille.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.tb_nomFeuille.Name = "tb_nomFeuille";
+            this.tb_nomFeuille.Size = new System.Drawing.Size(174, 22);
+            this.tb_nomFeuille.TabIndex = 70;
+            // 
             // GestionProfil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(870, 383);
+            this.ClientSize = new System.Drawing.Size(870, 448);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.b_fermer);
@@ -525,6 +586,7 @@
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_Destination)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_Source)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_idxFeuille)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -571,5 +633,9 @@
         private System.Windows.Forms.Button b_supprimerAction;
         private System.Windows.Forms.Button b_monterAction;
         private System.Windows.Forms.Button b_descendreAction;
+        private System.Windows.Forms.TextBox tb_nomFeuille;
+        private System.Windows.Forms.RadioButton rb_nomFeuille;
+        private System.Windows.Forms.RadioButton rb_numFeuille;
+        private System.Windows.Forms.NumericUpDown num_idxFeuille;
     }
 }

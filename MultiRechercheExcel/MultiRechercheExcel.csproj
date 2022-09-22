@@ -35,6 +35,26 @@
   <PropertyGroup>
     <ApplicationIcon>MultiRechercheExcel.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EPPlus, Version=6.0.4.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
       <HintPath>..\packages\EPPlus.6.0.4\lib\net452\EPPlus.dll</HintPath>
@@ -52,6 +72,9 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite">
+      <HintPath>.\System.Data.SQLite.dll</HintPath>
+    </Reference>
     <Reference Include="System.Security" />
     <Reference Include="System.Threading.Tasks" />
     <Reference Include="System.Xml.Linq" />
@@ -71,6 +94,12 @@
     </Compile>
     <Compile Include="ConfigTransformation.Designer.cs">
       <DependentUpon>ConfigTransformation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GestionBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GestionBase.Designer.cs">
+      <DependentUpon>GestionBase.cs</DependentUpon>
     </Compile>
     <Compile Include="GestionProfil.cs">
       <SubType>Form</SubType>
@@ -101,6 +130,9 @@
     <Compile Include="Settings.cs" />
     <EmbeddedResource Include="ConfigTransformation.resx">
       <DependentUpon>ConfigTransformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GestionBase.resx">
+      <DependentUpon>GestionBase.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GestionProfil.resx">
       <DependentUpon>GestionProfil.cs</DependentUpon>
