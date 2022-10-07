@@ -1,1 +1,16 @@
 - ajout la fusion de colonnes (recherche msisdn dans colonne racine + colonne number)
+
+- fonction filtre : 
+-- lorsque l'eltec est trouvé dans le fichiers référence, toute la ligne est dumpée
+-- dumper un fichier par profil, avec les entetes
+
+- possibilité de définir plusieurs paramRecherche
+-- liste déroulante sur l'interface principale ?
+
+
+dernières modifs :
+
+combobox remplacée par une checkedlistbox
+support de la recherche dans plusieurs bases
+correction de l'affichage des résultats "base xxx - val1"
+ajout du vidage de base

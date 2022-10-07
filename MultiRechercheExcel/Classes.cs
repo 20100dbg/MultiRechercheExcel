@@ -20,6 +20,8 @@ namespace MultiRechercheExcel
         TransformerColonne, TransformerFichier
     };
 
+    public enum ModeResultat { UneOccurence, UneOccurenceParFichier, ToutesLesOccurences };
+
     public static class DB
     {
         public static List<Profil> profilsRecherche = new List<Profil>();
@@ -169,6 +171,7 @@ namespace MultiRechercheExcel
         public string Nom;
         public int NbColonnes;
         public Profil Profil;
+        public int NbLignes;
 
         public static int GetIdxFromNom(string nom)
         {
@@ -185,7 +188,7 @@ namespace MultiRechercheExcel
 
         public override string ToString()
         {
-            return Nom;
+            return Nom + " (" + NbLignes + ")";
         }
     }
 

@@ -94,7 +94,7 @@
             this.c.Size = new System.Drawing.Size(224, 115);
             this.c.TabIndex = 12;
             this.c.TabStop = false;
-            this.c.Text = "Bases";
+            this.c.Text = "Références";
             // 
             // l_tcBases
             // 
