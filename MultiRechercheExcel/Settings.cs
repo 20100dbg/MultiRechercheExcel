@@ -70,10 +70,6 @@ namespace MultiRechercheExcel
                                     carPad = invalues[7],
                                     nbCarPad = int.Parse(invalues[8]),
                                     leftPad = (invalues[9].ToLower() == "true"),
-                                    /*
-                                    valeurDefaut = invalues[10],
-                                    valeurDefautDabord = (invalues[11].ToLower() == "true")
-                                    */
                                 }
                             });
                         }
@@ -89,24 +85,16 @@ namespace MultiRechercheExcel
                         DB.tcValeur.carPad = values[4];
                         DB.tcValeur.nbCarPad = int.Parse(values[5]);
                         DB.tcValeur.leftPad = (values[6].ToLower() == "true");
-                        /*
-                        DB.tcValeur.valeurDefaut = values[7];
-                        DB.tcValeur.valeurDefautDabord = (values[8].ToLower() == "true");
-                        */
                     }
-                    else if (keyValue[0] == "paramBase")
+                    else if (keyValue[0] == "paramReference")
                     {
-                        DB.tcBase.ModeCasse = (ModeCasse)int.Parse(values[0]);
-                        DB.tcBase.debutChaine = int.Parse(values[1]);
-                        DB.tcBase.longueurChaine = int.Parse(values[2]);
-                        DB.tcBase.finChaine = int.Parse(values[3]);
-                        DB.tcBase.carPad = values[4];
-                        DB.tcBase.nbCarPad = int.Parse(values[5]);
-                        DB.tcBase.leftPad = (values[6].ToLower() == "true");
-                        /*
-                        DB.tcBase.valeurDefaut = values[7];
-                        DB.tcBase.valeurDefautDabord = (values[8].ToLower() == "true");
-                        */
+                        DB.tcRef.ModeCasse = (ModeCasse)int.Parse(values[0]);
+                        DB.tcRef.debutChaine = int.Parse(values[1]);
+                        DB.tcRef.longueurChaine = int.Parse(values[2]);
+                        DB.tcRef.finChaine = int.Parse(values[3]);
+                        DB.tcRef.carPad = values[4];
+                        DB.tcRef.nbCarPad = int.Parse(values[5]);
+                        DB.tcRef.leftPad = (values[6].ToLower() == "true");
                     }
                 }
             }
@@ -150,25 +138,17 @@ namespace MultiRechercheExcel
                                 af.TransChaine.leftPad);
                     }
 
-                    /*
-                    af.TransChaine.valeurDefaut + "|" +
-                    af.TransChaine.valeurDefautDabord);
-                    */
                 }
                 sb.Append("\n");
             }
 
-            sb.AppendLine("paramBase=" + (int)DB.tcBase.ModeCasse + ";" +
-                                        DB.tcBase.debutChaine + ";" +
-                                        DB.tcBase.longueurChaine + ";" +
-                                        DB.tcBase.finChaine + ";" +
-                                        DB.tcBase.carPad + ";" +
-                                        DB.tcBase.nbCarPad + ";" +
-                                        DB.tcBase.leftPad);
-                                        /*
-                                        DB.tcBase.valeurDefaut + ";" +
-                                        DB.tcBase.valeurDefautDabord);
-                                        */
+            sb.AppendLine("paramReference=" + (int)DB.tcRef.ModeCasse + ";" +
+                                        DB.tcRef.debutChaine + ";" +
+                                        DB.tcRef.longueurChaine + ";" +
+                                        DB.tcRef.finChaine + ";" +
+                                        DB.tcRef.carPad + ";" +
+                                        DB.tcRef.nbCarPad + ";" +
+                                        DB.tcRef.leftPad);
 
             sb.AppendLine("paramValeur=" + (int)DB.tcValeur.ModeCasse + ";" +
                                         DB.tcValeur.debutChaine + ";" +
@@ -177,11 +157,6 @@ namespace MultiRechercheExcel
                                         DB.tcValeur.carPad + ";" +
                                         DB.tcValeur.nbCarPad + ";" +
                                         DB.tcValeur.leftPad);
-                                        /*
-                                        DB.tcValeur.valeurDefaut + ";" +
-                                        DB.tcValeur.valeurDefautDabord);
-                                        */
-
 
             using (StreamWriter sw = new StreamWriter(Settings.fichierConfig))
             {

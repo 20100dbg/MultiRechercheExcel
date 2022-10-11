@@ -52,7 +52,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.b_ViderFichiersBases = new System.Windows.Forms.Button();
-            this.lv_bases = new System.Windows.Forms.ListView();
+            this.lv_references = new System.Windows.Forms.ListView();
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.b_ajouterFichierBase = new System.Windows.Forms.Button();
@@ -251,7 +251,7 @@
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.b_ViderFichiersBases);
-            this.groupBox2.Controls.Add(this.lv_bases);
+            this.groupBox2.Controls.Add(this.lv_references);
             this.groupBox2.Controls.Add(this.b_ajouterFichierBase);
             this.groupBox2.Controls.Add(this.tb_valReferences);
             this.groupBox2.Location = new System.Drawing.Point(416, 6);
@@ -297,22 +297,22 @@
             this.b_ViderFichiersBases.TabIndex = 5;
             this.b_ViderFichiersBases.Text = "Vider fichiers";
             this.b_ViderFichiersBases.UseVisualStyleBackColor = true;
-            this.b_ViderFichiersBases.Click += new System.EventHandler(this.b_ViderFichiersBases_Click);
+            this.b_ViderFichiersBases.Click += new System.EventHandler(this.b_ViderFichiersReferences_Click);
             // 
             // lv_bases
             // 
-            this.lv_bases.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lv_references.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader3,
             this.columnHeader4});
-            this.lv_bases.FullRowSelect = true;
-            this.lv_bases.GridLines = true;
-            this.lv_bases.HideSelection = false;
-            this.lv_bases.Location = new System.Drawing.Point(6, 145);
-            this.lv_bases.Name = "lv_bases";
-            this.lv_bases.Size = new System.Drawing.Size(376, 115);
-            this.lv_bases.TabIndex = 3;
-            this.lv_bases.UseCompatibleStateImageBehavior = false;
-            this.lv_bases.View = System.Windows.Forms.View.Details;
+            this.lv_references.FullRowSelect = true;
+            this.lv_references.GridLines = true;
+            this.lv_references.HideSelection = false;
+            this.lv_references.Location = new System.Drawing.Point(6, 145);
+            this.lv_references.Name = "lv_bases";
+            this.lv_references.Size = new System.Drawing.Size(376, 115);
+            this.lv_references.TabIndex = 3;
+            this.lv_references.UseCompatibleStateImageBehavior = false;
+            this.lv_references.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader3
             // 
@@ -332,7 +332,7 @@
             this.b_ajouterFichierBase.TabIndex = 2;
             this.b_ajouterFichierBase.Text = "Ajouter fichier";
             this.b_ajouterFichierBase.UseVisualStyleBackColor = true;
-            this.b_ajouterFichierBase.Click += new System.EventHandler(this.b_ajouterFichierBase_Click);
+            this.b_ajouterFichierBase.Click += new System.EventHandler(this.b_ajouterFichierReference_Click);
             // 
             // tb_valReferences
             // 
@@ -439,7 +439,7 @@
         private System.Windows.Forms.Button b_recherche;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button b_ViderFichiersBases;
-        private System.Windows.Forms.ListView lv_bases;
+        private System.Windows.Forms.ListView lv_references;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.Button b_ajouterFichierBase;

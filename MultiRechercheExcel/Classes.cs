@@ -7,9 +7,9 @@ namespace MultiRechercheExcel
 {
     public enum ModeRecherche
     {
-        Exact, BaseContientValeur, ValeurContientBase,
-        BaseCommenceParValeur, ValeurCommenceParBase,
-        BaseFinitParValeur, ValeurFinitParBase
+        Exact, RefContientValeur, ValeurContientRef,
+        RefCommenceParValeur, ValeurCommenceParRef,
+        RefFinitParValeur, ValeurFinitParRef
     };
 
     public enum ModeCasse { Normal, Upper, Lower };
@@ -28,7 +28,7 @@ namespace MultiRechercheExcel
         public static List<ProfilAction> profilsAction = new List<ProfilAction>();
 
         public static List<Fichier> fichiersValeurs = new List<Fichier>();
-        public static List<Fichier> fichiersBases = new List<Fichier>();
+        public static List<Fichier> fichiersRefs = new List<Fichier>();
         public static List<MaBase> bases = new List<MaBase>();
 
         public static List<Valeur> valeurs = new List<Valeur>();
@@ -36,7 +36,7 @@ namespace MultiRechercheExcel
 
         public static ParamRecherche ParamRecherche { get; set; }
         public static TransformationChaine tcValeur { get; set; }
-        public static TransformationChaine tcBase { get; set; }
+        public static TransformationChaine tcRef { get; set; }
 
         public static SQLiteConnection SQLiteCon { get; set; }
     }
@@ -86,7 +86,7 @@ namespace MultiRechercheExcel
         public string ValeurOrigine { get; set; }
         public string ValeurTransforme { get; set; }
         public string FichierValeur { get; set; }
-        public string FichierBase { get; set; }
+        public string FichierRef { get; set; }
         public List<Colonne> Colonnes { get; set; }
         public bool Trouve { get; set; }
 

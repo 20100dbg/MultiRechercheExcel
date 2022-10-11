@@ -20,7 +20,7 @@ namespace MultiRechercheExcel
             cb_typeRecherche.SelectedIndex = 0;
 
             tcValeurs = DB.tcValeur;
-            tcBases = DB.tcBase;
+            tcBases = DB.tcRef;
 
             l_tcValeurs.Text = tcValeurs.ToString();
             l_tcBases.Text = tcBases.ToString();
@@ -34,7 +34,7 @@ namespace MultiRechercheExcel
             ParamRecherche.RemonterToutesOccurences = cb_remonterToutesOccurences.Checked;
 
             if (tcValeurs != null) DB.tcValeur = tcValeurs;
-            if (tcBases != null) DB.tcBase = tcBases;
+            if (tcBases != null) DB.tcRef = tcBases;
 
             Settings.WriteConfigFile();
             Close();

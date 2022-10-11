@@ -33,7 +33,7 @@ namespace MultiRechercheExcel
                 SQLiteDB.InsertDefaultData();
             }
 
-            DB.tcBase = new TransformationChaine();
+            DB.tcRef = new TransformationChaine();
             DB.tcValeur = new TransformationChaine();
 
             for (int i = 0; i < DB.profilsAction.Count; i++)
@@ -108,7 +108,7 @@ namespace MultiRechercheExcel
                             {
                                 Colonnes = new List<Colonne>(cols),
                                 FichierValeur = "",
-                                FichierBase = filename,
+                                FichierRef = filename,
                                 ValeurOrigine = myWorksheet.Cells[row, col].Value.ToString(),
                                 Trouve = false
                             };
@@ -175,7 +175,7 @@ namespace MultiRechercheExcel
                         {
                             Colonnes = new List<Colonne>(cols),
                             FichierValeur = Path.GetFileName(filepath),
-                            FichierBase = "",
+                            FichierRef = "",
                             ValeurOrigine = tabLigne[idxCol],
                             Trouve = false
                         };
@@ -216,7 +216,7 @@ namespace MultiRechercheExcel
                 DB.valeurs.Add(new Valeur
                 {
                     Colonnes = new List<Colonne>(),
-                    FichierBase = "",
+                    FichierRef = "",
                     FichierValeur = "entrée manuelle",
                     ValeurOrigine = valOrigine,
                     ValeurTransforme = valTransforme,
@@ -266,7 +266,7 @@ namespace MultiRechercheExcel
             for (int i = 0; i < tabTB.Length; i++)
             {
                 int idx = 0;
-                string val = TransformerValeur(tabTB[i], DB.tcBase);
+                string val = TransformerValeur(tabTB[i], DB.tcRef);
 
                 while (idx > -1)
                 {
@@ -276,7 +276,7 @@ namespace MultiRechercheExcel
                     {
                         if (!DB.valeurs[idx].Trouve || monModeResultat == ModeResultat.ToutesLesOccurences)
                         {
-                            DB.valeurs[idx].FichierBase = "entrée manuelle";
+                            DB.valeurs[idx].FichierRef = "entrée manuelle";
                             DB.valeurs[idx].Trouve = true;
                             break;
                         }
@@ -284,12 +284,12 @@ namespace MultiRechercheExcel
                 }
             }
 
-            for (int i = 0; i < DB.fichiersBases.Count; i++)
+            for (int i = 0; i < DB.fichiersRefs.Count; i++)
             {
-                Profil p = DB.profilsRecherche[DB.fichiersBases[i].IdxProfil];
+                Profil p = DB.profilsRecherche[DB.fichiersRefs[i].IdxProfil];
                 bool foundInFile = false;
 
-                foreach (Valeur v in LireValeurs(DB.fichiersBases[i].Chemin, p))
+                foreach (Valeur v in LireValeurs(DB.fichiersRefs[i].Chemin, p))
                 {
                     int idx = -1;
 
@@ -297,9 +297,9 @@ namespace MultiRechercheExcel
                     {
                         idx = DB.valeurs.FindIndex(idx + 1, (x) =>
                         {
-                            string val = TransformerValeur(v.ValeurOrigine, DB.tcBase);
+                            string val = TransformerValeur(v.ValeurOrigine, DB.tcRef);
 
-                            return x.FichierBase != DB.fichiersBases[i].Chemin &&
+                            return x.FichierRef != DB.fichiersRefs[i].Chemin &&
                                 ComparaisonValeurs(x.ValeurTransforme, val);
                         });
 
@@ -308,7 +308,7 @@ namespace MultiRechercheExcel
                             if (!DB.valeurs[idx].Trouve || monModeResultat == ModeResultat.ToutesLesOccurences)
                             {
                                 DB.valeurs[idx].Colonnes.AddRange(v.Colonnes);
-                                DB.valeurs[idx].FichierBase = Path.GetFileName(DB.fichiersBases[i].Chemin);
+                                DB.valeurs[idx].FichierRef = Path.GetFileName(DB.fichiersRefs[i].Chemin);
                                 DB.valeurs[idx].Trouve = true;
                                 foundInFile = true;
                             }
@@ -322,7 +322,7 @@ namespace MultiRechercheExcel
                         continue;
                 }
 
-                int prct = i / DB.fichiersBases.Count * 100;
+                int prct = i / DB.fichiersRefs.Count * 100;
                 backgroundWorker1.ReportProgress(prct);
             }
         }
@@ -372,7 +372,7 @@ namespace MultiRechercheExcel
                                 });
                             }
 
-                            DB.valeurs[i].FichierBase = "Base " + baseActuelle.Nom;
+                            DB.valeurs[i].FichierRef = "Base " + baseActuelle.Nom;
                             DB.valeurs[i].Trouve = true;
                         }
                     }
@@ -386,7 +386,7 @@ namespace MultiRechercheExcel
 
             using (StreamWriter sw = new StreamWriter(Settings.savefilename, false, System.Text.Encoding.GetEncoding(1252)))
             {
-                sw.Write("FichierValeur;FichierBase;ValeurOrigine;ValeurTransforme");
+                sw.Write("FichierValeur;FichierReference;ValeurOrigine;ValeurTransforme");
 
                 for (int i = 0; i < DB.entetesColonnes.Count; i++)
                 {
@@ -399,7 +399,7 @@ namespace MultiRechercheExcel
                     if (DB.valeurs[i].Trouve)
                     {
                         sw.Write(DB.valeurs[i].FichierValeur + ";");
-                        sw.Write(DB.valeurs[i].FichierBase + ";");
+                        sw.Write(DB.valeurs[i].FichierRef + ";");
                         sw.Write(DB.valeurs[i].ValeurOrigine + ";");
                         sw.Write(DB.valeurs[i].ValeurTransforme);
 
@@ -467,17 +467,17 @@ namespace MultiRechercheExcel
         {
             if (ParamRecherche.ModeRecherche == ModeRecherche.Exact)
                 return v1 == v2;
-            else if (ParamRecherche.ModeRecherche == ModeRecherche.BaseContientValeur)
+            else if (ParamRecherche.ModeRecherche == ModeRecherche.RefContientValeur)
                 return v2.Contains(v1);
-            else if (ParamRecherche.ModeRecherche == ModeRecherche.ValeurContientBase)
+            else if (ParamRecherche.ModeRecherche == ModeRecherche.ValeurContientRef)
                 return v1.Contains(v2);
-            else if (ParamRecherche.ModeRecherche == ModeRecherche.BaseCommenceParValeur)
+            else if (ParamRecherche.ModeRecherche == ModeRecherche.RefCommenceParValeur)
                 return v2.StartsWith(v1);
-            else if (ParamRecherche.ModeRecherche == ModeRecherche.ValeurCommenceParBase)
+            else if (ParamRecherche.ModeRecherche == ModeRecherche.ValeurCommenceParRef)
                 return v1.StartsWith(v2);
-            else if (ParamRecherche.ModeRecherche == ModeRecherche.BaseFinitParValeur)
+            else if (ParamRecherche.ModeRecherche == ModeRecherche.RefFinitParValeur)
                 return v2.EndsWith(v1);
-            else if (ParamRecherche.ModeRecherche == ModeRecherche.ValeurFinitParBase)
+            else if (ParamRecherche.ModeRecherche == ModeRecherche.ValeurFinitParRef)
                 return v1.EndsWith(v2);
 
             return false;
@@ -508,7 +508,7 @@ namespace MultiRechercheExcel
             CollecterValeurs();
 
             //parcourir les fichiers
-            Settings.Log("Parcours des fichiers bases");
+            Settings.Log("Parcours des fichiers références");
             ParcourirFichiers();
 
             //recherche dans la base sélectionnée
@@ -678,7 +678,7 @@ namespace MultiRechercheExcel
             }
         }
 
-        private void b_ajouterFichierBase_Click(object sender, EventArgs e)
+        private void b_ajouterFichierReference_Click(object sender, EventArgs e)
         {
             fSelectionFichier = new SelectionFichier();
             fSelectionFichier.ShowDialog();
@@ -691,14 +691,14 @@ namespace MultiRechercheExcel
                     IdxProfil = fSelectionFichier.idxProfil
                 };
 
-                DB.fichiersBases.Add(f);
+                DB.fichiersRefs.Add(f);
 
-                lv_bases.Items.Add(new ListViewItem(new String[] {
+                lv_references.Items.Add(new ListViewItem(new String[] {
                     Path.GetFileName(f.Chemin),
                     DB.profilsRecherche[f.IdxProfil].Nom
                 }));
 
-                Settings.Log("Ajout fichier base " + f.Chemin);
+                Settings.Log("Ajout fichier référence " + f.Chemin);
             }
         }
 
@@ -708,10 +708,10 @@ namespace MultiRechercheExcel
             DB.fichiersValeurs.Clear();
         }
 
-        private void b_ViderFichiersBases_Click(object sender, EventArgs e)
+        private void b_ViderFichiersReferences_Click(object sender, EventArgs e)
         {
-            lv_bases.Items.Clear();
-            DB.fichiersBases.Clear();
+            lv_references.Items.Clear();
+            DB.fichiersRefs.Clear();
         }
 
         private void gestionDesProfilsToolStripMenuItem_Click(object sender, EventArgs e)
