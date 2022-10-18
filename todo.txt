@@ -7,6 +7,6 @@
 - possibilité de définir plusieurs paramRecherche
 -- liste déroulante sur l'interface principale ?
 
-
-fait :
-renommage base en reference
+gestion profil
+case à cocher "toutes les colonnes eltec"
+case à cocher "afficher toutes les colonnes"

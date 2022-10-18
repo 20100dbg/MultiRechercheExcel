@@ -197,7 +197,9 @@ namespace MultiRechercheExcel
         public string Nom;
         public int NbEntetes;
         public int[] ColsEltecs;
+        public bool ToutesEltecs;
         public int[] ColsAffichees;
+        public bool ToutesAffichees;
         public int IdxSeparateur;
         public int IdxFeuille;
         public string NomFeuille;

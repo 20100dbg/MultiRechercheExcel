@@ -77,12 +77,15 @@ namespace MultiRechercheExcel
                     //pour chaque ligne, il faut d'abord récupérer toutes les colonnes à afficher
                     //et les assigner à chaque objet valeur créé pour chaque cols Eltec
                     List<Colonne> cols = new List<Colonne>();
-                    //int nbColsAffichees = (dumpAllCols) ? totalCols : p.ColsAffichees.Length;
-                    string[] tabAffichees = new string[p.ColsAffichees.Length]; // nbColsAffichees
 
-                    for (int j = 0; j < p.ColsAffichees.Length; j++)
+                    int nbColsAffichees = (p.ToutesAffichees) ? totalCols : p.ColsAffichees.Length;
+                    string[] tabAffichees = new string[nbColsAffichees];
+
+                    int nbColsEltecs = (p.ToutesEltecs) ? totalCols : p.ColsEltecs.Length;
+
+                    for (int j = 0; j < nbColsAffichees; j++)
                     {
-                        int col = p.ColsAffichees[j];
+                        int col = (p.ToutesAffichees) ? j + 1 : p.ColsAffichees[j];
 
                         tabAffichees[j] = myWorksheet.Cells[row, col].Value.ToString();
 
@@ -99,9 +102,11 @@ namespace MultiRechercheExcel
                         colDone = true;
                     }
 
-                    for (int j = 0; j < p.ColsEltecs.Length; j++)
+
+                    for (int j = 0; j < nbColsEltecs; j++)
                     {
-                        int col = p.ColsEltecs[j];
+                        int col = (p.ToutesEltecs) ? j + 1 : p.ColsEltecs[j];
+                        
                         if (row <= totalRows && col <= totalCols)
                         {
                             yield return new Valeur
@@ -138,12 +143,16 @@ namespace MultiRechercheExcel
 
                 String[] tabLigne = str.Split(new String[] { Profil.GetSeparateurFromIndex(p.IdxSeparateur) }, StringSplitOptions.None);
 
-                string[] tabAffichees = new string[p.ColsAffichees.Length];
+                int nbColsAffichees = (p.ToutesAffichees) ? tabLigne.Length : p.ColsAffichees.Length;
+                int nbColsEltecs = (p.ToutesEltecs) ? tabLigne.Length : p.ColsEltecs.Length;
+
+                string[] tabAffichees = new string[nbColsAffichees];
                 List<Colonne> cols = new List<Colonne>();
 
-                for (int i = 0; i < p.ColsAffichees.Length; i++)
+                for (int i = 0; i < nbColsAffichees; i++)
                 {
-                    int idxCol = p.ColsAffichees[i] - 1;
+                    int idxCol = (p.ToutesAffichees) ? i : p.ColsAffichees[i] - 1;
+
                     if (idxCol < tabLigne.Length)
                     {
                         tabAffichees[i] = tabLigne[idxCol];
@@ -165,9 +174,9 @@ namespace MultiRechercheExcel
                 }
 
 
-                for (int j = 0; j < p.ColsEltecs.Length; j++)
+                for (int j = 0; j < nbColsEltecs; j++)
                 {
-                    int idxCol = p.ColsEltecs[j] - 1;
+                    int idxCol = (p.ToutesEltecs) ? j : p.ColsEltecs[j] - 1;
 
                     if (idxCol < tabLigne.Length)
                     {
@@ -188,19 +197,16 @@ namespace MultiRechercheExcel
 
         private IEnumerable<Valeur> LireValeurs(string filepath, Profil p)
         {
+            p.ToutesAffichees = true;
+            p.ToutesEltecs = true;
+
             if (filepath.EndsWith(".xlsx"))
             {
-                foreach (Valeur v in LireValeursXLSX(filepath, p))
-                {
-                    yield return v;
-                }
+                foreach (Valeur v in LireValeursXLSX(filepath, p)) yield return v;
             }
             else
             {
-                foreach (Valeur v in LireValeursCSV(filepath, p))
-                {
-                    yield return v;
-                }
+                foreach (Valeur v in LireValeursCSV(filepath, p)) yield return v;
             }
         }
 
@@ -228,32 +234,15 @@ namespace MultiRechercheExcel
             {
                 Profil p = DB.profilsRecherche[DB.fichiersValeurs[i].IdxProfil];
 
-                if (DB.fichiersValeurs[i].Chemin.EndsWith(".xlsx"))
+                foreach (Valeur v in LireValeurs(DB.fichiersValeurs[i].Chemin, p))
                 {
-                    foreach (Valeur v in LireValeursXLSX(DB.fichiersValeurs[i].Chemin, p))
+                    if (v.ValeurOrigine != "")
                     {
-                        if (v.ValeurOrigine != "")
-                        {
-                            string valOrigine = v.ValeurOrigine;
-                            string valTransforme = TransformerValeur(valOrigine, DB.tcValeur);
-                            v.ValeurTransforme = valTransforme;
+                        string valOrigine = v.ValeurOrigine;
+                        string valTransforme = TransformerValeur(valOrigine, DB.tcValeur);
+                        v.ValeurTransforme = valTransforme;
 
-                            DB.valeurs.Add(v);
-                        }
-                    }
-                }
-                else
-                {
-                    foreach (Valeur v in LireValeursCSV(DB.fichiersValeurs[i].Chemin, p))
-                    {
-                        if (v.ValeurOrigine != "")
-                        {
-                            string valOrigine = v.ValeurOrigine;
-                            string valTransforme = TransformerValeur(valOrigine, DB.tcValeur);
-                            v.ValeurTransforme = valTransforme;
-
-                            DB.valeurs.Add(v);
-                        }
+                        DB.valeurs.Add(v);
                     }
                 }
             }
