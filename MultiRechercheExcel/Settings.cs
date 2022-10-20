@@ -47,7 +47,9 @@ namespace MultiRechercheExcel
                             ColsEltecs = Profil.GetIntArray(values[1]),
                             ColsAffichees = Profil.GetIntArray(values[2]),
                             NbEntetes = int.Parse(values[3]),
-                            IdxSeparateur = int.Parse(values[4])
+                            IdxSeparateur = int.Parse(values[4]),
+                            ToutesAffichees = (values[5].ToLower() == "true"),
+                            ToutesEltecs = (values[6].ToLower() == "true"),
                         };
                         DB.profilsRecherche.Add(p);
                     }
@@ -103,6 +105,14 @@ namespace MultiRechercheExcel
                         DB.tcRef.nbCarPad = int.Parse(values[5]);
                         DB.tcRef.leftPad = (values[6].ToLower() == "true");
                     }
+                    else if (keyValue[0] == "toutesColsAffichees")
+                    {
+                        ParamRecherche.ToutesColsAffichees = (values[0].ToLower() == "true");
+                    }
+                    else if (keyValue[0] == "toutesColsEltec")
+                    {
+                        ParamRecherche.ToutesColsEltecs = (values[0].ToLower() == "true");
+                    }
                 }
             }
             return true;
@@ -119,7 +129,9 @@ namespace MultiRechercheExcel
                     String.Join(",", DB.profilsRecherche[i].ColsEltecs) + ";" +
                     String.Join(",", DB.profilsRecherche[i].ColsAffichees) + ";" +
                     DB.profilsRecherche[i].NbEntetes + ";" +
-                    DB.profilsRecherche[i].IdxSeparateur);
+                    DB.profilsRecherche[i].IdxSeparateur + ";" +
+                    DB.profilsRecherche[i].ToutesAffichees + ";" +
+                    DB.profilsRecherche[i].ToutesEltecs + ";");
             }
 
             for (int i = 0; i < DB.profilsAction.Count; i++)
@@ -130,8 +142,7 @@ namespace MultiRechercheExcel
                 {
                     ActionFichier af = DB.profilsAction[i].Actions[j];
 
-                    sb.Append(";" + (int)af.TypeActionFichier + "|" +
-                                af.IdxSrc + "|" + af.IdxDst + "|");
+                    sb.Append(";" + (int)af.TypeActionFichier + "|" + af.IdxSrc + "|" + af.IdxDst + "|");
 
                     if (af.TransChaine == null) sb.Append("0|0|0|0|0|0|0");
                     else
@@ -164,6 +175,10 @@ namespace MultiRechercheExcel
                                         DB.tcValeur.carPad + ";" +
                                         DB.tcValeur.nbCarPad + ";" +
                                         DB.tcValeur.leftPad);
+
+            sb.AppendLine("toutesColsEltec=" + ParamRecherche.ToutesColsEltecs);
+            sb.AppendLine("toutesColsAffichees=" + ParamRecherche.ToutesColsAffichees);
+
 
             using (StreamWriter sw = new StreamWriter(Settings.fichierConfig))
             {

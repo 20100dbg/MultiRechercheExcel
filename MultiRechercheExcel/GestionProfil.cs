@@ -50,6 +50,8 @@ namespace MultiRechercheExcel
                 tb_ColsEltecs.Text = Profil.GetStringFromIntArray(DB.profilsRecherche[idxProfil].ColsEltecs);
                 tb_ColsAfficher.Text = Profil.GetStringFromIntArray(DB.profilsRecherche[idxProfil].ColsAffichees);
                 cb_separateur.SelectedIndex = DB.profilsRecherche[idxProfil].IdxSeparateur;
+                cb_toutesColsAffichees.Checked = DB.profilsRecherche[idxProfil].ToutesAffichees;
+                cb_toutesColsEltec.Checked = DB.profilsRecherche[idxProfil].ToutesEltecs;
             }
         }
 
@@ -104,6 +106,9 @@ namespace MultiRechercheExcel
                 DB.profilsRecherche[idxProfil].ColsEltecs = Profil.GetIntArray(tb_ColsEltecs.Text.ToUpper());
                 DB.profilsRecherche[idxProfil].ColsAffichees = Profil.GetIntArray(tb_ColsAfficher.Text.ToUpper());
                 DB.profilsRecherche[idxProfil].IdxSeparateur = cb_separateur.SelectedIndex;
+
+                DB.profilsRecherche[idxProfil].ToutesAffichees = cb_toutesColsAffichees.Checked;
+                DB.profilsRecherche[idxProfil].ToutesEltecs = cb_toutesColsEltec.Checked;
 
                 if (rb_nomFeuille.Checked)
                 {
@@ -327,6 +332,18 @@ namespace MultiRechercheExcel
             ListViewItem lvi = lv_actions.Items[idx];
             lv_actions.Items.RemoveAt(idx);
             lv_actions.Items.Insert(idx + 1, lvi);
+        }
+
+        private void cb_toutesColsEltec_CheckedChanged(object sender, EventArgs e)
+        {
+            tb_ColsEltecs.Clear();
+            tb_ColsEltecs.Enabled = !cb_toutesColsEltec.Checked;
+        }
+
+        private void cb_toutesColsAffichees_CheckedChanged(object sender, EventArgs e)
+        {
+            tb_ColsAfficher.Clear();
+            tb_ColsAfficher.Enabled = !cb_toutesColsAffichees.Checked;
         }
     }
 }

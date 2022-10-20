@@ -33,6 +33,7 @@ namespace MultiRechercheExcel
 
         public static List<Valeur> valeurs = new List<Valeur>();
         public static List<string> entetesColonnes = new List<string>();
+        //public static Dictionary<string, string> entetesColonnes2 = new Dictionary<string, string>();
 
         public static ParamRecherche ParamRecherche { get; set; }
         public static TransformationChaine tcValeur { get; set; }
@@ -87,7 +88,8 @@ namespace MultiRechercheExcel
         public string ValeurTransforme { get; set; }
         public string FichierValeur { get; set; }
         public string FichierRef { get; set; }
-        public List<Colonne> Colonnes { get; set; }
+        //public List<Colonne> Colonnes { get; set; }
+        public Dictionary<string, string> Colonnes2 { get; set; }
         public bool Trouve { get; set; }
 
         public override bool Equals(object obj)

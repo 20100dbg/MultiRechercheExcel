@@ -46,6 +46,10 @@
             this.tb_ColsEltecs = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tb_nomFeuille = new System.Windows.Forms.TextBox();
+            this.rb_nomFeuille = new System.Windows.Forms.RadioButton();
+            this.rb_numFeuille = new System.Windows.Forms.RadioButton();
+            this.num_idxFeuille = new System.Windows.Forms.NumericUpDown();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.b_descendreAction = new System.Windows.Forms.Button();
             this.b_monterAction = new System.Windows.Forms.Button();
@@ -70,21 +74,19 @@
             this.label12 = new System.Windows.Forms.Label();
             this.b_SupprimerProfilAction = new System.Windows.Forms.Button();
             this.b_NouveauProfilAction = new System.Windows.Forms.Button();
-            this.num_idxFeuille = new System.Windows.Forms.NumericUpDown();
-            this.rb_numFeuille = new System.Windows.Forms.RadioButton();
-            this.rb_nomFeuille = new System.Windows.Forms.RadioButton();
-            this.tb_nomFeuille = new System.Windows.Forms.TextBox();
+            this.cb_toutesColsEltec = new System.Windows.Forms.CheckBox();
+            this.cb_toutesColsAffichees = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.num_NbEntetes)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.num_idxFeuille)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_Destination)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_Source)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.num_idxFeuille)).BeginInit();
             this.SuspendLayout();
             // 
             // b_fermer
             // 
-            this.b_fermer.Location = new System.Drawing.Point(9, 400);
+            this.b_fermer.Location = new System.Drawing.Point(7, 442);
             this.b_fermer.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.b_fermer.Name = "b_fermer";
             this.b_fermer.Size = new System.Drawing.Size(107, 36);
@@ -97,7 +99,7 @@
             // 
             this.cb_separateur.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_separateur.FormattingEnabled = true;
-            this.cb_separateur.Location = new System.Drawing.Point(165, 209);
+            this.cb_separateur.Location = new System.Drawing.Point(165, 260);
             this.cb_separateur.Name = "cb_separateur";
             this.cb_separateur.Size = new System.Drawing.Size(109, 21);
             this.cb_separateur.TabIndex = 64;
@@ -105,7 +107,7 @@
             // tb_ColsAfficher
             // 
             this.tb_ColsAfficher.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tb_ColsAfficher.Location = new System.Drawing.Point(165, 131);
+            this.tb_ColsAfficher.Location = new System.Drawing.Point(165, 164);
             this.tb_ColsAfficher.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tb_ColsAfficher.Name = "tb_ColsAfficher";
             this.tb_ColsAfficher.Size = new System.Drawing.Size(174, 22);
@@ -114,7 +116,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(7, 136);
+            this.label3.Location = new System.Drawing.Point(7, 169);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(129, 13);
@@ -124,7 +126,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(7, 212);
+            this.label7.Location = new System.Drawing.Point(7, 263);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(120, 13);
@@ -195,7 +197,7 @@
             // num_NbEntetes
             // 
             this.num_NbEntetes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.num_NbEntetes.Location = new System.Drawing.Point(165, 179);
+            this.num_NbEntetes.Location = new System.Drawing.Point(165, 230);
             this.num_NbEntetes.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.num_NbEntetes.Name = "num_NbEntetes";
             this.num_NbEntetes.Size = new System.Drawing.Size(68, 22);
@@ -203,7 +205,7 @@
             // 
             // b_SauvegarderProfil
             // 
-            this.b_SauvegarderProfil.Location = new System.Drawing.Point(298, 317);
+            this.b_SauvegarderProfil.Location = new System.Drawing.Point(298, 372);
             this.b_SauvegarderProfil.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.b_SauvegarderProfil.Name = "b_SauvegarderProfil";
             this.b_SauvegarderProfil.Size = new System.Drawing.Size(89, 40);
@@ -215,12 +217,12 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 183);
+            this.label2.Location = new System.Drawing.Point(7, 234);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(97, 13);
+            this.label2.Size = new System.Drawing.Size(95, 13);
             this.label2.TabIndex = 59;
-            this.label2.Text = "Nb lignes d\'entêtes";
+            this.label2.Text = "Nb lignes à ignorer";
             // 
             // tb_ColsEltecs
             // 
@@ -243,6 +245,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cb_toutesColsAffichees);
+            this.groupBox1.Controls.Add(this.cb_toutesColsEltec);
             this.groupBox1.Controls.Add(this.tb_nomFeuille);
             this.groupBox1.Controls.Add(this.rb_nomFeuille);
             this.groupBox1.Controls.Add(this.rb_numFeuille);
@@ -264,10 +268,61 @@
             this.groupBox1.Controls.Add(this.b_NouveauRecherche);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(392, 365);
+            this.groupBox1.Size = new System.Drawing.Size(392, 424);
             this.groupBox1.TabIndex = 65;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Profil de recherche";
+            // 
+            // tb_nomFeuille
+            // 
+            this.tb_nomFeuille.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tb_nomFeuille.Location = new System.Drawing.Point(165, 333);
+            this.tb_nomFeuille.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.tb_nomFeuille.Name = "tb_nomFeuille";
+            this.tb_nomFeuille.Size = new System.Drawing.Size(174, 22);
+            this.tb_nomFeuille.TabIndex = 70;
+            // 
+            // rb_nomFeuille
+            // 
+            this.rb_nomFeuille.AutoSize = true;
+            this.rb_nomFeuille.Location = new System.Drawing.Point(10, 336);
+            this.rb_nomFeuille.Name = "rb_nomFeuille";
+            this.rb_nomFeuille.Size = new System.Drawing.Size(77, 17);
+            this.rb_nomFeuille.TabIndex = 69;
+            this.rb_nomFeuille.TabStop = true;
+            this.rb_nomFeuille.Text = "Nom feuille";
+            this.rb_nomFeuille.UseVisualStyleBackColor = true;
+            // 
+            // rb_numFeuille
+            // 
+            this.rb_numFeuille.AutoSize = true;
+            this.rb_numFeuille.Checked = true;
+            this.rb_numFeuille.Location = new System.Drawing.Point(10, 307);
+            this.rb_numFeuille.Name = "rb_numFeuille";
+            this.rb_numFeuille.Size = new System.Drawing.Size(92, 17);
+            this.rb_numFeuille.TabIndex = 67;
+            this.rb_numFeuille.TabStop = true;
+            this.rb_numFeuille.Text = "Numero feuille";
+            this.rb_numFeuille.UseVisualStyleBackColor = true;
+            // 
+            // num_idxFeuille
+            // 
+            this.num_idxFeuille.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.num_idxFeuille.Location = new System.Drawing.Point(165, 305);
+            this.num_idxFeuille.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.num_idxFeuille.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.num_idxFeuille.Name = "num_idxFeuille";
+            this.num_idxFeuille.Size = new System.Drawing.Size(68, 22);
+            this.num_idxFeuille.TabIndex = 65;
+            this.num_idxFeuille.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // groupBox2
             // 
@@ -293,7 +348,7 @@
             this.groupBox2.Controls.Add(this.b_NouveauProfilAction);
             this.groupBox2.Location = new System.Drawing.Point(427, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(434, 410);
+            this.groupBox2.Size = new System.Drawing.Size(434, 424);
             this.groupBox2.TabIndex = 66;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Actions sur fichiers Excel";
@@ -459,7 +514,7 @@
             // 
             // b_SauvegarderAction
             // 
-            this.b_SauvegarderAction.Location = new System.Drawing.Point(340, 364);
+            this.b_SauvegarderAction.Location = new System.Drawing.Point(340, 372);
             this.b_SauvegarderAction.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.b_SauvegarderAction.Name = "b_SauvegarderAction";
             this.b_SauvegarderAction.Size = new System.Drawing.Size(89, 40);
@@ -518,62 +573,33 @@
             this.b_NouveauProfilAction.UseVisualStyleBackColor = true;
             this.b_NouveauProfilAction.Click += new System.EventHandler(this.b_NouveauProfilAction_Click);
             // 
-            // num_idxFeuille
+            // cb_toutesColsEltec
             // 
-            this.num_idxFeuille.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.num_idxFeuille.Location = new System.Drawing.Point(165, 252);
-            this.num_idxFeuille.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.num_idxFeuille.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.num_idxFeuille.Name = "num_idxFeuille";
-            this.num_idxFeuille.Size = new System.Drawing.Size(68, 22);
-            this.num_idxFeuille.TabIndex = 65;
-            this.num_idxFeuille.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.cb_toutesColsEltec.AutoSize = true;
+            this.cb_toutesColsEltec.Location = new System.Drawing.Point(165, 129);
+            this.cb_toutesColsEltec.Name = "cb_toutesColsEltec";
+            this.cb_toutesColsEltec.Size = new System.Drawing.Size(189, 17);
+            this.cb_toutesColsEltec.TabIndex = 71;
+            this.cb_toutesColsEltec.Text = "Chercher dans toutes les colonnes";
+            this.cb_toutesColsEltec.UseVisualStyleBackColor = true;
+            this.cb_toutesColsEltec.CheckedChanged += new System.EventHandler(this.cb_toutesColsEltec_CheckedChanged);
             // 
-            // rb_numFeuille
+            // cb_toutesColsAffichees
             // 
-            this.rb_numFeuille.AutoSize = true;
-            this.rb_numFeuille.Checked = true;
-            this.rb_numFeuille.Location = new System.Drawing.Point(10, 254);
-            this.rb_numFeuille.Name = "rb_numFeuille";
-            this.rb_numFeuille.Size = new System.Drawing.Size(92, 17);
-            this.rb_numFeuille.TabIndex = 67;
-            this.rb_numFeuille.TabStop = true;
-            this.rb_numFeuille.Text = "Numero feuille";
-            this.rb_numFeuille.UseVisualStyleBackColor = true;
-            // 
-            // rb_nomFeuille
-            // 
-            this.rb_nomFeuille.AutoSize = true;
-            this.rb_nomFeuille.Location = new System.Drawing.Point(10, 283);
-            this.rb_nomFeuille.Name = "rb_nomFeuille";
-            this.rb_nomFeuille.Size = new System.Drawing.Size(77, 17);
-            this.rb_nomFeuille.TabIndex = 69;
-            this.rb_nomFeuille.TabStop = true;
-            this.rb_nomFeuille.Text = "Nom feuille";
-            this.rb_nomFeuille.UseVisualStyleBackColor = true;
-            // 
-            // tb_nomFeuille
-            // 
-            this.tb_nomFeuille.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tb_nomFeuille.Location = new System.Drawing.Point(165, 280);
-            this.tb_nomFeuille.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.tb_nomFeuille.Name = "tb_nomFeuille";
-            this.tb_nomFeuille.Size = new System.Drawing.Size(174, 22);
-            this.tb_nomFeuille.TabIndex = 70;
+            this.cb_toutesColsAffichees.AutoSize = true;
+            this.cb_toutesColsAffichees.Location = new System.Drawing.Point(165, 192);
+            this.cb_toutesColsAffichees.Name = "cb_toutesColsAffichees";
+            this.cb_toutesColsAffichees.Size = new System.Drawing.Size(156, 17);
+            this.cb_toutesColsAffichees.TabIndex = 72;
+            this.cb_toutesColsAffichees.Text = "Afficher toutes les colonnes";
+            this.cb_toutesColsAffichees.UseVisualStyleBackColor = true;
+            this.cb_toutesColsAffichees.CheckedChanged += new System.EventHandler(this.cb_toutesColsAffichees_CheckedChanged);
             // 
             // GestionProfil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(870, 448);
+            this.ClientSize = new System.Drawing.Size(870, 491);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.b_fermer);
@@ -582,11 +608,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.num_NbEntetes)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.num_idxFeuille)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_Destination)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_Source)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.num_idxFeuille)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -637,5 +663,7 @@
         private System.Windows.Forms.RadioButton rb_nomFeuille;
         private System.Windows.Forms.RadioButton rb_numFeuille;
         private System.Windows.Forms.NumericUpDown num_idxFeuille;
+        private System.Windows.Forms.CheckBox cb_toutesColsAffichees;
+        private System.Windows.Forms.CheckBox cb_toutesColsEltec;
     }
 }

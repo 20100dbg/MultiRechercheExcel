@@ -15,7 +15,7 @@ namespace MultiRechercheExcel
         SelectionFichier fSelectionFichier;
         ParametresRecherche fParametresRecherche;
 
-        ModeResultat monModeResultat = ModeResultat.ToutesLesOccurences;
+        //ModeResultat monModeResultat = ModeResultat.ToutesLesOccurences;
 
         int nbResultat;
         List<MaBase> basesRecherche = new List<MaBase>();
@@ -70,7 +70,20 @@ namespace MultiRechercheExcel
                 var totalRows = myWorksheet.Dimension.End.Row;
                 var totalCols = myWorksheet.Dimension.End.Column;
 
+                int nbColsAffichees = (ParamRecherche.ToutesColsAffichees || p.ToutesAffichees) ? totalCols : p.ColsAffichees.Length;
+                int nbColsEltecs = (ParamRecherche.ToutesColsEltecs || p.ToutesEltecs) ? totalCols : p.ColsEltecs.Length;
+
+                /*
                 bool colDone = false;
+                if (!colDone) DB.entetesColonnes.Add(filename + "-" + j);
+                */
+
+                for (int i = 0; i < nbColsAffichees; i++)
+                {
+                    int col = (ParamRecherche.ToutesColsAffichees || p.ToutesAffichees) ? i + 1 : p.ColsAffichees[i];
+                    DB.entetesColonnes.Add(filename + "-" + col);
+                }
+
 
                 for (int row = 1; row <= totalRows; row++)
                 {
@@ -78,32 +91,18 @@ namespace MultiRechercheExcel
 
                     //pour chaque ligne, il faut d'abord récupérer toutes les colonnes à afficher
                     //et les assigner à chaque objet valeur créé pour chaque cols Eltec
-                    List<Colonne> cols = new List<Colonne>();
-
-                    int nbColsAffichees = (ParamRecherche.ToutesColsAffichees || p.ToutesAffichees) ? totalCols : p.ColsAffichees.Length;
-                    string[] tabAffichees = new string[nbColsAffichees];
-
-                    int nbColsEltecs = (ParamRecherche.ToutesColsEltecs || p.ToutesEltecs) ? totalCols : p.ColsEltecs.Length;
-
+                    
+                    Dictionary<string, string> cols = new Dictionary<string, string>();
+                    
                     for (int j = 0; j < nbColsAffichees; j++)
                     {
                         int col = (ParamRecherche.ToutesColsAffichees || p.ToutesAffichees) ? j + 1 : p.ColsAffichees[j];
 
-                        tabAffichees[j] = myWorksheet.Cells[row, col].Value.ToString();
+                        string makey = filename + "-" + col;
+                        string mavalue = myWorksheet.Cells[row, col].Value.ToString();
+                        cols.Add(makey, mavalue);
 
-                        cols.Add(new Colonne
-                        {
-                            Nom = filename + "-" + j,
-                            Valeur = myWorksheet.Cells[row, col].Value.ToString()
-                        });
                     }
-
-                    if (!colDone)
-                    {
-                        for (int i = 0; i < cols.Count; i++) DB.entetesColonnes.Add(cols[i].Nom);
-                        colDone = true;
-                    }
-
 
                     for (int j = 0; j < nbColsEltecs; j++)
                     {
@@ -113,7 +112,7 @@ namespace MultiRechercheExcel
                         {
                             yield return new Valeur
                             {
-                                Colonnes = new List<Colonne>(cols),
+                                Colonnes2 = new Dictionary<string, string>(cols),
                                 FichierValeur = "",
                                 FichierRef = filename,
                                 ValeurOrigine = myWorksheet.Cells[row, col].Value.ToString(),
@@ -133,10 +132,11 @@ namespace MultiRechercheExcel
 
             StreamReader sr = new StreamReader(filepath);
             int x = 0;
-            bool colDone = false;
 
             while (x++ < p.NbEntetes && !sr.EndOfStream)
                 sr.ReadLine();
+
+            bool colDone = false;
 
             while (!sr.EndOfStream)
             {
@@ -144,12 +144,14 @@ namespace MultiRechercheExcel
                 if (String.IsNullOrWhiteSpace(str)) continue;
 
                 String[] tabLigne = str.Split(new String[] { Profil.GetSeparateurFromIndex(p.IdxSeparateur) }, StringSplitOptions.None);
+                
 
                 int nbColsAffichees = (ParamRecherche.ToutesColsAffichees || p.ToutesAffichees) ? tabLigne.Length : p.ColsAffichees.Length;
                 int nbColsEltecs = (ParamRecherche.ToutesColsEltecs || p.ToutesEltecs) ? tabLigne.Length : p.ColsEltecs.Length;
 
                 string[] tabAffichees = new string[nbColsAffichees];
-                List<Colonne> cols = new List<Colonne>();
+                //List<Colonne> cols = new List<Colonne>();
+                Dictionary<string, string> cols = new Dictionary<string, string>();
 
                 for (int i = 0; i < nbColsAffichees; i++)
                 {
@@ -159,22 +161,13 @@ namespace MultiRechercheExcel
                     {
                         tabAffichees[i] = tabLigne[idxCol];
 
-                        cols.Add(new Colonne
-                        {
-                            Nom = filename + "-" + i,
-                            Valeur = tabLigne[idxCol]
-                        });
+                        cols.Add(filename + "-" + idxCol, tabLigne[idxCol]);
+                        if (!colDone) DB.entetesColonnes.Add(filename + "-" + idxCol);
                     }
                     else
                         Settings.Log(filename + " (" + p.Nom + ") : dépassement de colonne");
                 }
-
-                if (!colDone)
-                {
-                    for (int i = 0; i < cols.Count; i++) DB.entetesColonnes.Add(cols[i].Nom);
-                    colDone = true;
-                }
-
+                colDone = true;
 
                 for (int j = 0; j < nbColsEltecs; j++)
                 {
@@ -184,7 +177,8 @@ namespace MultiRechercheExcel
                     {
                         yield return new Valeur
                         {
-                            Colonnes = new List<Colonne>(cols),
+                            //Colonnes = new List<Colonne>(cols),
+                            Colonnes2 = new Dictionary<string, string>(cols),
                             FichierValeur = Path.GetFileName(filepath),
                             FichierRef = "",
                             ValeurOrigine = tabLigne[idxCol],
@@ -220,13 +214,13 @@ namespace MultiRechercheExcel
 
                 DB.valeurs.Add(new Valeur
                 {
-                    Colonnes = new List<Colonne>(),
+                    Colonnes2 = new Dictionary<string, string>(),
                     FichierRef = "",
                     FichierValeur = "entrée manuelle",
                     ValeurOrigine = valOrigine,
                     ValeurTransforme = valTransforme,
                     Trouve = false
-                }); ;
+                });
             }
 
             for (int i = 0; i < DB.fichiersValeurs.Count; i++)
@@ -240,6 +234,9 @@ namespace MultiRechercheExcel
                         string valOrigine = v.ValeurOrigine;
                         string valTransforme = TransformerValeur(valOrigine, DB.tcValeur);
                         v.ValeurTransforme = valTransforme;
+                        v.FichierValeur = Path.GetFileName(DB.fichiersValeurs[i].Chemin);
+                        
+                        //v.Colonnes2.Clear();
 
                         DB.valeurs.Add(v);
                     }
@@ -262,7 +259,7 @@ namespace MultiRechercheExcel
 
                     if (idx > -1)
                     {
-                        if (!DB.valeurs[idx].Trouve || monModeResultat == ModeResultat.ToutesLesOccurences)
+                        if (!DB.valeurs[idx].Trouve)// || monModeResultat == ModeResultat.ToutesLesOccurences)
                         {
                             DB.valeurs[idx].FichierRef = "entrée manuelle";
                             DB.valeurs[idx].Trouve = true;
@@ -293,20 +290,29 @@ namespace MultiRechercheExcel
 
                         if (idx > -1)// && !DB.valeurs[idx].Trouve)
                         {
-                            if (!DB.valeurs[idx].Trouve || monModeResultat == ModeResultat.ToutesLesOccurences)
+                            if (!DB.valeurs[idx].Trouve)// || monModeResultat == ModeResultat.ToutesLesOccurences)
                             {
-                                DB.valeurs[idx].Colonnes.AddRange(v.Colonnes);
+                                /*
+                                foreach (KeyValuePair<string,string> kvp in v.Colonnes2)
+                                    DB.valeurs[idx].Colonnes2.Add(kvp.Key, kvp.Value);
+                                */
+                                //DB.valeurs[idx].Colonnes2 contient les colonnes du fichier VALEUR
+                                //v.Colonnes contient les colonnes du fichier REFERENCE
+                                DB.valeurs[idx].Colonnes2 = v.Colonnes2;
+                                
                                 DB.valeurs[idx].FichierRef = Path.GetFileName(DB.fichiersRefs[i].Chemin);
                                 DB.valeurs[idx].Trouve = true;
                                 foundInFile = true;
                             }
+                            /*
                             if (monModeResultat != ModeResultat.ToutesLesOccurences)
                                 break;
+                            */
                         }
 
                     } while (idx > -1);
 
-                    if (foundInFile && monModeResultat != ModeResultat.ToutesLesOccurences)
+                    if (foundInFile)// && monModeResultat != ModeResultat.ToutesLesOccurences)
                         continue;
                 }
 
@@ -361,11 +367,7 @@ namespace MultiRechercheExcel
                             {
                                 int col = (ParamRecherche.ToutesColsAffichees || baseActuelle.Profil.ToutesAffichees) ? j : baseActuelle.Profil.ColsAffichees[j] - 1;
 
-                                DB.valeurs[i].Colonnes.Add(new Colonne
-                                {
-                                    Nom = baseActuelle.Nom + " - val" + col,
-                                    Valeur = tab[col].ToString()
-                                });
+                                DB.valeurs[i].Colonnes2.Add(baseActuelle.Nom + " - val" + col, tab[col].ToString());
                             }
 
                             DB.valeurs[i].FichierRef = "Base " + baseActuelle.Nom;
@@ -388,7 +390,7 @@ namespace MultiRechercheExcel
                 {
                     sw.Write(";" + DB.entetesColonnes[i]);
                 }
-                sw.Write("\n");
+                sw.WriteLine();
 
                 for (int i = 0; i < DB.valeurs.Count; i++)
                 {
@@ -399,16 +401,10 @@ namespace MultiRechercheExcel
                         sw.Write(DB.valeurs[i].ValeurOrigine + ";");
                         sw.Write(DB.valeurs[i].ValeurTransforme);
 
-
                         for (int j = 0; j < DB.entetesColonnes.Count; j++)
                         {
-                            sw.Write(";");
-
-                            for (int k = 0; k < DB.valeurs[i].Colonnes.Count; k++)
-                            {
-                                if (DB.entetesColonnes[j] == DB.valeurs[i].Colonnes[k].Nom)
-                                    sw.Write(DB.valeurs[i].Colonnes[k].Valeur);
-                            }
+                            if (DB.valeurs[i].Colonnes2.ContainsKey(DB.entetesColonnes[j]))
+                                sw.Write(";" + DB.valeurs[i].Colonnes2[DB.entetesColonnes[j]]);
                         }
 
                         sw.WriteLine();
@@ -502,6 +498,8 @@ namespace MultiRechercheExcel
             //remplir le DB.valeurs
             Settings.Log("Collecte des valeurs");
             CollecterValeurs();
+
+            DB.entetesColonnes.Clear();
 
             //parcourir les fichiers
             Settings.Log("Parcours des fichiers références");
