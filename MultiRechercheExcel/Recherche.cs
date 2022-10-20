@@ -39,6 +39,8 @@ namespace MultiRechercheExcel
             for (int i = 0; i < DB.profilsAction.Count; i++)
                 cb_ProfilAction.Items.Add(DB.profilsAction[i].Nom);
 
+            Settings.Log("Init config");
+            Settings.InitConfig();
             Settings.Log("Lecture fichier de config " + Settings.ReadConfigFile());
             ParamRecherche.RemonterToutesOccurences = true;
 
@@ -78,14 +80,14 @@ namespace MultiRechercheExcel
                     //et les assigner à chaque objet valeur créé pour chaque cols Eltec
                     List<Colonne> cols = new List<Colonne>();
 
-                    int nbColsAffichees = (p.ToutesAffichees) ? totalCols : p.ColsAffichees.Length;
+                    int nbColsAffichees = (ParamRecherche.ToutesColsAffichees || p.ToutesAffichees) ? totalCols : p.ColsAffichees.Length;
                     string[] tabAffichees = new string[nbColsAffichees];
 
-                    int nbColsEltecs = (p.ToutesEltecs) ? totalCols : p.ColsEltecs.Length;
+                    int nbColsEltecs = (ParamRecherche.ToutesColsEltecs || p.ToutesEltecs) ? totalCols : p.ColsEltecs.Length;
 
                     for (int j = 0; j < nbColsAffichees; j++)
                     {
-                        int col = (p.ToutesAffichees) ? j + 1 : p.ColsAffichees[j];
+                        int col = (ParamRecherche.ToutesColsAffichees || p.ToutesAffichees) ? j + 1 : p.ColsAffichees[j];
 
                         tabAffichees[j] = myWorksheet.Cells[row, col].Value.ToString();
 
@@ -105,7 +107,7 @@ namespace MultiRechercheExcel
 
                     for (int j = 0; j < nbColsEltecs; j++)
                     {
-                        int col = (p.ToutesEltecs) ? j + 1 : p.ColsEltecs[j];
+                        int col = (ParamRecherche.ToutesColsEltecs || p.ToutesEltecs) ? j + 1 : p.ColsEltecs[j];
                         
                         if (row <= totalRows && col <= totalCols)
                         {
@@ -143,15 +145,15 @@ namespace MultiRechercheExcel
 
                 String[] tabLigne = str.Split(new String[] { Profil.GetSeparateurFromIndex(p.IdxSeparateur) }, StringSplitOptions.None);
 
-                int nbColsAffichees = (p.ToutesAffichees) ? tabLigne.Length : p.ColsAffichees.Length;
-                int nbColsEltecs = (p.ToutesEltecs) ? tabLigne.Length : p.ColsEltecs.Length;
+                int nbColsAffichees = (ParamRecherche.ToutesColsAffichees || p.ToutesAffichees) ? tabLigne.Length : p.ColsAffichees.Length;
+                int nbColsEltecs = (ParamRecherche.ToutesColsEltecs || p.ToutesEltecs) ? tabLigne.Length : p.ColsEltecs.Length;
 
                 string[] tabAffichees = new string[nbColsAffichees];
                 List<Colonne> cols = new List<Colonne>();
 
                 for (int i = 0; i < nbColsAffichees; i++)
                 {
-                    int idxCol = (p.ToutesAffichees) ? i : p.ColsAffichees[i] - 1;
+                    int idxCol = (ParamRecherche.ToutesColsAffichees || p.ToutesAffichees) ? i : p.ColsAffichees[i] - 1;
 
                     if (idxCol < tabLigne.Length)
                     {
@@ -176,7 +178,7 @@ namespace MultiRechercheExcel
 
                 for (int j = 0; j < nbColsEltecs; j++)
                 {
-                    int idxCol = (p.ToutesEltecs) ? j : p.ColsEltecs[j] - 1;
+                    int idxCol = (ParamRecherche.ToutesColsEltecs || p.ToutesEltecs) ? j : p.ColsEltecs[j] - 1;
 
                     if (idxCol < tabLigne.Length)
                     {
@@ -197,9 +199,6 @@ namespace MultiRechercheExcel
 
         private IEnumerable<Valeur> LireValeurs(string filepath, Profil p)
         {
-            p.ToutesAffichees = true;
-            p.ToutesEltecs = true;
-
             if (filepath.EndsWith(".xlsx"))
             {
                 foreach (Valeur v in LireValeursXLSX(filepath, p)) yield return v;
@@ -321,18 +320,27 @@ namespace MultiRechercheExcel
             for (int k = 0; k < basesRecherche.Count; k++)
             {
                 MaBase baseActuelle = basesRecherche[k];
+                
+                
+                int nbColsAffichees = (ParamRecherche.ToutesColsAffichees || baseActuelle.Profil.ToutesAffichees) ? baseActuelle.NbColonnes : baseActuelle.Profil.ColsAffichees.Length;
+                int nbColsEltecs = (ParamRecherche.ToutesColsEltecs || baseActuelle.Profil.ToutesEltecs) ? baseActuelle.NbColonnes : baseActuelle.Profil.ColsEltecs.Length;
 
                 string sql = "SELECT * FROM " + baseActuelle.Nom + " WHERE ";
 
-                for (int j = 0; j < baseActuelle.Profil.ColsEltecs.Length; j++)
+                // baseActuelle.Profil.ColsEltecs.Length
+                for (int j = 0; j < nbColsEltecs; j++)
                 {
-                    sql += "val" + baseActuelle.Profil.ColsEltecs[j] + " = '{val}'";
-                    if (j < baseActuelle.Profil.ColsEltecs.Length - 1) sql += " OR ";
+                    int idxCol = (ParamRecherche.ToutesColsEltecs || baseActuelle.Profil.ToutesEltecs) ? j : baseActuelle.Profil.ColsEltecs[j] - 1;
+
+                    sql += "val" + idxCol + " = '{val}'";
+                    if (j < nbColsEltecs - 1) sql += " OR ";
                 }
 
-                for (int j = 0; j < baseActuelle.Profil.ColsAffichees.Length; j++)
+                //baseActuelle.Profil.ColsAffichees.Length
+                for (int j = 0; j < nbColsAffichees; j++)
                 {
-                    DB.entetesColonnes.Add(baseActuelle.Nom + " - val" + baseActuelle.Profil.ColsAffichees[j]);
+                    int idxCol = (ParamRecherche.ToutesColsAffichees || baseActuelle.Profil.ToutesAffichees) ? j : baseActuelle.Profil.ColsAffichees[j] - 1;
+                    DB.entetesColonnes.Add(baseActuelle.Nom + " - val" + idxCol);
                 }
 
                 for (int i = 0; i < DB.valeurs.Count; i++)
@@ -346,18 +354,17 @@ namespace MultiRechercheExcel
                     {
                         while (rdr.Read())
                         {
-                            //b.Profil.ColsAffichees.Length
-
                             Object[] tab = new Object[rdr.FieldCount];
                             rdr.GetValues(tab);
 
-                            for (int j = 0; j < baseActuelle.Profil.ColsAffichees.Length; j++)
+                            for (int j = 0; j < nbColsAffichees; j++)
                             {
-                                int col = baseActuelle.Profil.ColsAffichees[j];
+                                int col = (ParamRecherche.ToutesColsAffichees || baseActuelle.Profil.ToutesAffichees) ? j : baseActuelle.Profil.ColsAffichees[j] - 1;
+
                                 DB.valeurs[i].Colonnes.Add(new Colonne
                                 {
                                     Nom = baseActuelle.Nom + " - val" + col,
-                                    Valeur = tab[col - 1].ToString()
+                                    Valeur = tab[col].ToString()
                                 });
                             }
 
@@ -523,10 +530,17 @@ namespace MultiRechercheExcel
             progressBar1.Value = 100;
 
             MessageBox.Show(nbResultat + " résultats");
-            l_filename.Text = Settings.savefilename + " sauvegardé";
+            
 
             if (nbResultat > 0)
+            {
+                l_filename.Text = Settings.savefilename + " sauvegardé";
                 System.Diagnostics.Process.Start(Application.StartupPath + "\\" + Settings.savefilename);
+            }
+            else
+                l_filename.Text = "Pas de résultat";
+
+
         }
 
 

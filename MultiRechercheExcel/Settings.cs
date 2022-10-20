@@ -7,15 +7,22 @@ namespace MultiRechercheExcel
     public static class Settings
     {
         private static string fichierConfig = "MultiRechercheExcel.config.txt";
-        public static string dateVersion = "18/10/2022";
+        public static string dateVersion = "20/10/2022";
         public static string version = "0.0.10";
         public static string savefilename = "";
         public static string dbname = "bases.sqlite";
+
+
 
         private static StringBuilder sbLog = new StringBuilder();
         public static void Log(string s)
         {
             sbLog.AppendLine(DateTime.Now.ToString("yyyyMMdd_HHmmss") + " : " + s);
+        }
+
+        public static void InitConfig()
+        {
+
         }
 
         public static bool ReadConfigFile()

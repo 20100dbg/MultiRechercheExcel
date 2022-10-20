@@ -116,6 +116,9 @@ namespace MultiRechercheExcel
     {
         public static ModeRecherche ModeRecherche = ModeRecherche.Exact;
         public static bool RemonterToutesOccurences = true;
+
+        public static bool ToutesColsEltecs = false;
+        public static bool ToutesColsAffichees = false;
     }
 
     public class TransformationChaine : ICloneable

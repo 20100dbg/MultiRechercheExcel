@@ -1,12 +1,10 @@
 - ajout la fusion de colonnes (recherche msisdn dans colonne racine + colonne number)
 
-- fonction filtre : 
--- lorsque l'eltec est trouvé dans le fichiers référence, toute la ligne est dumpée
--- dumper un fichier par profil, avec les entetes
-
 - possibilité de définir plusieurs paramRecherche
 -- liste déroulante sur l'interface principale ?
 
 gestion profil
 case à cocher "toutes les colonnes eltec"
 case à cocher "afficher toutes les colonnes"
+
+appliquer la même chose pour la recherche en base

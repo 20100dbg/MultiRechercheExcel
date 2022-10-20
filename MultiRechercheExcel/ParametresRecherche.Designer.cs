@@ -40,6 +40,8 @@
             this.cb_typeRecherche = new System.Windows.Forms.ComboBox();
             this.b_sauvegarder = new System.Windows.Forms.Button();
             this.cb_remonterToutesOccurences = new System.Windows.Forms.CheckBox();
+            this.cb_ToutesColsEltec = new System.Windows.Forms.CheckBox();
+            this.cb_toutesColsAffichees = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.c.SuspendLayout();
             this.SuspendLayout();
@@ -163,11 +165,33 @@
             this.cb_remonterToutesOccurences.UseVisualStyleBackColor = true;
             this.cb_remonterToutesOccurences.Visible = false;
             // 
+            // cb_ToutesColsEltec
+            // 
+            this.cb_ToutesColsEltec.AutoSize = true;
+            this.cb_ToutesColsEltec.Location = new System.Drawing.Point(21, 239);
+            this.cb_ToutesColsEltec.Name = "cb_ToutesColsEltec";
+            this.cb_ToutesColsEltec.Size = new System.Drawing.Size(189, 17);
+            this.cb_ToutesColsEltec.TabIndex = 17;
+            this.cb_ToutesColsEltec.Text = "Chercher dans toutes les colonnes";
+            this.cb_ToutesColsEltec.UseVisualStyleBackColor = true;
+            // 
+            // cb_toutesColsAffichees
+            // 
+            this.cb_toutesColsAffichees.AutoSize = true;
+            this.cb_toutesColsAffichees.Location = new System.Drawing.Point(21, 262);
+            this.cb_toutesColsAffichees.Name = "cb_toutesColsAffichees";
+            this.cb_toutesColsAffichees.Size = new System.Drawing.Size(156, 17);
+            this.cb_toutesColsAffichees.TabIndex = 18;
+            this.cb_toutesColsAffichees.Text = "Afficher toutes les colonnes";
+            this.cb_toutesColsAffichees.UseVisualStyleBackColor = true;
+            // 
             // ParametresRecherche
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(476, 302);
+            this.Controls.Add(this.cb_toutesColsAffichees);
+            this.Controls.Add(this.cb_ToutesColsEltec);
             this.Controls.Add(this.cb_remonterToutesOccurences);
             this.Controls.Add(this.b_sauvegarder);
             this.Controls.Add(this.cb_typeRecherche);
@@ -199,5 +223,7 @@
         private System.Windows.Forms.Button b_tcBases;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox cb_remonterToutesOccurences;
+        private System.Windows.Forms.CheckBox cb_ToutesColsEltec;
+        private System.Windows.Forms.CheckBox cb_toutesColsAffichees;
     }
 }

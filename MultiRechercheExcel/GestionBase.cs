@@ -115,9 +115,7 @@ namespace MultiRechercheExcel
                     Profil p = (Profil)cb_profil.SelectedItem;
                     string nomBase = tb_nom.Text;
 
-                    List<string[]> tab = new List<string[]>();
-                    if (filepath.EndsWith(".xlsx")) tab = LireXLSX(filepath, p);
-                    else tab = LireCSV(filepath, p);
+                    List<string[]> tab = (filepath.EndsWith(".xlsx")) ? LireXLSX(filepath, p) : LireCSV(filepath, p);
 
                     if (tab.Count > 0)
                     {
@@ -128,6 +126,7 @@ namespace MultiRechercheExcel
                         DB.bases[DB.bases.Count - 1].NbLignes = GetNbRows(DB.bases[DB.bases.Count - 1].Nom);
 
                         RemplirBases();
+                        fRecherche.RemplirCBbases();
 
                         MessageBox.Show("Creation de base : ok");
                     }
@@ -165,6 +164,7 @@ namespace MultiRechercheExcel
                     DB.bases[idx].NbLignes = GetNbRows(DB.bases[idx].Nom);
                     RemplirBases();
 
+                    fRecherche.RemplirCBbases();
                     MessageBox.Show("Import : ok");
                 }
                     
@@ -198,10 +198,10 @@ namespace MultiRechercheExcel
 
             string sql = "CREATE TABLE " + nom + "(";
 
-            for (int i = 1; i <= nbColonne; i++)
+            for (int i = 0; i < nbColonne; i++)
             {
                 sql += "val" + i + " text";
-                if (i < nbColonne) sql += ",";
+                if (i < nbColonne - 1) sql += ",";
             }
 
             sql += ")";
@@ -225,9 +225,9 @@ namespace MultiRechercheExcel
                 });
                 fRecherche.RemplirCBbases();
             }
-            catch
+            catch (Exception e)
             {
-                //MessageBox.Show(e.Message);
+                MessageBox.Show(e.Message);
             }
 
             
@@ -241,10 +241,10 @@ namespace MultiRechercheExcel
             sql.Append("INSERT INTO " + nomBase);
 
             sql.Append("(");
-            for (int i = 1; i <= nbColonne; i++)
+            for (int i = 0; i < nbColonne; i++)
             {
                 sql.Append("val" + i);
-                if (i < nbColonne) sql.Append(",");
+                if (i < nbColonne - 1) sql.Append(",");
             }
             sql.Append(") VALUES ");
 
@@ -305,7 +305,8 @@ namespace MultiRechercheExcel
                     SupprimerBase(b.Nom);
 
                     RemplirBases();
-                    
+                    fRecherche.RemplirCBbases();
+
                     MessageBox.Show("Base supprimée");
                 }
             }
@@ -342,6 +343,7 @@ namespace MultiRechercheExcel
                     DB.bases[idx].NbLignes = 0;
 
                     RemplirBases();
+                    fRecherche.RemplirCBbases();
 
                     MessageBox.Show("Base vidée");
                 }
