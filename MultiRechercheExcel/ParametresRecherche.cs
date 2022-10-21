@@ -25,7 +25,7 @@ namespace MultiRechercheExcel
             l_tcValeurs.Text = tcValeurs.ToString();
             l_tcBases.Text = tcBases.ToString();
 
-            cb_remonterToutesOccurences.Checked = ParamRecherche.RemonterToutesOccurences;
+            //cb_remonterToutesOccurences.Checked = ParamRecherche.RemonterToutesOccurences;
             cb_toutesColsAffichees.Checked = ParamRecherche.ToutesColsAffichees;
             cb_ToutesColsEltec.Checked = ParamRecherche.ToutesColsEltecs;
         }
@@ -33,7 +33,7 @@ namespace MultiRechercheExcel
         private void b_sauvegarder_Click(object sender, EventArgs e)
         {
             ParamRecherche.ModeRecherche = (ModeRecherche)cb_typeRecherche.SelectedIndex;
-            ParamRecherche.RemonterToutesOccurences = cb_remonterToutesOccurences.Checked;
+            //ParamRecherche.RemonterToutesOccurences = cb_remonterToutesOccurences.Checked;
 
             ParamRecherche.ToutesColsAffichees = cb_toutesColsAffichees.Checked;
             ParamRecherche.ToutesColsEltecs = cb_ToutesColsEltec.Checked;

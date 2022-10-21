@@ -42,7 +42,7 @@ namespace MultiRechercheExcel
             Settings.Log("Init config");
             Settings.InitConfig();
             Settings.Log("Lecture fichier de config " + Settings.ReadConfigFile());
-            ParamRecherche.RemonterToutesOccurences = true;
+            //ParamRecherche.RemonterToutesOccurences = true;
 
             GetListeBases();
             RemplirCBbases();
@@ -73,10 +73,6 @@ namespace MultiRechercheExcel
                 int nbColsAffichees = (ParamRecherche.ToutesColsAffichees || p.ToutesAffichees) ? totalCols : p.ColsAffichees.Length;
                 int nbColsEltecs = (ParamRecherche.ToutesColsEltecs || p.ToutesEltecs) ? totalCols : p.ColsEltecs.Length;
 
-                /*
-                bool colDone = false;
-                if (!colDone) DB.entetesColonnes.Add(filename + "-" + j);
-                */
 
                 for (int i = 0; i < nbColsAffichees; i++)
                 {
@@ -162,7 +158,7 @@ namespace MultiRechercheExcel
                         tabAffichees[i] = tabLigne[idxCol];
 
                         cols.Add(filename + "-" + idxCol, tabLigne[idxCol]);
-                        if (!colDone) DB.entetesColonnes.Add(filename + "-" + idxCol);
+                        if (!colDone) DB.entetesColonnes.Add(filename + "-" + (idxCol+1));
                     }
                     else
                         Settings.Log(filename + " (" + p.Nom + ") : dépassement de colonne");
@@ -346,12 +342,12 @@ namespace MultiRechercheExcel
                 for (int j = 0; j < nbColsAffichees; j++)
                 {
                     int idxCol = (ParamRecherche.ToutesColsAffichees || baseActuelle.Profil.ToutesAffichees) ? j : baseActuelle.Profil.ColsAffichees[j] - 1;
-                    DB.entetesColonnes.Add(baseActuelle.Nom + " - val" + idxCol);
+                    DB.entetesColonnes.Add(baseActuelle.Nom + " - val" + (idxCol+1));
                 }
 
                 for (int i = 0; i < DB.valeurs.Count; i++)
                 {
-                    if (DB.valeurs[i].Trouve && !ParamRecherche.RemonterToutesOccurences) continue;
+                    if (DB.valeurs[i].Trouve) continue;
 
                     string sql2 = sql.Replace("{val}", DB.valeurs[i].ValeurTransforme);
                     SQLiteCommand cmd = new SQLiteCommand(sql2, DB.SQLiteCon);
@@ -367,7 +363,7 @@ namespace MultiRechercheExcel
                             {
                                 int col = (ParamRecherche.ToutesColsAffichees || baseActuelle.Profil.ToutesAffichees) ? j : baseActuelle.Profil.ColsAffichees[j] - 1;
 
-                                DB.valeurs[i].Colonnes2.Add(baseActuelle.Nom + " - val" + col, tab[col].ToString());
+                                DB.valeurs[i].Colonnes2.Add(baseActuelle.Nom + " - val" + (col+1), tab[col].ToString());
                             }
 
                             DB.valeurs[i].FichierRef = "Base " + baseActuelle.Nom;
