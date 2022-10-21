@@ -73,13 +73,11 @@ namespace MultiRechercheExcel
                 int nbColsAffichees = (ParamRecherche.ToutesColsAffichees || p.ToutesAffichees) ? totalCols : p.ColsAffichees.Length;
                 int nbColsEltecs = (ParamRecherche.ToutesColsEltecs || p.ToutesEltecs) ? totalCols : p.ColsEltecs.Length;
 
-
                 for (int i = 0; i < nbColsAffichees; i++)
                 {
                     int col = (ParamRecherche.ToutesColsAffichees || p.ToutesAffichees) ? i + 1 : p.ColsAffichees[i];
                     DB.entetesColonnes.Add(filename + "-" + col);
                 }
-
 
                 for (int row = 1; row <= totalRows; row++)
                 {
@@ -399,8 +397,10 @@ namespace MultiRechercheExcel
 
                         for (int j = 0; j < DB.entetesColonnes.Count; j++)
                         {
+                            sw.Write(";");
+
                             if (DB.valeurs[i].Colonnes2.ContainsKey(DB.entetesColonnes[j]))
-                                sw.Write(";" + DB.valeurs[i].Colonnes2[DB.entetesColonnes[j]]);
+                                sw.Write(DB.valeurs[i].Colonnes2[DB.entetesColonnes[j]]);
                         }
 
                         sw.WriteLine();

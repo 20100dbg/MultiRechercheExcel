@@ -66,6 +66,11 @@ namespace MultiRechercheExcel
 
         private void b_ajouter_Click(object sender, EventArgs e)
         {
+            if (cb_profilFichier.SelectedIndex == -1)
+            {
+                MessageBox.Show("Sélectionner un profil pour valider");
+                return;
+            }
             cancelled = false;
             Close();
         }
