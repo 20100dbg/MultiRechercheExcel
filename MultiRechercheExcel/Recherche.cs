@@ -23,6 +23,12 @@ namespace MultiRechercheExcel
         public Recherche()
         {
             InitializeComponent();
+
+            Init();
+        }
+
+        private void Init()
+        {
             this.Icon = Properties.Resources.MultiRechercheExcel;
             this.Text += " " + Settings.version;
 
@@ -36,13 +42,13 @@ namespace MultiRechercheExcel
             DB.tcRef = new TransformationChaine();
             DB.tcValeur = new TransformationChaine();
 
-            for (int i = 0; i < DB.profilsAction.Count; i++)
-                cb_ProfilAction.Items.Add(DB.profilsAction[i].Nom);
-
             Settings.Log("Init config");
             Settings.InitConfig();
             Settings.Log("Lecture fichier de config " + Settings.ReadConfigFile());
             //ParamRecherche.RemonterToutesOccurences = true;
+
+            for (int i = 0; i < DB.profilsAction.Count; i++)
+                cb_ProfilAction.Items.Add(DB.profilsAction[i].Nom);
 
             GetListeBases();
             RemplirCBbases();
@@ -286,10 +292,6 @@ namespace MultiRechercheExcel
                         {
                             if (!DB.valeurs[idx].Trouve)// || monModeResultat == ModeResultat.ToutesLesOccurences)
                             {
-                                /*
-                                foreach (KeyValuePair<string,string> kvp in v.Colonnes2)
-                                    DB.valeurs[idx].Colonnes2.Add(kvp.Key, kvp.Value);
-                                */
                                 //DB.valeurs[idx].Colonnes2 contient les colonnes du fichier VALEUR
                                 //v.Colonnes contient les colonnes du fichier REFERENCE
                                 DB.valeurs[idx].Colonnes2 = v.Colonnes2;

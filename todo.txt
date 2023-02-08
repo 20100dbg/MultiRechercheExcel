@@ -3,6 +3,3 @@
 - possibilité de définir plusieurs paramRecherche
 -- liste déroulante sur l'interface principale ?
 
-- à enregistrer dans le fichier config :
-case à cocher "toutes les colonnes eltec"
-case à cocher "afficher toutes les colonnes"
